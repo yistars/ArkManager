@@ -1,6 +1,6 @@
 # ArkManager
 [![Crowdin](https://badges.crowdin.net/arkmanager/localized.svg)](https://crowdin.com/project/arkmanager)
-![https://github.com/yistars/ArkManager/blob/master/LICENSE](https://img.shields.io/badge/license-GPL-3.0-000000.svg)
+[![(https://github.com/yistars/ArkManager/blob/master/LICENSE)](https://img.shields.io/badge/license-GPL-3.0-000000.svg)
 由 iVampireSP, Bing_Yanchi 共同创建
 
 当前版本为社区版本，如有 bug 可以发 issue
