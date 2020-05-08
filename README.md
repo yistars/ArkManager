@@ -1,6 +1,7 @@
 # ArkManager
 [![Crowdin](https://badges.crowdin.net/arkmanager/localized.svg)](https://crowdin.com/project/arkmanager)
 ![GitHub](https://img.shields.io/github/license/yistars/ArkManager)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/yistars/ArkManager)
 
 由 iVampireSP, Bing_Yanchi 共同创建
 
