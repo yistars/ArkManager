@@ -1,5 +1,9 @@
 # FTP Server
 # By Bing_Yanchi
+from pyftpdlib.authorizers import DummyAuthorizer
+from pyftpdlib.handlers import FTPHandler
+from pyftpdlib.servers import FTPServer
+
 class ftp_server:
    def __init__(self):
        self.authorizer = DummyAuthorizer()
