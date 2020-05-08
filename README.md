@@ -1,5 +1,5 @@
 # ArkManager
-[![Crowdin](https://badges.crowdin.net/arkmanager/localized.svg)](https://crowdin.com/project/arkmanager)
+[![Crowdin](https://badges.crowdin.net/arkmanager/localized.svg)](https://translate.yistars.net/)
 ![GitHub](https://img.shields.io/github/license/yistars/ArkManager)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/yistars/ArkManager)
 ![GitHub All Releases](https://img.shields.io/github/downloads/yistars/ArkManager/total)
