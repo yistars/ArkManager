@@ -1,5 +1,5 @@
 import thread
-import create_ftp_server
+import ftp_server
 
 this_ftp = create_ftp_server.ftp_server()
 
