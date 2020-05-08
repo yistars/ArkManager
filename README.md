@@ -8,7 +8,7 @@
 
 当前版本为社区版本，如有 bug 可以发 issue
 
-iVampireSP 负责 php 部分, Bing_Yanchi 负责 python
+iVampireSP 负责 php 部分, Bing_Yanchi 负责 python 部分
 
 
 前往我们的论坛：https://f.yistars.net/ 注册并开始预约吧！
