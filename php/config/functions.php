@@ -639,6 +639,37 @@ function nodeControlserver($serverid, $action, $by_user, $map, $more, $db_con) {
                 $token = $row['token'];
             }
         }
+        // 筛选地图
+        switch ($map) {
+            case '1':
+                $map = 'Aberration_P';
+            break;
+            case '2':
+                $map = 'Extinction';
+            break;
+            case '3':
+                $map = 'Genesis';
+            break;
+            case '4':
+                $map = 'Ragnarok';
+            break;
+            case '5':
+                $map = 'ScorchedEarth_P';
+            break;
+            case '6':
+                $map = 'TheIsland';
+            break;
+            case '7':
+                $map = 'TheCenter';
+            break;
+            case '8':
+                $map = 'Valguero_P';
+            break;
+            default:
+            // 默认就是Aberration_P吧
+                $map = 'Aberration_P';
+        break;
+        }
         // 筛选action
         switch ($action) {
             case 'start':
