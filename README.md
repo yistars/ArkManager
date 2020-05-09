@@ -33,3 +33,6 @@ iVampireSP 负责 php 部分, Bing_Yanchi 负责 python 部分
 │   ├── ExampleServer (用作模板服务器)
 │   └── OtherServer (其他服务器，无需自己创建)
 ```
+
+### 未来目标
+* FTP 功能
