@@ -30,6 +30,9 @@ def start(data):
 
 def kill(data):
 	servername = data['servername']
+	os.system('taskkill /fi "windowtitle eq {}"'.format(path,servername))
+	os.system('taskkill /fi "windowtitle eq {}/{}/ShooterGame/Binaries/Win64/ShooterGameServer.exe *'.format(path,servername))
+	os.system('taskkill /fi "windowtitle eq {}"'.format(path,servername))
 	os.system('taskkill /fi "windowtitle eq {}/{}/ShooterGame/Binaries/Win64/ShooterGameServer.exe *'.format(path,servername))
 	print('[INFO] Kill Server {}'.format(servername))
 
