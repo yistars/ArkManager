@@ -18,9 +18,15 @@ print('[INFO] Serving HTTP on port %s ...' % PORT)
 
 def start(data):
 	servername = data['servername']
-	args = base64.b64decode(data['args']).decode("utf-8")
-	os.system('start "{1}" /normal {0}/{1}/ShooterGame/Binaries/Win64/ShooterGameServer.exe {2}'.format(path,servername,args))
-	print('[INFO] Start Server {}'.format(servername))
+	try:
+		args = base64.b64decode(data['args']).decode("utf-8")
+	except:
+		print('[ERROR] Start Server {} error, wrong arg'.format(servername))
+		global right
+		right = False
+	else:
+		os.system('start "{1}" /normal {0}/{1}/ShooterGame/Binaries/Win64/ShooterGameServer.exe {2}'.format(path,servername,args))
+		print('[INFO] Start Server {}'.format(servername))
 
 def kill(data):
 	servername = data['servername']
@@ -62,24 +68,24 @@ while True:
 			# 根据 action 确定执行函数
 			if data['action'] == 'start':
 				if ('servername' in data) and ('args' in data):
-					start(data)
 					right = True
+					start(data)
 				break
 			elif data['action'] == 'kill':
 				if ('servername' in data):
-					kill(data)
 					right = True
+					kill(data)
 				break
 			elif data['action'] == 'init':
 				if ('servername' in data):
-					init(data)
 					right = True
+					init(data)
 				break
 			elif data['action'] == 'delete':
 				if ('servername' in data):
+					right = True
 					kill(data)
 					delete(data)
-					right = True
 				break
 			break
 	# 返回状态码
