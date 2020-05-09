@@ -13,7 +13,7 @@ require_once('config/functions.php');
 <?php mduiBody(); mduiHeader('控制台'); mduiMenu(); ?>
 <h1 class="mdui-text-color-theme">服务器控制台</h1>
 <h3 class="mdui-text-color-theme">请选择对：<?php echo userGetservername($_REQUEST['serverid'], $db_con); ?>的操作。</h3>
-<form name="config" method="post" action="control.php">
+<form name="config" method="get" action="control.php">
     <input style="display: none" type="text" value="<?php echo $_REQUEST['serverid'];?>" name="serverid" />
     <input type="submit" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent" value="启动">
 
@@ -42,11 +42,11 @@ require_once('config/functions.php');
 </form>
 <?php
     if (!empty($_REQUEST['action'])||!empty($_POST['serverid'])||!empty($_REQUEST['map'])) {
-        echo nodeControlserver($_POST['serverid'], $_REQUEST['action'], $_SESSION['userid'], $_REQUEST['map'], $_REQUEST['more'], $db_con);
+        echo nodeStartserver($_REQUEST['serverid'], $_REQUEST['action'], $_SESSION['userid'], $_REQUEST['map'], $_REQUEST['more'], $db_con);
     }
-    if ($_GET['action'] == 'kill') {
-        $serverid = $_GET['serverid'];
-        echo "<script>window.location.replace(\"control.php?serverid=$serverid\");</script>";
+    if ($_REQUEST['action'] == 'kill') {
+        $serverid = $_REQUEST['serverid'];
+        // echo "<script>window.location.replace(\"control.php?serverid=$serverid\");</script>";
     }
     ?>
 </body>
