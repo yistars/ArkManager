@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once('../config/config.php');
 require_once('../config/admin_theme.php');
 require_once('checkuser.php');
@@ -89,9 +90,12 @@ require_once('../config/functions.php');
     }
     // 接收删除服务器数据
     if (!empty($_REQUEST['del-serverid'])) {
-        echo adminDelserver($_REQUEST['del-serverid'],$db_con);
+        echo adminDelserver($_REQUEST['del-serverid'], $db_con);
     }
     // 接收初始化服务器数据
+    if (!empty($_REQUEST['intl-serverid'])) {
+        echo adminInitserver($_REQUEST['intl-serverid'], $_SESSION['userid'], $db_con);
+    }
 ?>
 
 </body>

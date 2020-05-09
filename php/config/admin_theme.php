@@ -56,5 +56,5 @@ function mduiHead($subtitle) {
 EOF;
 }
 function mduiBody() {
-    echo '<body class="mdui-container mdui-drawer-body-left mdui-appbar-with-toolbar  mdui-theme-primary-indigo mdui-theme-accent-pink">';
+    echo '<body class="mdui-container-fluid mdui-drawer-body-left mdui-appbar-with-toolbar  mdui-theme-primary-indigo mdui-theme-accent-pink">';
 }

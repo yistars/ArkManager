@@ -42,7 +42,7 @@ require_once('config/functions.php');
 </form>
 <?php
     if (!empty($_REQUEST['action'])||!empty($_POST['serverid'])||!empty($_REQUEST['map'])) {
-        echo nodeStartserver($_REQUEST['serverid'], $_REQUEST['action'], $_SESSION['userid'], $_REQUEST['map'], $_REQUEST['more'], $db_con);
+        echo nodeControlserver($_REQUEST['serverid'], $_REQUEST['action'], $_SESSION['userid'], $_REQUEST['map'], $_REQUEST['more'], $db_con);
     }
     if ($_REQUEST['action'] == 'kill') {
         $serverid = $_REQUEST['serverid'];

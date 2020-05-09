@@ -17,56 +17,7 @@ function checkLogin($db_con) {
         session_destroy();
     }
 }
-// POST数据到节点
-function curlPost($serverid, $action, $db_con) {
-    session_start();
-    // 通过$serverid 查找服务器IP和端口及以及对应的节点
-    //如果是管理员
-    if ($_SESSION['admin_login'] == 1) {
-        $sql = "SELECT `id`, `name`, `port`, `rcon_port`, `max_players`, `by_node`, `by_user`, `initialization` FROM `servers` WHERE `id` = $serverid";
-    }else {
-        $userid = $_SESSION['userid'];
-        $sql = "SELECT `id`, `name`, `port`, `rcon_port`, `max_players`, `by_node`, `by_user`, `initialization` FROM `servers` WHERE `id` = $serverid AND `by_user` = $userid";
-    }
-    $result = mysqli_query($db_con, $sql);
-    if (!mysqli_num_rows($result) > 0) {
-        return '节点不存在';
-    }else {
-        while($row = mysqli_fetch_array($result)) {
-            $serverid = $row['serverid'];
-            $servername = $row['servername'];
-            $rcon_port = $row['rcon_port'];
-            $maxplayers = $row['maxplayers'];
-            $by_node = $row['by_node'];
-            $by_user = $row['by_user'];
-            $initialization = $row['initialization'];
-        }
-        $ch = curl_init();
-    }
-    // 通过$by_node 查找节点的服务器IP和端口及Token
-    $sql = "SELECT `ip_port`, `token` FROM `node` WHERE `id` = $by_node";
-    $result = mysqli_query($db_con, $sql);
-    if (!mysqli_num_rows($result) > 0) {
-        return '节点不存在';
-    }else {
-        while($row = mysqli_fetch_array($result)) {
-            $ip_port = $row['ip_port'];
-            $token = $row['token'];
-        }
-    }
-    // 筛选action
-    switch ($action) {
-        // 初始化服务器
-        case 'init':
-            $args = NULL;
-        break;
-        case 'start':
-            $args = 'Aberration_P?listen?Port=34343?QueryPort=27015?MaxPlayers=70?AllowCrateSpawnsOnTopOfStructures=True -NoBattlEye -servergamelog -ServerRCONOutputTribeLogs -useallavailablecores -usecache -nosteamclient -game -server -log';
-    }
-    // 玩什么php的curl，直接调用系统
-    $shell = "curl \"http://localhost:4444/?token=$token&action=kill&servername=Server1\" -X POST\"";
-    exec($shell, $out);
-}
+
 /* 管理员功能部分 */
 
 // 管理员：验证管理员密码
@@ -266,13 +217,30 @@ function adminCreateserver($servername, $serverport, $rconport, $query_port, $ma
 }
 
 // 管理员：初始化服务器
-function adminInitserver($serverid, $db_con) {
-    if (!curlPost($serverid, 'init', $db_con)) {
-        return '<script>alert("初始化失败");</script>';
-    }else {
-        return '<script>alert("已开始初始化，请稍后再来查看！");</script>';
+function adminInitserver($serverid, $by_user, $db_con) {
+    // 判断用户是否拥有该服务器并获取Servername,端口，节点，地图等。
+    $sql = "SELECT `name`, `port`, `by_node`, `by_user` FROM `servers` WHERE `id` = $serverid AND `by_user` = $by_user";
+    $result = mysqli_query($db_con, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_array($result)) {
+            $servername = $row['name'];
+            $by_node = $row['by_node'];
+        }
+        // 愣着干啥，通过by_node找节点IP端口
+        $sql = "SELECT `ip_port`, `token` FROM `node` WHERE `id` = $by_node";
+        $result = mysqli_query($db_con, $sql);
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_array($result)) {
+                $ip_port = $row['ip_port'];
+                $token = $row['token'];
+            }
+        }
+        $shell = "curl \"http://$ip_port/?token=$token&action=init&servername=$servername\" -X POST\"";
+        exec($shell, $out);
+        $sql = "UPDATE `servers` SET `initialization` = '3' WHERE `servers`.`id` = $serverid";
+        mysqli_query($db_con, $sql);
+        return '<script>alert("已经开始初始化，请稍等几分钟后操作。大致时间由服务器性能和IO决定。");</script>';
     }
-
 }
 
 // 管理员：删除服务器
@@ -615,8 +583,8 @@ function userFTP($db_con, $doamin, $username) {
 // {}
 
 // 请求节点，发送并接收配置文件
-// 请求节点，启动服务器
-function nodeStartserver($serverid, $action, $by_user, $map, $more, $db_con) {
+// 请求节点，管理服务器
+function nodeControlserver($serverid, $action, $by_user, $map, $more, $db_con) {
     // 判断用户是否拥有该服务器并获取Servername,端口，节点，地图等。
     $sql = "SELECT `name`, `port`, `rcon_port`, `query_port`, `max_players`, `by_node`, `by_user` FROM `servers` WHERE `id` = $serverid AND `by_user` = $by_user";
     $result = mysqli_query($db_con, $sql);
@@ -675,10 +643,45 @@ function nodeStartserver($serverid, $action, $by_user, $map, $more, $db_con) {
             case 'start':
                 $args = base64_encode("$map?listen?Port=$port?QueryPort=$query_port?MaxPlayers=$max_players?$more");
                 $shell = "curl \"http://$ip_port/?token=$token&action=start&servername=$servername&args=$args\" -X POST\"";
+                // 判断状态
+                $sql = "SELECT `status` FROM `servers` WHERE `id` = $serverid AND `by_user` = $by_user";
+                $result = mysqli_query($db_con, $sql);
+                if (!mysqli_num_rows($result)) {
+                    return '<script>alert("你在无中生有");';
+                    return '*';
+                }else {
+                    while($row = mysqli_fetch_array($result)) {
+                        $status = $row['status'];
+                    }
+                    if ($status == 1) {
+                        return '<script>alert("服务器已经处于运行状态了");';
+                        return '*';
+                    }else {
+                        $sql = "UPDATE `servers` SET `status` = '1' WHERE `servers`.`id` = $serverid AND `by_user` = $by_user";
+                        mysqli_query($db_con, $sql);
+                    }
+                }
+                
             break;
-            // 下面这部分没有用了，因为出了点bug却想暴力解决
             case 'kill':
                 $shell = "curl \"http://$ip_port/?token=$token&action=kill&servername=$servername\" -X POST\"";
+                // 判断状态
+                $sql = "SELECT `status` FROM `servers` WHERE `id` = $serverid AND `by_user` = $by_user";
+                $result = mysqli_query($db_con, $sql);
+                if (!mysqli_num_rows($result)) {
+                    return '<script>alert("你在无中生有");';
+                    return '*';
+                }else {
+                    while($row = mysqli_fetch_array($result)) {
+                        $status = $row['status'];
+                    }
+                    if ($status == 0) {
+                        
+                    }else {
+                        $sql = "UPDATE `servers` SET `status` = '0' WHERE `servers`.`id` = $serverid AND `by_user` = $by_user";
+                        mysqli_query($db_con, $sql);
+                    }
+                }
             break;
             default:
                 // 没指令开啥服，安全着想就不开了
@@ -689,13 +692,5 @@ function nodeStartserver($serverid, $action, $by_user, $map, $more, $db_con) {
     # $shell = "curl \"http://localhost:4444/?token=123456&action=kill&servername=Server1\" -X POST\"";
     // $shell = "curl \"http://$ip_port/?token=$token&action=kill&servername=Server1\" -X POST\"";
     exec($shell, $out);
-    echo $shell;
-    return '<script>alert("启动指令已发送，请稍等几分钟后操作");</script>';
-}
-
-// 请求节点：停止服务器
-
-/* 其实这部分可以合并到上面的，只不过因为某些原因想暴力解决下 */
-function nodeStopserver($servername, $by_user, $by_node, $db_con) {
-
+    return '<script>alert("指令已发送，请稍等几分钟后操作");</script>';
 }
