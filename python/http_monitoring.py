@@ -30,11 +30,16 @@ def start(data):
 
 def kill(data):
 	servername = data['servername']
+	os.system('taskkill /fi "windowtitle eq {}"'.format(path,servername))
+	os.system('taskkill /fi "windowtitle eq {}/{}/ShooterGame/Binaries/Win64/ShooterGameServer.exe *'.format(path,servername))
+	os.system('taskkill /fi "windowtitle eq {}"'.format(path,servername))
 	os.system('taskkill /fi "windowtitle eq {}/{}/ShooterGame/Binaries/Win64/ShooterGameServer.exe *'.format(path,servername))
 	print('[INFO] Kill Server {}'.format(servername))
 
 def init(data):
 	servername = data['servername']
+	shutil.copytree('{}/ExampleServer'.format(path,servername),'{}/{}'.format(path,servername))
+	print('[INFO] Init Server {}'.format(servername))
 
 def delete(data):
 	servername = data['servername']
