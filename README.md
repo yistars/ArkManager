@@ -17,4 +17,4 @@ iVampireSP 负责 php 部分, Bing_Yanchi 负责 python 部分
 更多介绍，尚待补充
 
 ## 使用方法
-导入 php/databse.sql 至你的数据库，并修改config/config.php中的值，然后将python中的文件安装在节点上并运行即可。
+导入 php/databse.sql 至你的数据库，并修改 config/config.php 中的值，然后将 python 中的文件安装在节点上并运行即可。
