@@ -40,3 +40,6 @@ iVampireSP 负责 php 部分, Bing_Yanchi 负责 python 部分
 
 ### 未来目标
 * FTP 功能
+
+### 已知问题
+* 管理员后台模板问题，但是不影响使用
