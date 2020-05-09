@@ -22,7 +22,8 @@ iVampireSP 负责 php 部分, Bing_Yanchi 负责 python 部分
 
 ### python 部分
 要求：Python 3 以上
-将 python 中的文件安装在节点上并运行
+
+将 python 中的文件放在节点上并运行 (位置随意)
 
 请修改 ftp_server.py 上 12 行 的路径为你的节点服务器存储路径
 
