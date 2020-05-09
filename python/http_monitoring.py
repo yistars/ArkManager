@@ -38,6 +38,7 @@ def kill(data):
 
 def init(data):
 	servername = data['servername']
+	shutil.copytree('{}/ExampleServer'.format(path,servername),'{}/{}'.format(path,servername))
 
 def delete(data):
 	servername = data['servername']
