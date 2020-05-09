@@ -59,7 +59,7 @@ while True:
 		if info[i].find('POST') == 0:
 			# 拆分 POST 和 地址
 			post = info[i].split(' ')
-			parameter = post[1].strip('/?').split('&')
+			parameter = post[1].lstrip('/?').split('&')
 			data = {}
 			for a in range(len(parameter)):
 				single = parameter[a].split('=', 1)
