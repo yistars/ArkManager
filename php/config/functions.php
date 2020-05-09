@@ -615,8 +615,8 @@ function userFTP($db_con, $doamin, $username) {
 // {}
 
 // 请求节点，发送并接收配置文件
-// 请求节点，控制服务器
-function nodeControlserver($serverid, $action, $by_user, $map, $more, $db_con) {
+// 请求节点，启动服务器
+function nodeStartserver($serverid, $action, $by_user, $map, $more, $db_con) {
     // 判断用户是否拥有该服务器并获取Servername,端口，节点，地图等。
     $sql = "SELECT `name`, `port`, `rcon_port`, `query_port`, `max_players`, `by_node`, `by_user` FROM `servers` WHERE `id` = $serverid AND `by_user` = $by_user";
     $result = mysqli_query($db_con, $sql);
@@ -676,6 +676,7 @@ function nodeControlserver($serverid, $action, $by_user, $map, $more, $db_con) {
                 $args = base64_encode("$map?listen?Port=$port?QueryPort=$query_port?MaxPlayers=$max_players?$more");
                 $shell = "curl \"http://$ip_port/?token=$token&action=start&servername=$servername&args=$args\" -X POST\"";
             break;
+            // 下面这部分没有用了，因为出了点bug却想暴力解决
             case 'kill':
                 $shell = "curl \"http://$ip_port/?token=$token&action=kill&servername=$servername\" -X POST\"";
             break;
@@ -688,5 +689,13 @@ function nodeControlserver($serverid, $action, $by_user, $map, $more, $db_con) {
     # $shell = "curl \"http://localhost:4444/?token=123456&action=kill&servername=Server1\" -X POST\"";
     // $shell = "curl \"http://$ip_port/?token=$token&action=kill&servername=Server1\" -X POST\"";
     exec($shell, $out);
+    echo $shell;
     return '<script>alert("启动指令已发送，请稍等几分钟后操作");</script>';
+}
+
+// 请求节点：停止服务器
+
+/* 其实这部分可以合并到上面的，只不过因为某些原因想暴力解决下 */
+function nodeStopserver($servername, $by_user, $by_node, $db_con) {
+
 }

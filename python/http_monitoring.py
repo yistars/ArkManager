@@ -8,7 +8,7 @@ import shutil
 HOST = ''
 PORT = 4444
 token = '123456'
-path = ""
+path = "E:/iVampireSP/Ark/ServerData/Servers"
 
 listen_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 listen_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
