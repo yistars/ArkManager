@@ -16,7 +16,7 @@ if (!$db_con) {
 // error_reporting(E_ALL^E_NOTICE^E_WARNING);
 
 // 站点名称
-define( 'SITENAME' , '圆心云');
+define( 'SITENAME' , 'Ark');
 // 控制面板域名
 define( 'DOMAIN' , 'dash.example.com');
 // 管理员密码

@@ -30,6 +30,10 @@ require_once('../config/functions.php');
                 <label class="mdui-textfield-label">RCON端口(ARK的输出比较那个啥，所以只能用RCON。)</label>
                 <input class="mdui-textfield-input" type="text" name="add-rconport" />
             </div>
+            <div class="mdui-textfield mdui-textfield-floating-label">
+                <label class="mdui-textfield-label">Query端口(与Steam通信的端口)</label>
+                <input class="mdui-textfield-input" type="text" name="add-queryport" />
+            </div>
             <div class="mdui-p-t-5">
                 <label class="mdui-textfield-label">最大玩家数量</label>
                 <label class="mdui-slider mdui-slider-discrete">
@@ -62,6 +66,7 @@ require_once('../config/functions.php');
             <th>名称</th>
             <th>端口</th>
             <th>RCON端口</th>
+            <th>Query端口</th>
             <th>最大玩家</th>
             <th>节点</th>
             <th>属于用户</th>
@@ -79,8 +84,8 @@ require_once('../config/functions.php');
 </table>
 <?php
     // 接收创建服务器数据
-    if (!empty($_POST['add-servername'])||!empty($_POST['add-serverport'])||!empty($_POST['add-rconport'])||!empty($_POST['add-maxplayers'])||!empty($_POST['add-bynode'])||!empty($_POST['add-byuser'])) {
-        echo adminCreateserver($_POST['add-servername'], $_POST['add-serverport'], $_POST['add-rconport'], $_POST['add-maxplayers'], $_POST['add-byuser'], $_POST['add-bynode'], $_POST['add-date'], $db_con);
+    if (!empty($_POST['add-servername'])||!empty($_POST['add-serverport'])||!empty($_POST['add-rconport'])||!empty($_POST['add-maxplayers'])||!empty($_POST['add-queryport'])||!empty($_POST['add-bynode'])||!empty($_POST['add-byuser'])) {
+        echo adminCreateserver($_POST['add-servername'], $_POST['add-serverport'], $_POST['add-rconport'], $_POST['add-queryport'], $_POST['add-maxplayers'], $_POST['add-byuser'], $_POST['add-bynode'], $_POST['add-date'], $db_con);
     }
     // 接收删除服务器数据
     if (!empty($_REQUEST['del-serverid'])) {

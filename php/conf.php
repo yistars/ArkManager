@@ -32,7 +32,7 @@ if (empty($_REQUEST['id'])) {
 <div style="margin-top: 30%;"></div>
 <?php 
     if(!empty($_POST['conf'])||!empty($_POST['serverid'])) {
-        userSubmitserverconfig($_POST['serverid'], $_POST['conf'], $db_con);
+        echo userSubmitserverconfig($_POST['serverid'], $_POST['conf'], $db_con);
     }
 ?>
 </body>

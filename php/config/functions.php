@@ -17,7 +17,6 @@ function checkLogin($db_con) {
         session_destroy();
     }
 }
-
 // POST数据到节点
 function curlPost($serverid, $action, $db_con) {
     session_start();
@@ -64,15 +63,9 @@ function curlPost($serverid, $action, $db_con) {
         case 'start':
             $args = 'Aberration_P?listen?Port=34343?QueryPort=27015?MaxPlayers=70?AllowCrateSpawnsOnTopOfStructures=True -NoBattlEye -servergamelog -ServerRCONOutputTribeLogs -useallavailablecores -usecache -nosteamclient -game -server -log';
     }
-    $post_data = array("token" => "$token","action" => "$action", "args" => "12345");
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $ip_port);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
-//    $output = curl_exec($ch);
-    curl_close($ch);
-//    print_r($output);
+    // 玩什么php的curl，直接调用系统
+    $shell = "curl \"http://localhost:4444/?token=$token&action=kill&servername=Server1\" -X POST\"";
+    exec($shell, $out);
 }
 /* 管理员功能部分 */
 
@@ -226,10 +219,11 @@ function adminListallnodeselect($db_con) {
 }
 
 // 管理员：创建服务器
-function adminCreateserver($servername, $serverport, $rconport, $maxplayers, $by_user, $by_node, $date, $db_con) {
+function adminCreateserver($servername, $serverport, $rconport, $query_port, $maxplayers, $by_user, $by_node, $date, $db_con) {
     $servername = mysqli_real_escape_string($db_con, $servername);
     $serverport = mysqli_real_escape_string($db_con, $serverport);
     $rconport = mysqli_real_escape_string($db_con, $rconport);
+    $query_port = mysqli_real_escape_string($db_con, $query_port);
     $maxplayers = mysqli_real_escape_string($db_con, $maxplayers);
     $by_user = mysqli_real_escape_string($db_con, $by_user);
     $by_node = mysqli_real_escape_string($db_con, $by_node);
@@ -247,16 +241,24 @@ function adminCreateserver($servername, $serverport, $rconport, $maxplayers, $by
             return '<script>alert("端口重复，请检查。");</script>';
             }else {
                 // 查找rcon端口是否重复
-                $sql = "SELECT `rcon_port` FROM `servers` WHERE `port` = '$serverport'";
+                $sql = "SELECT `rcon_port` FROM `servers` WHERE `rcon_port` = '$rconport'";
                 $result = mysqli_query($db_con, $sql);
                 if (mysqli_num_rows($result) > 0) {
                     return '<script>alert("RCON端口重复，请检查。");</script>';
+                }else {
+                        // 查找query_port是否重复
+                        $sql = "SELECT `query_port` FROM `servers` WHERE `query_port` = '$query_port'";
+                        $result = mysqli_query($db_con, $sql);
+                        if (mysqli_num_rows($result) > 0) {
+                            return '<script>alert("Query端口重复，请检查。");</script>';
                     }else {
-                        $sql = "INSERT INTO `servers` (`id`, `name`, `port`, `rcon_port`, `max_players`, `by_node`, `by_user`, `initialization`, `date`) VALUES (NULL, '$servername', $serverport, $rconport, $maxplayers, $by_node, $by_user, NULL, '$date');";
+                        $sql ="INSERT INTO `servers` (`id`, `name`, `port`, `rcon_port`, `query_port`, `max_players`, `by_node`, `by_user`, `initialization`, `conf`, `date`, `is_expire`, `status`) VALUES (NULL, '$servername', $serverport, $rconport, $query_port, $maxplayers, $by_node, $by_user, NULL, NULL, '$date', 0, 0)";
+                        
                         if (mysqli_query($db_con, $sql)) {
                             return '<script>window.location.replace("server_manager.php");</script>';
                     }else {
                         return '<script>alert("操作数据库失败' . mysqli_error($db_con) . '");</script>';
+                    }
                 }
             }
         }
@@ -335,6 +337,9 @@ function adminListallserver($db_con) {
             '</td>' .
             '<td>' . 
             $row['rcon_port'] . 
+            '</td>' .
+            '<td>' . 
+            $row['query_port'] . 
             '</td>' .
             '<td>' . 
             $row['max_players'] . 
@@ -446,7 +451,7 @@ function userListallservers($db_con) {
                 break;
                 case '3':
                     $row['initialization'] = '完成';
-                    $con = '<a class="link" href="server_manager.php?control=' . $row['id'] . '">控制台</a>';
+                    $con = '<a class="link" href="control.php?serverid=' . $row['id'] . '">控制台</a>';
                     $edit = '<a class="link" href="conf.php?id=' . $row['id'] . '">编辑</a>';
                 break;
                 default:
@@ -533,24 +538,17 @@ function userSubmitserverconfig($serverid, $conf_content, $db_con) {
     $sql = "SELECT * FROM `servers` WHERE `id` = $serverid AND `by_user` = $userid";
     $result = mysqli_query($db_con, $sql);
     if (!mysqli_num_rows($result)) {
-        header('Location: server_manager.php');
+        //header('Location: server_manager.php');
+        echo 1;
     }else {
-        while ($row = mysqli_fetch_array($result)) {
-            $expire = $row['is_expire'];
-        }
-        // 判断是否到期
-            if (!$expire = 0) {
-                return '<script>alert("服务器已到期。");</script>';
-            }else {
         // 如果有则提交配置文件并BASE64
             $sql = "UPDATE `servers` SET `conf` = '$conf_content' WHERE `servers`.`id` = $serverid AND `by_user` = $userid";
             if (!mysqli_query($db_con, $sql)) {
-                return '<script>alert("失败。");</script>';
+                echo '<script>alert("失败。");</script>';
             }else {
-                return '<script>window.location.replace("server_manager.php");</script>';
+                echo '<script>window.location.replace("server_manager.php");</script>';
             }
         }
-    }
 }
 // 列出用户的所有服务器（select）
 function userListallserversselect($db_con) {
@@ -570,8 +568,21 @@ function userListallserversselect($db_con) {
     }
 }
 
-
-
+// 获取服务器名称
+function userGetservername($serverid, $db_con) {
+    checkLogin($db_con);
+    session_start();
+    $userid = $_SESSION['userid'];
+    $sql = "SELECT * FROM `servers` WHERE `by_user` = $userid AND `id` = $serverid";
+    $result = mysqli_query($db_con, $sql);
+    if (!mysqli_num_rows($result) > 0) {
+        return "未知服务器";
+    }else {
+        while($row = mysqli_fetch_array($result)) {
+            return $row['name'];
+        }
+    }
+}
 /* 核心部分：服务器管理 */
 // FTP页面部分
 function userFTP($db_con, $doamin, $username) {
@@ -604,7 +615,47 @@ function userFTP($db_con, $doamin, $username) {
 // {}
 
 // 请求节点，发送并接收配置文件
-// 请求节点，启动服务器
-function nodeStartserver($servername, $args) {
-
+// 请求节点，控制服务器
+function nodeControlserver($serverid, $action, $by_user, $map, $more, $db_con) {
+    // 判断用户是否拥有该服务器并获取Servername,端口，节点，地图等。
+    $sql = "SELECT `name`, `port`, `rcon_port`, `query_port`, `max_players`, `by_node`, `by_user` FROM `servers` WHERE `id` = $serverid AND `by_user` = $by_user";
+    $result = mysqli_query($db_con, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_array($result)) {
+            $servername = $row['name'];
+            $port = $row['port'];
+            $rcon_port = $row['rcon_port'];
+            $query_port = $row['query_port'];
+            $max_players = $row['max_players'];
+            $query_port = $row['query_port'];
+            $by_node = $row['by_node'];
+        }
+        // 愣着干啥，通过by_node找节点IP端口
+        $sql = "SELECT `ip_port`, `token` FROM `node` WHERE `id` = $by_node";
+        $result = mysqli_query($db_con, $sql);
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_array($result)) {
+                $ip_port = $row['ip_port'];
+                $token = $row['token'];
+            }
+        }
+        // 筛选action
+        switch ($action) {
+            case 'start':
+                $args = base64_encode("$map?listen?Port=$port?QueryPort=$query_port?MaxPlayers=$max_players?$more");
+                $shell = "curl \"http://$ip_port/?token=$token&action=start&servername=$servername&args=$args\" -X POST\"";
+            break;
+            case 'kill':
+                $shell = "curl \"http://$ip_port/?token=$token&action=kill&servername=$servername\" -X POST\"";
+            break;
+            default:
+                // 没指令开啥服，安全着想就不开了
+        break;
+        }
+    }
+// Valguero_P?listen?Port=34343?QueryPort=27015?MaxPlayers=70?AllowCrateSpawnsOnTopOfStructures=True -UseBattlEye -servergamelog -ServerRCONOutputTribeLogs -useallavailablecores -usecache -nosteamclient -game -server -log
+    # $shell = "curl \"http://localhost:4444/?token=123456&action=kill&servername=Server1\" -X POST\"";
+    // $shell = "curl \"http://$ip_port/?token=$token&action=kill&servername=Server1\" -X POST\"";
+    exec($shell, $out);
+    return '<script>alert("启动指令已发送，请稍等几分钟后操作");</script>';
 }
