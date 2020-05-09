@@ -14,8 +14,6 @@ iVampireSP 负责 php 部分, Bing_Yanchi 负责 python 部分
 
 前往我们的论坛：https://f.yistars.net/ 注册并开始预约吧！
 
-更多介绍，尚待补充
-
 ## 使用方法
 ### php 部分
 导入 php/databse.sql 至你的数据库，并修改 config/config.php 中的值
