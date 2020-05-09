@@ -10,6 +10,7 @@
 
 iVampireSP 负责 php 部分, Bing_Yanchi 负责 python 部分
 
+使用方法：导入php/databse.sql至您的数据库，并修改config/config.php中的值即可
 
 前往我们的论坛：https://f.yistars.net/ 注册并开始预约吧！
 
