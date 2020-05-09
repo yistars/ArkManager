@@ -51,7 +51,7 @@ while True:
 			parameter = post[1].strip('/?').split('&')
 			data = {}
 			for a in range(len(parameter)):
-				single = parameter[a].split('=')
+				single = parameter[a].split('=', 1)
 				if len(single) == 2:
 					data[single[0]] = single[1]
 			# 确认 token 与 验证 token
