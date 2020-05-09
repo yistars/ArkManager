@@ -16,13 +16,13 @@ iVampireSP 负责 php 部分, Bing_Yanchi 负责 python 部分
 
 ## 使用方法
 ### php 部分
-导入 `php/databse.sql` 至你的数据库，并修改 config/config.php 中的值。如果你的环境中禁用了 php 的 exec 函数，请解除禁用。
+导入 `php/databse.sql` 至你的数据库，并修改 `config/config.php` 中的值。如果你的环境中禁用了 php 的 `exec` 函数，请解除禁用。
 
-为了安全着想，请务必重命名php/admin
+为了安全着想，请务必重命名 `php/admin`
 
 上述步骤完成后，打开 http://domain:port/admin ，并输入你设置的密码，添加第一个节点。
 
-节点要求Windows系统且安装Python环境。配置完后请运行python http_monitoring.py，里面的文件内容请按需修改。
+节点要求Windows系统且安装Python环境。配置完后请运行 `python http_monitoring.py`，里面的文件内容请按需修改。
 
 ### python 部分
 要求：Python 3 以上
