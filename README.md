@@ -28,8 +28,10 @@ iVampireSP 负责 php 部分, Bing_Yanchi 负责 python 部分
 请修改 ftp_server.py 上 12 行 的路径为你的节点服务器存储路径
 
 ### 节点文件部署
+```
 ├── path
 
 │   ├── ExampleServer (用作模板服务器)
 
 │   └── OtherServer (其他服务器，无需自己创建)
+```
