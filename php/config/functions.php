@@ -642,7 +642,7 @@ function nodeControlserver($serverid, $action, $by_user, $map, $more, $db_con) {
         switch ($action) {
             case 'start':
                 $args = base64_encode("$map?listen?Port=$port?QueryPort=$query_port?MaxPlayers=$max_players?$more");
-                $shell = "curl \"http://$ip_port/?token=$token&action=start&servername=$servername&args=$args\" -X POST\"";
+                $shell = "curl \"http://$ip_port/?token=$token&action=start&servername=$servername&args=$args\" -X POST";
                 // 判断状态
                 $sql = "SELECT `status` FROM `servers` WHERE `id` = $serverid AND `by_user` = $by_user";
                 $result = mysqli_query($db_con, $sql);
@@ -664,7 +664,7 @@ function nodeControlserver($serverid, $action, $by_user, $map, $more, $db_con) {
                 
             break;
             case 'kill':
-                $shell = "curl \"http://$ip_port/?token=$token&action=kill&servername=$servername\" -X POST\"";
+                $shell = "curl \"http://$ip_port/?token=$token&action=kill&servername=$servername\" -X POST";
                 // 判断状态
                 $sql = "SELECT `status` FROM `servers` WHERE `id` = $serverid AND `by_user` = $by_user";
                 $result = mysqli_query($db_con, $sql);

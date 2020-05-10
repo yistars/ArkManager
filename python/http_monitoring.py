@@ -5,8 +5,8 @@ import socket
 import base64
 import shutil
 # 设置内容
-HOST = ''
-PORT = 4444
+HOST = '0.0.0.0'
+PORT = 41412
 token = '123456'
 path = "E:/iVampireSP/Ark/ServerData/Servers"
 

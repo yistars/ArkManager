@@ -78,9 +78,9 @@ require_once('../config/functions.php');
     </thead>
     <tbody>
         <?php 
-    // 返回当前服务器列表
+        // 返回当前服务器列表
         adminListallserver($db_con);
-    ?>
+        ?>
     </tbody>
 </table>
 <?php
