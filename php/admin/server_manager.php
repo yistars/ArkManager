@@ -84,6 +84,11 @@ require_once('../config/functions.php');
     </tbody>
 </table>
 <?php
+    // 判断登录，防止无中生有
+    if (!$_SESSION['admin_login'] == 1) {
+        header('Location: /index.php');
+        return '*';
+    }
     // 接收创建服务器数据
     if (!empty($_POST['add-servername'])||!empty($_POST['add-serverport'])||!empty($_POST['add-rconport'])||!empty($_POST['add-maxplayers'])||!empty($_POST['add-queryport'])||!empty($_POST['add-bynode'])||!empty($_POST['add-byuser'])) {
         echo adminCreateserver($_POST['add-servername'], $_POST['add-serverport'], $_POST['add-rconport'], $_POST['add-queryport'], $_POST['add-maxplayers'], $_POST['add-byuser'], $_POST['add-bynode'], $_POST['add-date'], $db_con);

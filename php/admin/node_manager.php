@@ -55,6 +55,11 @@ require_once('../config/functions.php');
     </tbody>
 </table>
 <?php
+    // 判断登录，防止无中生有
+    if (!$_SESSION['admin_login'] == 1) {
+        header('Location: /index.php');
+        return '*';
+    }
     // 接收添加节点数据
     if (!empty($_POST['add-nodename'])||!empty($_POST['add-nodeipport'])||!empty($_POST['add-nodetoken'])) {
         echo adminAddnode($_POST['add-nodename'],$_POST['add-nodeipport'],$_POST['add-nodetoken'],$db_con);

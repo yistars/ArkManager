@@ -48,7 +48,12 @@ require_once('../config/functions.php');
     ?>
     </tbody>
 </table>
-<?php
+<?php   
+    // 判断登录，防止无中生有
+    if (!$_SESSION['admin_login'] == 1) {
+        header('Location: /index.php');
+        return '*';
+    }
     // 接收添加用户数据
     if (!empty($_POST['add-username'])||!empty($_POST['add-password'])) {
         echo adminAdduser($_POST['add-username'],md5($_POST['add-password']),$db_con);
