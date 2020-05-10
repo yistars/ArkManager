@@ -16,6 +16,8 @@ iVampireSP 负责 php 部分, Bing_Yanchi 负责 python 部分
 
 ## 使用方法
 ### php 部分
+前提：如果您的服务器禁用了php的exec函数，请解除。
+
 导入 `php/databse.sql` 至你的数据库，并修改 `config/config.php` 中的值。如果你的环境中禁用了 php 的 `exec` 函数，请解除禁用。
 
 为了安全着想，请务必重命名 `php/admin`
