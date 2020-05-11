@@ -286,7 +286,10 @@ function adminDelserver($serverid, $db_con) {
     
     // 在删除服务器前停止服务器
     $shell = "curl \"http://$ip_port/?token=$token&action=kill&servername=$r_servername\" -X POST";
-    exec($shell, $out);
+    if(!exec($shell, $out)) {
+        return 'Node Error!';
+        return '*';
+    }
     $sql = "DELETE FROM `servers` WHERE `id` = $serverid";
     if (mysqli_query($db_con,$sql)) {
         return '<script>window.location.replace("server_manager.php");</script>';
@@ -732,6 +735,9 @@ function nodeControlserver($serverid, $action, $by_user, $map, $more, $db_con) {
 // Valguero_P?listen?Port=34343?QueryPort=27015?MaxPlayers=70?AllowCrateSpawnsOnTopOfStructures=True -UseBattlEye -servergamelog -ServerRCONOutputTribeLogs -useallavailablecores -usecache -nosteamclient -game -server -log
     # $shell = "curl \"http://localhost:4444/?token=123456&action=kill&servername=Server1\" -X POST\"";
     // $shell = "curl \"http://$ip_port/?token=$token&action=kill&servername=Server1\" -X POST\"";
-    exec($shell, $out);
+    if(!exec($shell, $out)) {
+        return 'Node Error!';
+        return '*';
+    }
     return '<script>alert("指令已发送，请稍等几分钟后操作");</script>';
 }
