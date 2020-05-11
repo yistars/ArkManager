@@ -218,6 +218,15 @@ function adminCreateserver($servername, $serverport, $rconport, $query_port, $ma
 
 // 管理员：初始化服务器
 function adminInitserver($serverid, $by_user, $db_con) {
+    // 获取用户的用户名和密码（md5加密的说~）
+    $sql = "SELECT `usernane`, `password` FROM `users` WHERE `id` = $by_user";
+    $result = mysqli_query($db_con, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_array($result)) {
+            $username = $row['username'];
+            $password = $row['password'];
+        }
+    }else {
     // 判断用户是否拥有该服务器并获取Servername,端口，节点，地图等。
     $sql = "SELECT `name`, `port`, `by_node`, `by_user` FROM `servers` WHERE `id` = $serverid AND `by_user` = $by_user";
     $result = mysqli_query($db_con, $sql);
@@ -235,17 +244,49 @@ function adminInitserver($serverid, $by_user, $db_con) {
                 $token = $row['token'];
             }
         }
-        $shell = "curl \"http://$ip_port/?token=$token&action=init&servername=$servername\" -X POST\"";
+        $shell = "curl \"http://$ip_port/?token=$token&action=init&servername=$servername\" -X POST";
         exec($shell, $out);
+        // 这是新加的功能，目前还没有实现 （请求节点添加该FTP）
+        $shell = "curl \"http://$ip_port/?token=$token&action=ftp&type=add&username=$username&password=$password&servername=$servername\" -X POST";
+        // exec($shell, $out);
         $sql = "UPDATE `servers` SET `initialization` = '3' WHERE `servers`.`id` = $serverid";
         mysqli_query($db_con, $sql);
         return '<script>alert("已经开始初始化，请稍等几分钟后操作。大致时间由服务器性能和IO决定。");</script>';
+        }
     }
 }
 
 // 管理员：删除服务器
 function adminDelserver($serverid, $db_con) {
+    // 通过serverid查询服务器属于哪个用户和节点，并获取用户名
+    $sql = "SELECT `name`, `by_user`, `by_node` FROM `servers` WHERE `id` = $serverid";
+    while($row = mysqli_fetch_array(mysqli_query($sql, $db_con))) {
+        $r_servername = $row['name'];
+        $r_by_user = $row['by_user'];
+        $r_by_node =  $row['by_node'];
+    }
+    // 通过r_by_user 获取用户名
+    $sql = "SELECT `username` FROM `users` WHERE `id` = $r_by_user";
+    while($row = mysqli_fetch_array(mysqli_query($sql, $db_con))) {
+        $r_username = $row['username'];
+    }
+    // 愣着干啥，通过by_node找节点IP端口
+    $sql = "SELECT `ip_port`, `token` FROM `node` WHERE `id` = $r_by_node";
+    $result = mysqli_query($db_con, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_array($result)) {
+            $ip_port = $row['ip_port'];
+            $token = $row['token'];
+        }
+    }
     $serverid = mysqli_real_escape_string($db_con, $serverid);
+    // 这是新加的功能，目前还没有实现 （请求节点删除对应的FTP用户）
+    $shell = "curl \"http://$ip_port/?token=$token&action=ftp&type=del&username=$r_username&servername=$r_servername\" -X POST";
+    // exec($shell, $out);
+    
+    // 在删除服务器前停止服务器
+    $shell = "curl \"http://$ip_port/?token=$token&action=kill&servername=$r_servername\" -X POST";
+    exec($shell, $out);
     $sql = "DELETE FROM `servers` WHERE `id` = $serverid";
     if (mysqli_query($db_con,$sql)) {
         return '<script>window.location.replace("server_manager.php");</script>';
