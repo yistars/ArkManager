@@ -245,7 +245,10 @@ function adminInitserver($serverid, $by_user, $db_con) {
             }
         }
         $shell = "curl \"http://$ip_port/?token=$token&action=init&servername=$servername\" -X POST";
-        exec($shell, $out);
+        if(!exec($shell, $out)) {
+            echo 'System Error!';
+            return '*';
+        }
         // 这是新加的功能，目前还没有实现 （请求节点添加该FTP）
         $shell = "curl \"http://$ip_port/?token=$token&action=ftp&type=add&username=$username&password=$password&servername=$servername\" -X POST";
         // exec($shell, $out);
@@ -287,7 +290,7 @@ function adminDelserver($serverid, $db_con) {
     // 在删除服务器前停止服务器
     $shell = "curl \"http://$ip_port/?token=$token&action=kill&servername=$r_servername\" -X POST";
     if(!exec($shell, $out)) {
-        return 'Node Error!';
+        echo 'System Error!';
         return '*';
     }
     $sql = "DELETE FROM `servers` WHERE `id` = $serverid";
@@ -736,7 +739,7 @@ function nodeControlserver($serverid, $action, $by_user, $map, $more, $db_con) {
     # $shell = "curl \"http://localhost:4444/?token=123456&action=kill&servername=Server1\" -X POST\"";
     // $shell = "curl \"http://$ip_port/?token=$token&action=kill&servername=Server1\" -X POST\"";
     if(!exec($shell, $out)) {
-        return 'Node Error!';
+        echo 'System Error!';
         return '*';
     }
     return '<script>alert("指令已发送，请稍等几分钟后操作");</script>';
