@@ -9,71 +9,71 @@ require_once('../config/functions.php');
 <html>
 
 <head>
-    <?php mduiHead('Server Manager'); ?>
+    <?php mduiHead($lang['adminServermanagertitle']); ?>
 </head>
-<?php mduiBody(); mduiHeader('服务器管理'); mduiMenu(); ?>
-<h1 class="mdui-text-color-theme">欢迎使用Server Manager。</h1>
+<?php mduiBody(); mduiHeader($lang['adminServermanagerHeader']); mduiMenu(); ?>
+<h1 class="mdui-text-color-theme"><?php echo $lang['adminServermanagerT1']; ?></h1>
 
-<button class="mdui-btn mdui-color-theme-accent mdui-ripple" mdui-dialog="{target: '#createserver'}">创建服务器</button>
+<button class="mdui-btn mdui-color-theme-accent mdui-ripple" mdui-dialog="{target: '#createserver'}"><?php echo $lang['adminServermanagerT22']; ?></button>
 
 <div class="mdui-dialog" id="createserver">
     <form name="addnode" method="post" action="server_manager.php">
         <div class="mdui-dialog-content">
             <div class="mdui-textfield mdui-textfield-floating-label">
-                <label class="mdui-textfield-label">服务器名称</label>
+                <label class="mdui-textfield-label"><?php echo $lang['adminServermanagerT2']; ?></label>
                 <input class="mdui-textfield-input" name="add-servername" type="text" />
             </div>
             <div class="mdui-textfield mdui-textfield-floating-label">
-                <label class="mdui-textfield-label">端口</label>
+                <label class="mdui-textfield-label"><?php echo $lang['adminServermanagerT3']; ?></label>
                 <input class="mdui-textfield-input" type="text" name="add-serverport" />
             </div>
             <div class="mdui-textfield mdui-textfield-floating-label">
-                <label class="mdui-textfield-label">RCON端口(ARK的输出比较那个啥，所以只能用RCON。)</label>
+                <label class="mdui-textfield-label"><?php echo $lang['adminServermanagerT4']; ?></label>
                 <input class="mdui-textfield-input" type="text" name="add-rconport" />
             </div>
             <div class="mdui-textfield mdui-textfield-floating-label">
-                <label class="mdui-textfield-label">Query端口(与Steam通信的端口)</label>
+                <label class="mdui-textfield-label"><?php echo $lang['adminServermanagerT5']; ?></label>
                 <input class="mdui-textfield-input" type="text" name="add-queryport" />
             </div>
             <div class="mdui-p-t-5">
-                <label class="mdui-textfield-label">最大玩家数量</label>
+                <label class="mdui-textfield-label"><?php echo $lang['adminServermanagerT6']; ?></label>
                 <label class="mdui-slider mdui-slider-discrete">
                     <input type="range" step="1" min="0" max="200" name="add-maxplayers" />
                 </label>
             </div>
-            <label class="mdui-textfield-label">属于节点</label>
+            <label class="mdui-textfield-label"><?php echo $lang['adminServermanagerT7']; ?></label>
             <select class="mdui-select" name="add-bynode" mdui-select>
                 <?php echo adminListallnodeselect($db_con); ?>
             </select>
             <div class="mdui-textfield mdui-textfield-floating-label">
-                <label class="mdui-textfield-label">属于用户(填写用户ID)</label>
+                <label class="mdui-textfield-label"><?php echo $lang['adminServermanagerT8']; ?></label>
                 <input class="mdui-textfield-input" type="text" name="add-byuser" />
             </div>
             <div class="mdui-textfield">
-                <label class="mdui-textfield-label">到期日期(不填则不会到期)</label>
+                <label class="mdui-textfield-label"><?php echo $lang['adminServermanagerT9']; ?></label>
                 <input class="mdui-textfield-input" type="date" name="add-date" />
             </div>
         </div>
         <div class="mdui-dialog-actions">
-            <span class="mdui-btn mdui-ripple" mdui-dialog-close>取消</span>
-            <input type="submit" class="mdui-btn mdui-ripple" value="添加" />
+            <span class="mdui-btn mdui-ripple" mdui-dialog-close><?php echo $lang['adminServermanagerT10']; ?></span>
+            <input type="submit" class="mdui-btn mdui-ripple" value="<?php echo $lang['adminServermanagerT11']; ?>" />
         </div>
     </form>
 </div>
 <table class="mdui-table" style="margin-top: 1%">
     <thead>
         <tr>
-            <th>ID</th>
-            <th>名称</th>
-            <th>端口</th>
-            <th>RCON端口</th>
-            <th>Query端口</th>
-            <th>最大玩家</th>
-            <th>节点</th>
-            <th>属于用户</th>
-            <th>到期日期</th>
-            <th>初始化</th>
-            <th>操作</th>
+            <th><?php echo $lang['adminServermanagerT12']; ?></th>
+            <th><?php echo $lang['adminServermanagerT13']; ?></th>
+            <th><?php echo $lang['adminServermanagerT14']; ?></th>
+            <th><?php echo $lang['adminServermanagerT23']; ?></th>
+            <th><?php echo $lang['adminServermanagerT15']; ?></th>
+            <th><?php echo $lang['adminServermanagerT16']; ?></th>
+            <th><?php echo $lang['adminServermanagerT17']; ?></th>
+            <th><?php echo $lang['adminServermanagerT18']; ?></th>
+            <th><?php echo $lang['adminServermanagerT19']; ?></th>
+            <th><?php echo $lang['adminServermanagerT20']; ?></th>
+            <th><?php echo $lang['adminServermanagerT21']; ?></th>
         </tr>
     </thead>
     <tbody>

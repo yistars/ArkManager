@@ -28,7 +28,7 @@ function mduiMenu() {
                     <a href="/index.php" class="mdui-list-item mdui-ripple">首页</a>
                     <a href="/server_manager.php" class="mdui-list-item mdui-ripple">管理</a>
                     <a href="/ftp.php" class="mdui-list-item mdui-ripple">FTP</a>
-                    <a href="/user.php" class="mdui-list-item mdui-ripple">用户</a>
+                    <a href="/changepwd.php" class="mdui-list-item mdui-ripple">密码</a>
                 </div>
             </div>
         </div>

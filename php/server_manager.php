@@ -2,6 +2,7 @@
 require_once('config/config.php');
 require_once('config/theme.php');
 require_once('config/functions.php');
+checkLogin($db_con);
 ?>
 <!DOCTYPE html>
 <html>

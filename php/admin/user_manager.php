@@ -8,37 +8,37 @@ require_once('../config/functions.php');
 <html>
 
 <head>
-    <?php mduiHead('User Manager'); ?>
+    <?php mduiHead($lang['adminUsermanagertitle']); ?>
 </head>
-<?php mduiBody(); mduiHeader('用户管理'); mduiMenu(); ?>
-<h1 class="mdui-text-color-theme">欢迎使用User Manager。</h1>
+<?php mduiBody(); mduiHeader($lang['adminUsermanagerheader']); mduiMenu(); ?>
+<h1 class="mdui-text-color-theme"><?php echo $lang['adminUsermanagerT1']; ?></h1>
 
-<button class="mdui-btn mdui-color-theme-accent mdui-ripple" mdui-dialog="{target: '#adduser'}">添加用户</button>
+<button class="mdui-btn mdui-color-theme-accent mdui-ripple" mdui-dialog="{target: '#adduser'}"><?php echo $lang['adminUsermanagerT9']; ?></button>
 
 <div class="mdui-dialog" id="adduser">
     <form name="addnode" method="post" action="user_manager.php">
         <div class="mdui-dialog-content">
             <div class="mdui-textfield mdui-textfield-floating-label">
-                <label class="mdui-textfield-label">用户名</label>
+                <label class="mdui-textfield-label"><?php echo $lang['adminUsermanagerT2']; ?></label>
                 <input class="mdui-textfield-input" name="add-username" type="text" />
             </div>
             <div class="mdui-textfield mdui-textfield-floating-label">
-                <label class="mdui-textfield-label">密码</label>
+                <label class="mdui-textfield-label"><?php echo $lang['adminUsermanagerT3']; ?></label>
                 <input class="mdui-textfield-input" type="password" name="add-password" />
             </div>
         </div>
         <div class="mdui-dialog-actions">
-            <span class="mdui-btn mdui-ripple" mdui-dialog-close>取消</span>
-            <input type="submit" class="mdui-btn mdui-ripple" value="添加" />
+            <span class="mdui-btn mdui-ripple" mdui-dialog-close><?php echo $lang['adminUsermanagerT4']; ?></span>
+            <input type="submit" class="mdui-btn mdui-ripple" value="<?php echo $lang['adminUsermanagerT5']; ?>" />
         </div>
     </form>
 </div>
 <table class="mdui-table" style="margin-top: 1%">
     <thead>
         <tr>
-            <th>ID</th>
-            <th>用户名</th>
-            <th>操作</th>
+            <th><?php echo $lang['adminUsermanagerT6']; ?></th>
+            <th><?php echo $lang['adminUsermanagerT7']; ?></th>
+            <th><?php echo $lang['adminUsermanagerT8']; ?></th>
         </tr>
     </thead>
     <tbody>

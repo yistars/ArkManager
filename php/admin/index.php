@@ -10,15 +10,15 @@ if ($_SESSION['admin_login'] == 1) {
 <html>
 
 <head>
-    <?php mduiHead('后台管理'); ?>
+    <?php mduiHead($lang['adminLogintitle']); ?>
 </head>
-    <?php mduiBody(); mduiHeader('后台登陆') ; mduiMenu(); ?>
+    <?php mduiBody(); mduiHeader($lang['adminLoginheader']) ; mduiMenu(); ?>
     <form name="login" method="post" action="index.php">
         <div class="mdui-textfield mdui-textfield-floating-label">
             <i class="mdui-icon material-icons">lock</i>
-            <label class="mdui-textfield-label">密码</label>
+            <label class="mdui-textfield-label"><?php $lang['adminLoginpassword']; ?></label>
             <input class="mdui-textfield-input" type="password" name="password" required />
-            <div class="mdui-textfield-error">请输入密码！</div>
+            <div class="mdui-textfield-error"><?php $lang['adminLoginpasswordtip']; ?></div>
         </div>
         <input name="Submit" type="submit" class="mdui-btn mdui-color-theme-accent mdui-ripple" value="确认" />
     </form>

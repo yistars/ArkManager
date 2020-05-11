@@ -13,7 +13,7 @@ function checkLogin($db_con) {
     $result = mysqli_query($db_con,$sql);
     if (!mysqli_num_rows($result)){
         header('HTTP/1.1 403 Forbidden');
-        echo '<script>window.location.replace("/pages/message.php?message=您没有登录或者不存在该用户。&action=login");</script>';
+        echo '<script>window.location.replace("/login.php");</script>';
         session_destroy();
     }
 }
@@ -26,7 +26,7 @@ function adminLogin($password,$admin_password) {
         $_SESSION['admin_login'] = 1;
         echo '<script>window.location.replace("/admin/dash.php");</script>';
     }else {
-        header('Location: /pages/message.php?message=密码错误。');
+        header('Location: /login.php');
     }
 }
 

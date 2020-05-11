@@ -8,17 +8,17 @@ require_once('../config/functions.php');
 <html>
 
 <head>
-    <?php mduiHead('仪表盘'); ?>
+    <?php mduiHead($lang['adminDashTitle']); ?>
 </head>
-<?php mduiBody(); mduiHeader('仪表盘'); mduiMenu(); ?>
-<h1 class="mdui-text-color-theme">快速添加用户</h1>
+<?php mduiBody(); mduiHeader($lang['adminDashheader']); mduiMenu(); ?>
+<h1 class="mdui-text-color-theme"><?php echo $lang['adminDashT1']; ?></h1>
 <form name="adduser" method="post" action="dash.php">
     <div class="mdui-textfield mdui-textfield-floating-label">
-        <label class="mdui-textfield-label">用户名</label>
+        <label class="mdui-textfield-label"><?php echo $lang['adminDashT2']; ?></label>
         <input class="mdui-textfield-input" type="text" name="add-username" required />
     </div>
     <div class="mdui-textfield mdui-textfield-floating-label">
-        <label class="mdui-textfield-label">密码</label>
+        <label class="mdui-textfield-label"><?php echo $lang['adminDashT3']; ?></label>
         <input class="mdui-textfield-input" type="password" name="add-password" required />
     </div>
     <input type="submit" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent" value="添加" />
@@ -29,10 +29,10 @@ require_once('../config/functions.php');
         echo adminAdduser($_POST['add-username'],md5($_POST['add-password']),$db_con);
     }
 ?>
-<h1 class="mdui-text-color-theme">快速删除用户</h1>
+<h1 class="mdui-text-color-theme"><?php echo $lang['adminDashT4']; ?></h1>
 <form name="deluser" method="post" action="dash.php">
     <div class="mdui-textfield mdui-textfield-floating-label">
-        <label class="mdui-textfield-label">用户名</label>
+        <label class="mdui-textfield-label"><?php echo $lang['adminDashT5']; ?></label>
         <input class="mdui-textfield-input" type="text" name="del-username" required />
     </div>
     <input type="submit" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent" value="我确认删除！" />

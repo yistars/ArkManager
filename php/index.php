@@ -8,12 +8,11 @@ require_once('config/theme.php');
 <html>
 
 <head>
-    <?php mduiHead('首页') ?>
+    <?php mduiHead($lang['indexTitle']) ?>
 </head>
-    <?php mduiBody(); mduiHeader('控制面板'); mduiMenu(); ?>
-    <h1 class="mdui-text-color-theme">欢迎使用Ark服务器控制面板</h1>
-
-    <p>请从左侧菜单选择操作。</p>
+    <?php mduiBody(); mduiHeader($lang['indexHeader']); mduiMenu(); ?>
+    <h1 class="mdui-text-color-theme"><?php echo $lang['indexWelcome']; ?></h1>
+    <?php echo $lang['IndexContent']; ?>
 </body>
 
 </html>

@@ -6,45 +6,44 @@ require_once('../config/functions.php');
 ?>
 <!DOCTYPE html>
 <html>
-
 <head>
-    <?php mduiHead('Node Manager'); ?>
+    <?php mduiHead($lang['adminNodemanagertitle']); ?>
 </head>
-<?php mduiBody(); mduiHeader('集群节点管理'); mduiMenu(); ?>
-<h1 class="mdui-text-color-theme">欢迎使用Node Manager。</h1>
+<?php mduiBody(); mduiHeader($lang['adminNodemanagerHeader']); mduiMenu(); ?>
+<h1 class="mdui-text-color-theme"><?php echo $lang['adminNodemanagerT2']; ?></h1>
 
-<button class="mdui-btn mdui-color-theme-accent mdui-ripple" mdui-dialog="{target: '#addnode'}">添加节点</button>
+<button class="mdui-btn mdui-color-theme-accent mdui-ripple" mdui-dialog="{target: '#addnode'}"><?php echo $lang['adminNodemanagerT13']; ?></button>
 
 <div class="mdui-dialog" id="addnode">
     <form name="addnode" method="post" action="node_manager.php">
         <div class="mdui-dialog-content">
             <div class="mdui-textfield mdui-textfield-floating-label">
-                <label class="mdui-textfield-label">节点名称</label>
+                <label class="mdui-textfield-label"><?php echo $lang['adminNodemanagerT3']; ?></label>
                 <input class="mdui-textfield-input" name="add-nodename" type="text" />
             </div>
             <div class="mdui-textfield mdui-textfield-floating-label">
-                <label class="mdui-textfield-label">IP地址与端口（如localhost:1234）</label>
+                <label class="mdui-textfield-label"><?php echo $lang['adminNodemanagerT4']; ?></label>
                 <input class="mdui-textfield-input" type="text" name="add-nodeipport" />
             </div>
             <div class="mdui-textfield mdui-textfield-floating-label">
-                <label class="mdui-textfield-label">Token</label>
+                <label class="mdui-textfield-label"><?php echo $lang['adminNodemanagerT5']; ?></label>
                 <input class="mdui-textfield-input" type="text" name="add-nodetoken" />
             </div>
         </div>
         <div class="mdui-dialog-actions">
-            <span class="mdui-btn mdui-ripple" mdui-dialog-close>取消</span>
-            <input type="submit" class="mdui-btn mdui-ripple" value="添加" />
+            <span class="mdui-btn mdui-ripple" mdui-dialog-close><?php echo $lang['adminNodemanagerT6']; ?></span>
+            <input type="submit" class="mdui-btn mdui-ripple" value="<?php echo $lang['adminNodemanagerT7']; ?>" />
         </div>
     </form>
 </div>
 <table class="mdui-table" style="margin-top: 1%">
     <thead>
         <tr>
-            <th>ID</th>
-            <th>名称</th>
-            <th>IP:Port</th>
-            <th>Token</th>
-            <th>操作</th>
+            <th><?php echo $lang['adminNodemanagerT8']; ?></th>
+            <th><?php echo $lang['adminNodemanagerT9']; ?></th>
+            <th><?php echo $lang['adminNodemanagerT10']; ?></th>
+            <th><?php echo $lang['adminNodemanagerT11']; ?></th>
+            <th><?php echo $lang['adminNodemanagerT12']; ?></th>
         </tr>
     </thead>
     <tbody>

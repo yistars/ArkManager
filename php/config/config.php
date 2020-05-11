@@ -23,3 +23,15 @@ define( 'DOMAIN' , 'dash.example.com');
 $admin_password = '123456';
 // 监控密钥（服务器到期时会自动停止）
 $cron_password = '123456';
+// 管理员后台路径
+$admin_path = 'admin';
+// 语言文件
+$lang = 'zh_cn.php';
+if (strpos($_SERVER['PHP_SELF'], $admin_path)) {
+    require_once("../i18n/$lang");
+}
+else {
+    require_once("i18n/$lang");
+}
+
+/* 非常感谢您能使用ArkManager! */

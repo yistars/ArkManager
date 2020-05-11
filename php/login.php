@@ -7,23 +7,23 @@ require_once('config/functions.php');
 <html>
 
 <head>
-    <?php mduiHead('登录'); ?>
+    <?php mduiHead($lang['loginTitle']); ?>
 </head>
 
-    <?php mduiBody(); mduiHeader('登录') ; mduiMenu(); ?>
+    <?php mduiBody(); mduiHeader($lang['loginHeader']) ; mduiMenu(); ?>
     <form name="reg" method="post" action="login.php">
         <div class="mdui-textfield mdui-textfield-floating-label">
             <i class="mdui-icon material-icons">account_circle</i>
-            <label class="mdui-textfield-label">用户名</label>
+            <label class="mdui-textfield-label"><?php echo $lang['loginUsername']; ?></label>
             <input class="mdui-textfield-input" name="username" type="text" required maxlength="15" />
-            <div class="mdui-textfield-error">用户名不能为空！</div>
+            <div class="mdui-textfield-error"><?echo $lang['loginUsernametip']; ?></div>
         </div>
 
         <div class="mdui-textfield mdui-textfield-floating-label">
             <i class="mdui-icon material-icons">lock</i>
-            <label class="mdui-textfield-label">密码</label>
+            <label class="mdui-textfield-label"><?php echo $lang['loginPassword']; ?></label>
             <input class="mdui-textfield-input" type="password" name="password" required />
-            <div class="mdui-textfield-error">请输入密码！</div>
+            <div class="mdui-textfield-error"><?php echo $lang['loginPasswordtip']; ?></div>
         </div>
         <input name="Submit" type="submit" class="mdui-btn mdui-color-theme-accent mdui-ripple" value="确认" />
     </form>
