@@ -15,6 +15,8 @@ Go to our forum: https://f.yistars.net/ Register and start booking!
 ### php part
 Premise: If your server has disabled the exec function of php, please release it.
 
+Please install curl on the server (not an extension of PHP)
+
 Import ` php / database.sql ` to your database and modify the values in ` config / config.php `. If the ` exec ` function of php is disabled in your environment, please remove it.
 
 For security reasons, please be sure to rename ` php / admin `
