@@ -47,6 +47,12 @@ def delete(data):
 	os.makedirs('{}/{}/ShooterGame/Content'.format(path,servername))
 	print('[INFO] Delete Server {}'.format(servername))
 
+def ftp_add(data):
+	servername = data['servername']
+
+def ftp_del(data):
+	servername = data['servername']
+
 while True:
 	client_connection, client_address = listen_socket.accept()
 	request = client_connection.recv(1024)
@@ -91,6 +97,20 @@ while True:
 					right = True
 					kill(data)
 					delete(data)
+				break
+			elif data['action'] == 'ftp':
+				if ('servername' in data) and ('type' in data) and ('username' in data) and ('password' in data):
+					if data['type'] == 'add':
+						right = True
+						ftp_add(data)
+					elif data['type'] == 'del':
+						right = True
+						ftp_del(data)
+					elif data['type'] == 'edit':
+						right = True
+						ftp_del(data)
+						ftp_add(data)
+					break
 				break
 			break
 	# 返回状态码
