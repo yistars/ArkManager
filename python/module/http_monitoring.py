@@ -4,6 +4,7 @@ import os
 import socket
 import base64
 import shutil
+import yaml
 # 设置内容
 HOST = '0.0.0.0'
 PORT = 41412
