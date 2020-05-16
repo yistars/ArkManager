@@ -63,6 +63,7 @@ class http(object):
                             right = True
                         elif data['type'] == 'edit':
                             right = True
+        # 返回码
         if right:
             response_line = 'HTTP/1.1 200 OK\r\n'
             client_socket.send(response_line.encode('utf-8'))
