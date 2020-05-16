@@ -47,14 +47,14 @@ class http(object):
                 # 根据 action 确定执行函数
                 if data['action'] == 'start':
                     if ('args' in data):
-                        right = server_start(data['args'], data['servername'], path)
+                        right = self.server_start(data['args'], data['servername'], path)
                 elif data['action'] == 'kill':
-                    right = server_kill(data['servername'], path)
+                    right = self.server_kill(data['servername'], path)
                 elif data['action'] == 'init':
-                    right = server_init(data['servername'], path)
+                    right = self.server_init(data['servername'], path)
                 elif data['action'] == 'delete':
-                    right = server_kill(data['servername'], path)
-                    right = server_delete(data['servername'], path)
+                    right = self.server_kill(data['servername'], path)
+                    right = self.server_delete(data['servername'], path)
                 elif data['action'] == 'ftp':
                     if ('type' in data) and ('username' in data) and ('password' in data):
                         if data['type'] == 'add':
@@ -63,13 +63,14 @@ class http(object):
                             right = True
                         elif data['type'] == 'edit':
                             right = True
-        # 返回码
+        # 返回状态码
         if right:
-            response_line = 'HTTP/1.1 200 OK\r\n'
-            client_socket.send(response_line.encode('utf-8'))
+            http_response = """/
+            HTTP/1.1 200 OK""".replace('    ','')
         else:
-            response_line = 'HTTP/1.1 403 Forbidden\r\n'
-            client_socket.send(response_line.encode('utf-8'))
+            http_response = """/
+            HTTP/1.1 403 Forbidden""".replace('    ','')
+        client_socket.send(http_response.encode('utf-8'))
         # 断开与客户端连接
         client_socket.close()
 
@@ -90,15 +91,18 @@ class http(object):
         os.system('taskkill /fi "windowtitle eq {}"'.format(path,servername))
         os.system('taskkill /fi "windowtitle eq {}/{}/ShooterGame/Binaries/Win64/ShooterGameServer.exe *'.format(path,servername))
         print('[INFO] Kill Server {}'.format(servername))
+        return True
 
     def server_init(self, servername, path):
         shutil.copytree('{}/ExampleServer'.format(path,servername),'{}/{}'.format(path,servername))
         print('[INFO] Init Server {}'.format(servername))
+        return True
 
     def server_delete(self, servername, path):
         shutil.rmtree('{}/{}/ShooterGame/Content'.format(path,servername))
         os.makedirs('{}/{}/ShooterGame/Content'.format(path,servername))
         print('[INFO] Delete Server {}'.format(servername))
+        return True
 
     def __del__(self):
         # 当服务端程序结束时停止服务器服务
@@ -106,5 +110,3 @@ class http(object):
     
 def main(HOST, PORT, token, path):
     http(HOST, PORT).run(token, path)
-
-main('127.0.0.1',4444,'123456','D://')
