@@ -37,5 +37,8 @@ class main(object):
         #threading.Thread(target=http, args=('127.0.0.1','4444'), daemon=True).start()
         _thread.start_new_thread(http('127.0.0.1','4444').main, ('123456','D:/'))
 
+    def run_ftp(self, module):
+        _thread.start_new_thread(http('127.0.0.1','4444').main, ('123456','D:/'))
+
 if __name__ == "__main__":
     main('config.yml', 'module')
