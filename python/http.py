@@ -8,11 +8,11 @@ class http(object):
         # 创建Socket对象
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         # 设置端口复用
-        self.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, True)
+        self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, True)
         # 绑定IP端口
-        self.listen_socket.bind((HOST, PORT))
+        self.server_socket.bind((HOST, PORT))
         # 设置监听
-        self.listen_socket.listen(128)
+        self.server_socket.listen(128)
         # 信息输出
         print('[INFO] Serving HTTP on port %s ...' % PORT)
 
@@ -103,3 +103,8 @@ class http(object):
     def __del__(self):
         # 当服务端程序结束时停止服务器服务
         self.server_socket.close()
+    
+def main(HOST, PORT, token, path):
+    http(HOST, PORT).run(token, path)
+
+main('127.0.0.1',4444,'123456','D://')

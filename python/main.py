@@ -1,9 +1,9 @@
 # main
 # By Bing_Yanchi
 #from module import http_monitoring
-import yaml,os,threading,sys
-sys.path.append('.\module')
-from http import http
+import yaml,os,threading,sys,_thread
+import http
+import _thread
 
 class main(object):
     config = 'config.yml'
@@ -27,14 +27,20 @@ class main(object):
                 data = yaml.dump(raw_data, f)
 
     def read_config(self, config):
-        with open(config) as f:
-            data = yaml.load(f)
-            print(data)
+        print()
+        #with open(config) as f:
+        #    data = yaml.load(f)
+            #print(data)
 
     def run_http(self, module):
         #threading.start_new_thread(http.run, ('123456','D:/'))
-        threading.Thread(target=http, args=('127.0.0.1','4444'), daemon=True).start()
-        threading.Thread(target=http.run, args=('123456','D:/'), daemon=True).start()
+        #threading.Thread(target=http, args=('127.0.0.1','4444'), daemon=True).start()
+        #threading.Thread(target=http.run, args=('123456','D:/'), daemon=True).start()
+        #Process(target=http,arg=('127.0.0.1','4444')).start()
+        #Process(target=http,arg=('123456','D:/')).start()
+        #os.system('python ' + os.getcwd() + '\\python\\' + module + '\\' + 'http.py')
+        run = http.http()
+        _thread.start_new_thread(run('127.0.0.1','4444').main, ('123456','D:/'))
 
 if __name__ == "__main__":
-    main('config.yml', '.module')
+    main('config.yml', 'module')
