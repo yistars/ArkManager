@@ -35,12 +35,7 @@ class main(object):
     def run_http(self, module):
         #threading.start_new_thread(http.run, ('123456','D:/'))
         #threading.Thread(target=http, args=('127.0.0.1','4444'), daemon=True).start()
-        #threading.Thread(target=http.run, args=('123456','D:/'), daemon=True).start()
-        #Process(target=http,arg=('127.0.0.1','4444')).start()
-        #Process(target=http,arg=('123456','D:/')).start()
-        #os.system('python ' + os.getcwd() + '\\python\\' + module + '\\' + 'http.py')
-        run = http.http()
-        _thread.start_new_thread(run('127.0.0.1','4444').main, ('123456','D:/'))
+        _thread.start_new_thread(http('127.0.0.1','4444').main, ('123456','D:/'))
 
 if __name__ == "__main__":
     main('config.yml', 'module')

@@ -26,7 +26,7 @@ class http(object):
         # 接收数据
         recv_data = client_socket.recv(1024).decode('utf-8')
         # 拆分换行符便于检索
-        info = recv_data.decode("utf-8").split('\n')
+        info = recv_data.split('\n')
         # 设定是否返回200
         right = False
         for i in range(len(info)):
