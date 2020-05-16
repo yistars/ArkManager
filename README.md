@@ -8,7 +8,7 @@
 
 当前版本为社区版本，如有 bug 可以发 issue
 
-iVampireSP 负责 php 部分，Bing_Yanchi 负责 python 部分
+iVampireSP 负责 php 部分，BingYanchi 负责 python 部分
 
 注意：目前仅支持Windows。后续会支持更多版本！
 
