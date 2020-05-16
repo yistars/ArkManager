@@ -1,7 +1,7 @@
 # http for ArkManager
 # By Bing_Yanchi
 # DO NOT CHANGE
-import os,socket,base64,shutil,yaml,threading
+import os,socket,base64,shutil,threading
 # 创建服务器类
 class http(object):
     def __init__(self, HOST, PORT):
