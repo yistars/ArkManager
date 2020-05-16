@@ -8,7 +8,7 @@
 
 当前版本为社区版本，如有 bug 可以发 issue
 
-iVampireSP 负责 php 部分, Bing_Yanchi 负责 python 部分
+iVampireSP 负责 php 部分，Bing_Yanchi 负责 python 部分
 
 注意：目前仅支持Windows。后续会支持更多版本！
 
@@ -24,14 +24,14 @@ iVampireSP 负责 php 部分, Bing_Yanchi 负责 python 部分
 
 上述步骤完成后，打开 http://domain:port/admin ，并输入你设置的密码，添加第一个节点。
 
-节点要求Windows系统且安装Python环境。配置完后请运行 `python http_monitoring.py`，里面的文件内容请按需修改。
+节点要求Windows系统且安装Python环境，配置完后请运行 `python main.py`。
 
 ### python 部分
 要求：Python 3 以上
 
 将 python 中的文件放在节点上并运行 (位置随意)
 
-请修改 `http_monitoring.py` 上 12 行 的路径为你的节点服务器存储路径
+请修改 `config.yml` 的内容以配置相关设置
 
 ### 节点文件部署
 ```
