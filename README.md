@@ -4,13 +4,13 @@
 ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/yistars/ArkManager?include_prereleases)
 ![GitHub All Releases](https://img.shields.io/github/downloads/yistars/ArkManager/total)
 
-由 iVampireSP, Bing_Yanchi 共同创建
+由 iVampireSP, BingYanchi 共同创建
 
 当前版本为社区版本，如有 bug 可以发 issue
 
 iVampireSP 负责 php 部分, Bing_Yanchi 负责 python 部分
 
-注意：目前仅支持Windows。我们后续会支持更多版本!
+注意：目前仅支持Windows。后续会支持更多版本！
 
 前往我们的论坛：https://f.yistars.net/ 注册并开始预约吧！
 
@@ -38,10 +38,18 @@ iVampireSP 负责 php 部分, Bing_Yanchi 负责 python 部分
 ├── path
 │   ├── ExampleServer (用作模板服务器)
 │   └── OtherServer (其他服务器，无需自己创建)
+│
+└── python program directory
+    ├── main.py (主程序)
+    ├── config.yml (配置文件，无需自己创建)
+    └── module (模块文件夹)
+        ├── http.py (http 模块)
+        └── ftp.py (ftp 模块)
 ```
 
 ### 未来目标
 * FTP 功能
+* Python 面向对象
 
 ### 已知问题
 * 管理员后台模板问题，但是不影响使用
