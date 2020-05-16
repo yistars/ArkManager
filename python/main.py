@@ -3,7 +3,6 @@
 #from module import http_monitoring
 import yaml,os,threading,sys,_thread
 import http
-import _thread
 
 class main(object):
     config = 'config.yml'
