@@ -8,7 +8,7 @@
 
 当前版本为社区版本，如有 bug 可以发 issue
 
-iVampireSP 负责 php 部分，Bing_Yanchi 负责 python 部分
+iVampireSP 负责 php 部分，BingYanchi 负责 python 部分
 
 注意：目前仅支持Windows。后续会支持更多版本！
 
@@ -16,7 +16,7 @@ iVampireSP 负责 php 部分，Bing_Yanchi 负责 python 部分
 
 ## 使用方法
 ### php 部分
-前提：如果您的服务器禁用了php的exec函数，请解除。如果您的系统没有安装curl，请安装。
+前提：如果您的服务器禁用了php的 `exec` 函数，请解除。如果您的系统没有安装 `curl` ，请安装。
 
 导入 `php/databse.sql` 至你的数据库，并修改 `config/config.php` 中的值。如果你的环境中禁用了 php 的 `exec` 函数，请解除禁用。
 
