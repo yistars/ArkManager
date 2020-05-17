@@ -1,4 +1,4 @@
-# http for ArkManager
+# http For ArkManager
 # By Bing_Yanchi
 # DO NOT CHANGE
 import os,socket,base64,shutil,threading

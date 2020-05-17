@@ -1,3 +1,3 @@
 @echo off
-title http_monitoring.py
-python http_monitoring.py
+title main.py
+python main.py

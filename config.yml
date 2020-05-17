@@ -1,6 +1,0 @@
-- ftp: {}
-  http:
-    host: 0.0.0.0
-    path: D:/dir/dir
-    port: '4444'
-    token: '123456'
