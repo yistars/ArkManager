@@ -39,7 +39,7 @@ function adminAdduser($username, $password, $db_con) {
     if (mysqli_num_rows($result) > 0) {
         return '<script>alert("用户名重复，请检查。");</script>';
     }else {
-        $sql = "INSERT INTO `users` (`id`, `username`, `password`) VALUES (NULL, '$username', '$password');";
+        $sql = "INSERT INTO `users` (`id`, `username`, `password`) VALUES (NULL, '$username', '$password')";
         if (mysqli_query($db_con,$sql)) {
             return '<script>window.location.replace("user_manager.php");</script>';
         }else {
@@ -104,7 +104,7 @@ function adminAddnode($nodename, $nodeip, $token, $db_con) {
     if (mysqli_num_rows($result) > 0) {
         return '<script>alert("节点名重复，请检查。");</script>';
     }else {
-        $sql = "INSERT INTO `node` (`id`, `name`, `ip_port`, `token`) VALUES (NULL, '$nodename', '$nodeip', '$token');";
+        $sql = "INSERT INTO `node` (`id`, `name`, `ip_port`, `token`) VALUES (NULL, '$nodename', '$nodeip', '$token')";
         if (mysqli_query($db_con,$sql)) {
             return '<script>window.location.replace("node_manager.php");</script>';
         }else {
@@ -393,7 +393,7 @@ function userLogin($username, $password, $db_con) {
             if ($password == $row['password']) {
                 $_SESSION['user'] = $row['username'];
                 $_SESSION['userid'] = $row['id'];
-                header('Location: /user.php');
+                header('Location: /index.php');
             }else {
                 return '<script>alert("密码错误");</script>';
             }
@@ -426,7 +426,7 @@ function userChangepassword($oldpassword, $newpassword, $db_con) {
             if ($oldpassword == $row['password']) {
                 $sql = "UPDATE `users` SET `password` = '$password' WHERE `users`.`id` = $userid";
                 mysqli_query($db_con, $sql);
-                header('Location: /user.php');
+                header('Location: /index.php');
             }else {
                 return '<script>alert("原密码错误");</script>';
             }
