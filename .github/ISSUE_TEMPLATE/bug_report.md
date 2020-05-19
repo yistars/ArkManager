@@ -25,8 +25,9 @@ A clear and concise description of what you expected to happen.
 If applicable, add screenshots to help explain your problem.
 
 **Operating environment (please complete the following information):**
- - System: [e.g. Windows 10]
  - Version: [e.g. 1.2]
+ - System: [e.g. Windows 10]
+ - Python and Php Version: [e.g. Python 3.6, Php 7.1]
 
 **Additional context**
 Add any other context about the problem here.
