@@ -4,6 +4,9 @@
 ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/yistars/ArkManager?include_prereleases)
 ![GitHub All Releases](https://img.shields.io/github/downloads/yistars/ArkManager/total)
 
+**警告**
+*当前储存库内容为开发中内容，暂不可用，点击[这里](https://github.com/yistars/ArkManager/releases)获取较稳定版本。*
+
 由 iVampireSP, BingYanchi 共同创建
 
 当前版本为社区版本，如有 bug 可以发 issue
@@ -50,6 +53,7 @@ iVampireSP 负责 php 部分，BingYanchi 负责 python 部分
 ### 未来目标
 * FTP 功能
 * Python 面向对象
+* 节点配置文件独立
 
 ### 已知问题
 * 管理员后台模板问题，但是不影响使用
