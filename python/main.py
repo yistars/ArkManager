@@ -1,7 +1,10 @@
 # Main For Arkmanager
 # By Bing_Yanchi
 #from module import http_monitoring
-import yaml,os,threading,sys,_thread
+import yaml,os,threading,sys
+import _thread
+import time
+import threading
 import http
 
 class main(object):
@@ -9,10 +12,10 @@ class main(object):
     def __init__(self, config, module):
         print('[INFO] Checking file integrity...')
         # 检查文件完整性
-        if not os.path.exists('http.py'):
-            print('[EROOR] File is missing, please try to download the program again')
-            input('Press enter to end...')
-            sys.exit()
+        #if not os.path.exists('http.py'):
+        #    print('[EROOR] File is missing, please try to download the program again')
+        #    input('Press enter to end...')
+        #    sys.exit()
         # 若配置文件不存在，则创建空白配置文件
         if os.path.exists(config) == False:
             self.create_config(config)
@@ -31,9 +34,10 @@ class main(object):
             print(data)
 
     def run_http(self, module):
-        #threading.start_new_thread(http.run, ('123456','D:/'))
-        #threading.Thread(target=http, args=('127.0.0.1','4444'), daemon=True).start()
-        _thread.start_new_thread(http.main, ('127.0.0.1',4444,'123456','D:/'))
+        th_http = threading.Thread(target=http.main, args=('127.0.0.1',4444,'123456','D:/'))
+        th_http.start()
+        time.sleep(10)
+        th_http.join()
 
     def run_ftp(self, module):
         _thread.start_new_thread(http('127.0.0.1','4444').main, ('123456','D:/'))
