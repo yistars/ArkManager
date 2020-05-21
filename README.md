@@ -37,6 +37,7 @@ iVampireSP 负责 php 部分，BingYanchi 负责 python 部分
 请修改 `config.yml` 的内容以配置相关设置
 
 ### 节点文件部署
+*尚在测试阶段，未实测*
 ```
 ├── path
 │   ├── ExampleServer (用作模板服务器)
