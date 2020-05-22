@@ -25,7 +25,9 @@ iVampireSP 负责 php 部分，BingYanchi 负责 python 部分
 
 为了安全着想，请务必重命名 `php/admin`
 
-上述步骤完成后，打开 http://domain:port/admin ，并输入你设置的密码，添加第一个节点。
+上述步骤完成后，打开 http://domain.com/admin ，并输入你设置的密码，添加第一个节点。
+
+请使用定时任务（如crontab等）执行http://domain.com/config/cron,php?key=123456（请按实际情况修改），时间可以任意，推荐1小时执行一次。
 
 节点要求Windows系统且安装Python环境，配置完后请运行 `python main.py`。
 
