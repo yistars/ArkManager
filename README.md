@@ -34,6 +34,8 @@ iVampireSP 负责 php 部分，BingYanchi 负责 python 部分
 ### python 部分
 要求：Python 3 以上
 
+在命令行（Win 键 + R）输入`pip install ymal`
+
 将 python 中的文件放在节点上并运行 (位置随意)
 
 请修改 `config.yml` 的内容以配置相关设置
