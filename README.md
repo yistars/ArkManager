@@ -51,9 +51,8 @@ iVampireSP 负责 php 部分，BingYanchi 负责 python 部分
 └── python program directory
     ├── main.py (主程序)
     ├── config.yml (配置文件，无需自己创建)
-    └── module (模块文件夹)
-        ├── http.py (http 模块)
-        └── ftp.py (ftp 模块)
+    ├── http.py (http 模块)
+    └── ftp.py (ftp 模块)
 ```
 
 ### 未来目标
