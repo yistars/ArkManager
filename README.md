@@ -39,7 +39,7 @@ iVampireSP 负责 php 部分，BingYanchi 负责 python 部分
 
 将 python 中的文件放在节点上并运行 (位置随意)
 
-请修改 `config.yml` 的内容以配置相关设置
+请修改 `config.ini` 的内容以配置相关设置
 
 ### 节点文件部署
 *尚在测试阶段，未实测*
@@ -50,7 +50,7 @@ iVampireSP 负责 php 部分，BingYanchi 负责 python 部分
 │
 └── python program directory
     ├── main.py (主程序)
-    ├── config.yml (配置文件)
+    ├── config.ini (配置文件)
     ├── http.py (http 模块)
     └── ftp.py (ftp 模块)
 ```
