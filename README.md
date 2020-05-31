@@ -62,4 +62,3 @@ iVampireSP 负责 php 部分，BingYanchi 负责 python 部分
 
 ### 已知问题
 * 管理员后台模板问题，但是不影响使用
-* Python 部分 工作日暂缓更新
