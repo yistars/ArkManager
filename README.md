@@ -59,6 +59,7 @@ iVampireSP 负责 php 部分，BingYanchi 负责 python 部分
 * FTP 功能
 * Python 面向对象
 * 节点配置文件独立
+* 更加完整的Wiki
 
 ### 已知问题
 * 管理员后台模板问题，但是不影响使用
