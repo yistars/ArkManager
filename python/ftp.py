@@ -1,4 +1,5 @@
-import thread
+import _thread
+import pyftpdlib
 
 class ftp_server:
    def __init__(self):
@@ -18,5 +19,5 @@ class ftp_server:
 
 this_ftp = ftp_server()
 
-thread.Threading(this_ftp.run,()).start()
-thread.Threading(this_ftp.add_user,('user','password',".",'elradfmwM')).start() #add user while server running
+_thread.Threading(this_ftp.run,()).start()
+_thread.Threading(this_ftp.add_user,('user','password',".",'elradfmwM')).start() #add user while server running
