@@ -37,7 +37,7 @@ checkLogin($db_con);
     <div class="mdui-textfield">
         <label class="mdui-textfield-label"><?php echo $lang['controlc4']; ?></label>
         <input class="mdui-textfield-input" type="text" name="more"
-            placeholder="如：-UseBattlEye -servergamelog -ServerRCONOutputTribeLogs -useallavailablecores" />
+            placeholder="Example: -UseBattlEye -servergamelog -ServerRCONOutputTribeLogs -useallavailablecores" />
     </div>
     <input style="display: none" type="text" value="start" name="action" />
 </form>
