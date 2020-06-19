@@ -17,6 +17,8 @@ iVampireSP 负责 php 部分，BingYanchi 负责 python 部分
 
 前往我们的论坛：https://f.yistars.net/ 注册并开始预约吧！
 
+官方 wiki 正在创建中...
+
 ## 使用方法
 ### php 部分
 前提：如果您的服务器禁用了php的 `exec` 函数，请解除。如果您的系统没有安装 `curl` ，请安装。
