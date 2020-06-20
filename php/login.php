@@ -11,7 +11,7 @@ require_once('config/functions.php');
 </head>
 
     <?php mduiBody(); mduiHeader($lang['loginHeader']) ; mduiMenu(); ?>
-    <form name="reg" method="post" action="login.php">
+    <form name="login" method="post" action="login.php">
         <div class="mdui-textfield mdui-textfield-floating-label">
             <i class="mdui-icon material-icons">account_circle</i>
             <label class="mdui-textfield-label"><?php echo $lang['loginUsername']; ?></label>
