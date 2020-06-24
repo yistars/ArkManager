@@ -11,6 +11,8 @@
 
 当前版本为社区版本，如有 bug 可以发 issue
 
+** 预计此项目将在 6月底 出正式版本 **
+
 iVampireSP 负责 php 部分，BingYanchi 负责 python 部分
 
 注意：目前仅支持Windows。后续会支持更多版本！
