@@ -5,10 +5,10 @@ from pyftpdlib.servers import FTPServer
 
 class ftp_server(threading.Thread):
    def __init__(self):
+       super(ftp_server, self).__init__(name='ftp_server')
        self.authorizer = DummyAuthorizer()
        self.authorizer.add_user('admin', 'password', '.', perm='elradfmwM')
-       #super(ftp_server, self).__init__(name=thread_name)
-
+       
    def run(self):
        self.handler = FTPHandler
        self.handler.authorizer = self.authorizer
@@ -21,4 +21,4 @@ class ftp_server(threading.Thread):
 
 
 ftp_server().start
-ftp_server.add_user('user','password',".",'elradfmwM') #add user while server running
+ftp_server.add_user('user','password',".",'elradfmwM').run
