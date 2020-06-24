@@ -1,12 +1,13 @@
-import _thread
+import threading
 from pyftpdlib.authorizers import DummyAuthorizer
 from pyftpdlib.handlers import FTPHandler
 from pyftpdlib.servers import FTPServer
 
-class ftp_server:
+class ftp_server(threading.Thread):
    def __init__(self):
        self.authorizer = DummyAuthorizer()
        self.authorizer.add_user('admin', 'password', '.', perm='elradfmwM')
+       #super(ftp_server, self).__init__(name=thread_name)
 
    def run(self):
        self.handler = FTPHandler
@@ -18,7 +19,6 @@ class ftp_server:
    def add_user(self,user,passwd,loc,privi):
        self.authorizer.add_user(str(user), str(passwd), str(loc), perm=str(privi))
 
-this_ftp = ftp_server()
 
-_thread.start_new_thread(this_ftp.run,())
-_thread.start_new_thread(this_ftp.add_user,('user','password',".",'elradfmwM')) #add user while server running
+ftp_server().start
+ftp_server.add_user('user','password',".",'elradfmwM') #add user while server running
