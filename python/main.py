@@ -1,5 +1,6 @@
 # Main For Arkmanager
 # By Bing_Yanchi
+# DO NOT CHANGE
 import yaml,os,sys,threading,socket
 
 # 检测文件完整性
@@ -13,16 +14,16 @@ else:
 
 class main(object):
     config = 'config.yml'
-    def __init__(self, host, port, token, path, channel_port):
-        self.run_ftp()
-        self.run_http(host, port, token, path, channel_port)
+    def __init__(self, ftp_host, ftp_port, http_host, http_port, token, path, channel_port):
+        self.run_ftp(ftp_host, ftp_port)
+        self.run_http(http_host, http_port, token, path, channel_port)
 
     def run_http(self, host, port, token, path, channel_port):
         self.th_http = http.main(host, port, token, path, channel_port)
         self.th_http.start()
 
-    def run_ftp(self):
-        self.th_ftp = ftp.ftp_server()
+    def run_ftp(self, host, port):
+        self.th_ftp = ftp.ftp_server.run()
         self.th_ftp.start()
 
     def ftp_add_user(self):
@@ -77,7 +78,7 @@ class config(object):
 
     def create_config(self):
         with open(self.config, 'w') as f:
-            raw_data = [{'http':{'host':'0.0.0.0','port':'4444','token':'123456','path':"D:/dir/dir"},'ftp':{}}]
+            raw_data = [{'global':{'ftp_host':'0.0.0.0','ftp_port':'21','http_host':'0.0.0.0','http_port':'4444','token':'123456','path':"D:/dir/dir"},'ftp':{}}]
             with open(self.config, 'w') as f:
                 data = yaml.dump(raw_data, f)
 
@@ -96,9 +97,8 @@ public_data = {}
 if __name__ == "__main__":
     config('config.yml')
     public_channel_server()
-    http_data = public_data[0]['http']
-    #print(http_data)
-    main(http_data['host'], http_data['port'], http_data['token'], http_data['path'], public_channel_port)
+    global_data = public_data[0]['global']
+    main(global_data['ftp_host'], global_data['ftp_host'], global_data['http_host'], global_data['http_port'], global_data['token'], global_data['path'], public_channel_port)
 
     while True:
         pass
