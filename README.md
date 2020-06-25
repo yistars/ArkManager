@@ -33,9 +33,15 @@
 ### python 部分
 要求：Python 3 以上
 
-在命令行（Win 键 + R）输入 `pip install pyyaml`
+在命令行（Win 键 + R）输入 `cmd`，然后依次输入：
 
-将 python 中的文件放在节点上并运行 (位置随意)
+`pip install pyyaml`
+
+`pip install pyftpdlib`
+
+将`python`中的文件放在节点上并运行 (位置随意)
+
+运行`start.bat`
 
 可修改 `config.ini` 的内容以配置相关设置
 
@@ -49,7 +55,8 @@
     ├── main.py (主程序)
     ├── config.ini (配置文件)
     ├── http.py (http 模块)
-    └── ftp.py (ftp 模块)
+    ├── ftp.py (ftp 模块)
+    └── start.bat (运行脚本)
 ```
 
 ### 未来目标
