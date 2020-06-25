@@ -7,19 +7,13 @@
 **警告**
 *当前储存库内容为开发中内容，暂不可用，点击[这里](https://github.com/yistars/ArkManager/releases)获取较稳定版本。*
 
-由 iVampireSP, BingYanchi 共同创建
-
 当前版本为社区版本，如有 bug 可以发 issue
 
-** 预计此项目将在 6月底 出正式版本 **
-
-iVampireSP 负责 php 部分，BingYanchi 负责 python 部分
+**预计此项目将在 6月底 出正式版本 *
 
 注意：目前仅支持Windows。后续会支持更多版本！
 
 前往我们的论坛：https://f.yistars.net/ 注册并开始预约吧！
-
-官方 wiki 正在创建中...
 
 ## 使用方法
 ### php 部分
@@ -39,7 +33,7 @@ iVampireSP 负责 php 部分，BingYanchi 负责 python 部分
 ### python 部分
 要求：Python 3 以上
 
-在命令行（Win 键 + R）输入`pip install pyyaml`
+在命令行（Win 键 + R）输入 `pip install pyyaml`
 
 将 python 中的文件放在节点上并运行 (位置随意)
 
@@ -60,6 +54,7 @@ iVampireSP 负责 php 部分，BingYanchi 负责 python 部分
 ```
 
 ### 未来目标
+* FTP 功能
 * Python 面向对象
 * 节点配置文件独立
 * 更加完整的Wiki
