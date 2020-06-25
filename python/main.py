@@ -71,7 +71,7 @@ class public_channel_server(object):
 class config(object):
     def __init__(self, config):
         print('[INFO] Checking file integrity...')
-        self.config = os.path.abspath(os.path.dirname(__file__)) + config
+        self.config = os.path.abspath(os.path.dirname(__file__)) + '/'+ config
         # 若配置文件不存在，则创建空白配置文件
         if (self.config) == False:
             self.create_config(config)
