@@ -125,9 +125,10 @@ class http(object):
         self.server_socket.close()
 
 class public_channel_client(object):
-    def __init__(self, port):
+    def __init__(self):
         self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.client.connect(('localhost', port))
+        global public_clannel_port
+        self.client.connect(('localhost', public_clannel_port))
 
     def run(self, data):
         self.client.send('POST /?' + data)
@@ -135,6 +136,8 @@ class public_channel_client(object):
     def __del__(self):
         self.client.close()
 
+public_clannel_port = 0
 def main(HOST, PORT, token, path, clannel_port):
     http(HOST, int(PORT)).run(token, path)
-    public_channel_client(clannel_port)
+    global public_clannel_port
+    public_clannel_port = clannel_port
