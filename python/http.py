@@ -2,6 +2,7 @@
 # By Bing_Yanchi
 # DO NOT CHANGE
 import os,socket,base64,shutil,threading
+from queue import Queue
 # 创建服务器类
 class http(object):
     def __init__(self, HOST, PORT):
@@ -16,13 +17,13 @@ class http(object):
         # 信息输出
         print('[INFO] Serving HTTP on port %s ...' % PORT)
 
-    def run(self, token, path):
+    def run(self, token, path, out_q):
         while True:
             # 等待客户端连接
             client_socket, ip_port = self.server_socket.accept()
-            threading.Thread(target=self.task, args=(client_socket, ip_port, token, path), daemon=True).start()
+            threading.Thread(target=self.task, args=(client_socket, ip_port, token, path, out_q), daemon=True).start()
 
-    def task(self, client_socket, ip_port, token, path):
+    def task(self, client_socket, ip_port, token, path, out_q):
         # 接收数据
         recv_data = client_socket.recv(1024).decode('utf-8')
         # 拆分换行符便于检索
@@ -56,14 +57,14 @@ class http(object):
                     right = self.server_kill(data['servername'], path)
                     right = self.server_delete(data['servername'], path)
                 elif data['action'] == 'ftp':
-                    if ('type' in data) and ('username' in data) and ('password' in data):
+                    if ('type' in data) and ('username' in data):
                         if data['type'] == 'add':
-                            right = self.ftp_add(data['username'],data['password'],data['servername'],path)
+                            right = self.ftp_add(data['username'],data['password'],data['servername'],path,out_q)
                         elif data['type'] == 'del':
-                            right = self.ftp_add(data['username'],data['servername'],path)
+                            right = self.ftp_del(data['username'],data['servername'],out_q)
                         elif data['type'] == 'edit':
-                            right = self.ftp_add(data['username'],data['password'],data['servername'],path)
-                            right = self.ftp_add(data['servername'],path)
+                            right = self.ftp_add(data['username'],data['password'],data['servername'],path,out_q)
+                            right = self.ftp_del(data['username'],data['servername'],out_q)
         # 返回状态码
         if right:
             http_response = """/
@@ -110,14 +111,16 @@ class http(object):
         print('[INFO] Delete Server {}'.format(servername))
         return True
 
-    def ftp_add(self, username, password, servername, path):
-        data = 'type=add&username={}&password={}&servername={}&path={}/{}'.format(username,password,servername,path,servername)
-        public_channel_client.run(data)
+    def ftp_add(self, username, password, servername, path, out_q):
+        data = 'type=add&username={}&password={}&servername={}&path={}\\{}'.format(username,password,servername,path,servername)
+        send = public_channel_client(out_q)
+        send.run(data)
         return True
     
-    def ftp_del(self, servername):
-        data = 'type=del&servername={}'.format(servername)
-        public_channel_client.run(data)
+    def ftp_del(self, username, servername, out_q):
+        data = 'type=del&username={}&servername={}'.format(username,servername)
+        send = public_channel_client(out_q)
+        send.run(data)
         return True
 
     def __del__(self):
@@ -125,19 +128,12 @@ class http(object):
         self.server_socket.close()
 
 class public_channel_client(object):
-    def __init__(self):
-        self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        global public_clannel_port
-        self.client.connect(('localhost', public_clannel_port))
+    def __init__(self, out_q):
+        self.q = out_q
 
     def run(self, data):
-        self.client.send('POST /?' + data)
+        self.q.put(data)
 
-    def __del__(self):
-        self.client.close()
-
-public_clannel_port = 0
-def main(HOST, PORT, token, path, clannel_port):
-    http(HOST, int(PORT)).run(token, path)
-    global public_clannel_port
-    public_clannel_port = clannel_port
+def main(HOST, PORT, token, path, out_q):
+    http(HOST, int(PORT)).run(token, path, out_q)
+    
