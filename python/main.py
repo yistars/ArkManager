@@ -2,6 +2,8 @@
 # By Bing_Yanchi
 # DO NOT CHANGE
 import yaml,os,sys,threading,socket
+from threading import Thread
+from queue import Queue
 
 # 检测文件完整性
 if os.path.exists(os.path.abspath(os.path.dirname(__file__)) + '/http.py') == False or os.path.exists(os.path.abspath(os.path.dirname(__file__)) + '/ftp.py') == False:
@@ -13,17 +15,53 @@ else:
     import ftp
 
 class main(object):
-    def __init__(self, ftp_host, ftp_port, http_host, http_port, token, path, channel_port):
+    def __init__(self, ftp_host, ftp_port, http_host, http_port, token, path, q):
         self.run_ftp(ftp_host, ftp_port)
-        self.run_http(http_host, http_port, token, path, channel_port)
+        self.run_http(http_host, http_port, token, path, q)
+        self.run_q(q)
 
     def run_http(self, host, port, token, path, channel_port):
-        self.th_http = http.main(host, port, token, path, channel_port)
+        self.th_http = Thread(target=http.main, args=(host, port, token, path, channel_port))
         self.th_http.start()
 
     def run_ftp(self, host, port):
         self.th_ftp = ftp.ftp_server(host, port)
         self.th_ftp.start()
+        global public_data
+        data = public_data[0]['user'] 
+        user_data = [key for key,value in data.items()]
+        for i in range(len(user_data)):
+            self.ftp_add_user(data[user_data[i]]['username'], data[user_data[i]]['password'], data[user_data[i]]['path'])
+
+    def run_q(self, in_q):
+        while True:
+            get_data = q.get()
+            parameter = get_data.split('&')
+            data = {}
+            for a in range(len(parameter)):
+                single = parameter[a].split('=', 1)
+                if len(single) == 2:
+                    data[single[0]] = single[1]
+            global public_data
+            if data['type'] == 'add':
+                try:
+                    self.ftp_add_user(data['username'],data['password'],data['path'])
+                except:
+                    print('[ERROE] Create ftp user for {} error, cannot find folder or the user already exists'.format(data['servername']))
+                else:
+                    user_data = {'username':data['username'],'password':data['password'],'path':data['path']}
+                    public_data[0]['user'][data['servername']] = user_data
+                    config().update_config()
+                    print('[INFO] Create ftp user for {}'.format(data['servername']))
+            elif data['type'] == 'del':
+                try:
+                    self.ftp_del_user(data['username'])
+                    del public_data[0]['user'][data['servername']]
+                except:
+                    print('[ERROE] Delete ftp user for {} error, the username or server name cannot be found'.format(data['servername']))
+                else:
+                    config().update_config()
+                    print('[INFO] Delete ftp user for {}'.format(data['servername']))
 
     def ftp_add_user(self, user, passwd, loc):
         self.th_ftp.add_user(user, passwd, loc)
@@ -31,62 +69,9 @@ class main(object):
     def ftp_del_user(self, user):
         self.th_ftp.del_user(user)
 
-class public_channel_server(object):
-    def __init__(self):
-        # 创建Socket对象
-        self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        # 设置端口复用
-        self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, True)
-        # 绑定IP端口
-        self.server_socket.bind(('localhost', 0))
-        # 设置监听
-        self.server_socket.listen(128)
-        # 获取端口
-        global public_channel_port
-        public_channel_port = self.server_socket.getsockname()[1]
-        # 信息输出
-        print('[INFO] Serving public_channel_server on port %s ...' % public_channel_port)
-
-    def run(self, token, path):
-        while True:
-            # 等待客户端连接
-            client_socket, ip_port = self.server_socket.accept()
-            threading.Thread(target=self.task, args=(client_socket, ip_port, token, path), daemon=True).start()
-    
-    def task(self, client_socket, ip_port, token, path):
-        # 接收数据
-        recv_data = client_socket.recv(1024).decode('utf-8')
-        # 拆分换行符便于检索
-        info = recv_data.split('\n')
-        for i in range(len(info)):
-            if info[i].find('POST') == 0:
-                # 拆分 POST 和 地址
-                post = info[i].split(' ')
-                parameter = post[1].lstrip('/?').split('&')
-                data = {}
-                for a in range(len(parameter)):
-                    single = parameter[a].split('=', 1)
-                    if len(single) == 2:
-                        data[single[0]] = single[1]
-                global public_data
-                if data['type'] == 'add':
-                    main.ftp_add_user(data['username'],data['password'],data['path'])
-                    user_data = {'username':data['username'],'password':data['password'],'path':data['path']}
-                    public_data[0]['user'][data['servername']] = user_data
-                    config.update_config()
-                elif data['type'] == 'add':
-                    main.ftp_del_user(data['username'])
-                    del public_data[0]['user'][data['servername']]
-                    config.update_config()
-
 class config(object):
-    def __init__(self, config):
-        print('[INFO] Checking file integrity...')
-        self.config = os.path.abspath(os.path.dirname(__file__)) + '\\'+ config
-        # 若配置文件不存在，则创建空白配置文件
-        if (os.path.exists(self.config)) == False:
-            self.create_config()
-        self.read_config()
+    def __init__(self):
+        self.config = os.path.abspath(os.path.dirname(__file__)) + '\\'+ 'config.yml'
 
     def create_config(self):
         with open(self.config, 'w') as f:
@@ -106,14 +91,18 @@ class config(object):
                 global public_data
                 data = yaml.dump(public_data, f)
 
-public_channel_port = 0
 public_data = {}
+q = Queue()
 
 if __name__ == "__main__":
-    config('config.yml')
-    public_channel_server()
+    print('[INFO] Checking file integrity...')
+    
+    config_path = os.path.abspath(os.path.dirname(__file__)) + '\\'+ 'config.yml'
+    # 若配置文件不存在，则创建空白配置文件
+    if (os.path.exists(config_path)) == False:
+        config().create_config()
+    config().read_config()
+
     global_data = public_data[0]['global']
-    main(global_data['ftp_host'], global_data['ftp_port'], global_data['http_host'], global_data['http_port'], global_data['token'], global_data['path'], public_channel_port)
-    # 确保运行
-    while True:
-        pass
+    main(global_data['ftp_host'], global_data['ftp_port'], global_data['http_host'], global_data['http_port'], global_data['token'], global_data['path'],q)
+
