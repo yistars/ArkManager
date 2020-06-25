@@ -58,11 +58,12 @@ class http(object):
                 elif data['action'] == 'ftp':
                     if ('type' in data) and ('username' in data) and ('password' in data):
                         if data['type'] == 'add':
-                            right = True
+                            right = self.ftp_add(data['username'],data['password'],data['servername'],path)
                         elif data['type'] == 'del':
-                            right = True
+                            right = self.ftp_add(data['username'],data['servername'],path)
                         elif data['type'] == 'edit':
-                            right = True
+                            right = self.ftp_add(data['username'],data['password'],data['servername'],path)
+                            right = self.ftp_add(data['username'],data['servername'],path)
         # 返回状态码
         if right:
             http_response = """/
@@ -109,9 +110,14 @@ class http(object):
         print('[INFO] Delete Server {}'.format(servername))
         return True
 
-    def ftp_add(self, username, password, servername):
-        data = 'username:{}&password:{}&' 
-        public_channel_client.run()
+    def ftp_add(self, username, password, servername, path):
+        data = 'type=add&username={}&password={}&loc={}/{}'.format(username,password,path,servername)
+        public_channel_client.run(data)
+        return True
+    
+    def ftp_del(self, username, servername, path):
+        data = 'type=del&username={}&loc={}/{}'.format(username,path,servername)
+        public_channel_client.run(data)
         return True
 
     def __del__(self):

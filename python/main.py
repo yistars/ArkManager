@@ -23,7 +23,7 @@ class main(object):
         self.th_http.start()
 
     def run_ftp(self, host, port):
-        self.th_ftp = ftp.ftp_server.run()
+        self.th_ftp = ftp.ftp_server(host, port)
         self.th_ftp.start()
 
     def ftp_add_user(self):
@@ -78,7 +78,7 @@ class config(object):
 
     def create_config(self):
         with open(self.config, 'w') as f:
-            raw_data = [{'global':{'ftp_host':'0.0.0.0','ftp_port':'21','http_host':'0.0.0.0','http_port':'4444','token':'123456','path':"D:/dir/dir"},'ftp':{}}]
+            raw_data = [{'global':{'ftp_host':'0.0.0.0','ftp_port':'21','http_host':'0.0.0.0','http_port':'4444','token':'123456','path':"D:/dir/dir"},'user':{}}]
             with open(self.config, 'w') as f:
                 data = yaml.dump(raw_data, f)
 
@@ -88,7 +88,10 @@ class config(object):
         global public_data
         public_data = data
     
-    def write_config(self):
+    def write_data(self):
+        global public_data
+    
+    def delete_data(self):
         global public_data
 
 public_channel_port = 0
@@ -98,7 +101,7 @@ if __name__ == "__main__":
     config('config.yml')
     public_channel_server()
     global_data = public_data[0]['global']
-    main(global_data['ftp_host'], global_data['ftp_host'], global_data['http_host'], global_data['http_port'], global_data['token'], global_data['path'], public_channel_port)
+    main(global_data['ftp_host'], global_data['ftp_port'], global_data['http_host'], global_data['http_port'], global_data['token'], global_data['path'], public_channel_port)
 
     while True:
         pass
