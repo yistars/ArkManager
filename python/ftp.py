@@ -21,5 +21,5 @@ class ftp_server(threading.Thread):
 
 if __name__ == '__main__':
     server = ftp_server()
-    server.add_user('user','password',".",'elradfmwM')
     server.start()
+    server.add_user('user','password',".",'elradfmwM')
