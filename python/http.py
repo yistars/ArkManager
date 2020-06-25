@@ -110,6 +110,7 @@ class http(object):
         return True
 
     def ftp_add(self, username, password, servername):
+        data = 'username:{}&password:{}&' 
         public_channel_client.run()
         return True
 
