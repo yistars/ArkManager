@@ -107,8 +107,12 @@ class http(object):
         shutil.rmtree('{}/{}/ShooterGame/Content'.format(path,servername))
         os.makedirs('{}/{}/ShooterGame/Content'.format(path,servername))
         print('[INFO] Delete Server {}'.format(servername))
-        return True        
-        
+        return True
+
+    def ftp_add(self, username, password, servername):
+        public_channel_client.run()
+        return True
+
     def __del__(self):
         # 当服务端程序结束时停止服务器服务
         self.server_socket.close()
@@ -116,7 +120,7 @@ class http(object):
 class public_channel_client(object):
     def __init__(self, port):
         self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.client.connect(('127.0.0.1', port))
+        self.client.connect(('localhost', port))
 
     def run(self, data):
         self.client.send('POST /?' + data)
@@ -125,5 +129,5 @@ class public_channel_client(object):
         self.client.close()
 
 def main(HOST, PORT, token, path, clannel_port):
-    http(HOST, PORT).run(token, path)
+    http(HOST, int(PORT)).run(token, path)
     public_channel_client(clannel_port)
