@@ -1,37 +1,32 @@
 # Main For Arkmanager
 # By Bing_Yanchi
-import yaml,os,threading,sys
-import time
-import threading
-import http
-import ftp
-import socket
+import yaml,os,sys,threading,socket
+
+# 检测文件完整性
+if os.path.exists(os.path.abspath(os.path.dirname(__file__)) + '/http.py') == False or os.path.exists(os.path.abspath(os.path.dirname(__file__)) + '/ftp.py') == False:
+    print('[EROOR] File is missing, please try to download the program again')
+    input('Press enter to end...')
+    sys.exit()
+else:
+    import http
+    import ftp
 
 class main(object):
     config = 'config.yml'
     def __init__(self, path, channel_port):
         self.run_ftp()
         self.run_http(path, channel_port)
-        
-    def create_config(self, config):
-        with open(config, 'w') as f:
-            raw_data = [{'http':{'host':'0.0.0.0','port':'4444','token':'123456','path':"D:/dir/dir"},'ftp':{}}]
-            with open(config, 'w') as f:
-                data = yaml.dump(raw_data, f)
-
-    def read_config(self, config):
-        with open(config) as f:
-            data = yaml.load(f)
-            print(data)
 
     def run_http(self, path, channel_port):
-        th_http = http.main('127.0.0.1', 4444, '123456', path, channel_port)
-        th_http.start()
+        self.th_http = http.main('127.0.0.1', 4444, '123456', path, channel_port)
+        self.th_http.start()
 
     def run_ftp(self):
-        th_ftp = ftp.ftp_server()
-        th_ftp.start()
-        #th_ftp.add_user('user','password',".",'elradfmwM')
+        self.th_ftp = ftp.ftp_server()
+        self.th_ftp.start()
+
+    def ftp_add_user(self):
+        self.th_ftp.add_user('user','password',".",'elradfmwM')
 
 class public_channel_server(object):
     def __init__(self):
@@ -76,23 +71,28 @@ class public_channel_server(object):
 class config(object):
     def __init__(self, config):
         print('[INFO] Checking file integrity...')
-        # 检查文件完整性
-        #if not os.path.exists('http.py'):
-        #    print('[EROOR] File is missing, please try to download the program again')
-        #    input('Press enter to end...')
-        #    sys.exit()
         # 若配置文件不存在，则创建空白配置文件
-        #if os.path.exists(config) == False:
-        #    self.create_config(config)
+        if (os.path.abspath(os.path.dirname(__file__)) + config) == False:
+            self.create_config(config)
         #self.read_config(config)
-        self.main_socket()
-        self.run_ftp()
-        self.run_http(module)
+
+    def create_config(self, config):
+        with open(config, 'w') as f:
+            raw_data = [{'http':{'host':'0.0.0.0','port':'4444','token':'123456','path':"D:/dir/dir"},'ftp':{}}]
+            with open(config, 'w') as f:
+                data = yaml.dump(raw_data, f)
+
+    def read_config(self, config):
+        with open(config) as f:
+            data = yaml.load(f)
+            print(data)
 
 public_channel_port = 0
+
 if __name__ == "__main__":
+    config('config.yml')
     public_channel_server()
     main('module', public_channel_port)
-    config('config.yml')
+
     while True:
         pass

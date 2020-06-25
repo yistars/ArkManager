@@ -119,7 +119,7 @@ class public_channel_client(object):
         self.client.connect(('127.0.0.1', port))
 
     def run(self, data):
-        self.client.send('POST ' + data)
+        self.client.send('POST /?' + data)
 
     def __del__(self):
         self.client.close()
