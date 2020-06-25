@@ -4,12 +4,7 @@
 ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/yistars/ArkManager?include_prereleases)
 ![GitHub All Releases](https://img.shields.io/github/downloads/yistars/ArkManager/total)
 
-**警告**
-*当前储存库内容为开发中内容，可能存在bug，点击[这里](https://github.com/yistars/ArkManager/releases)获取较稳定版本。*
-
-当前版本为社区版本，如有 bug 可以发 issue
-
-**预计此项目将在 6月底 出正式版本 *
+**预计此项目将在 6月底 出正式版本**
 
 注意：目前仅支持Windows。后续会支持更多操作系统！
 
