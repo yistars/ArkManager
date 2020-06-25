@@ -86,6 +86,9 @@ class config(object):
             data = yaml.load(f, Loader=yaml.FullLoader)
         global public_data
         public_data = data
+    
+    def write_config(self):
+        global public_data
 
 public_channel_port = 0
 public_data = {}
@@ -94,6 +97,7 @@ if __name__ == "__main__":
     config('config.yml')
     public_channel_server()
     http_data = public_data[0]['http']
+    #print(http_data)
     main(http_data['host'], http_data['port'], http_data['token'], http_data['path'], public_channel_port)
 
     while True:
