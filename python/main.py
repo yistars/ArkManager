@@ -1,10 +1,10 @@
 # Main For Arkmanager
 # By Bing_Yanchi
 import yaml,os,threading,sys
-import _thread
 import time
 import threading
 import http
+import ftp
 
 class main(object):
     config = 'config.yml'
@@ -16,11 +16,12 @@ class main(object):
         #    input('Press enter to end...')
         #    sys.exit()
         # 若配置文件不存在，则创建空白配置文件
-        if os.path.exists(config) == False:
-            self.create_config(config)
-        self.read_config(config)
+        #if os.path.exists(config) == False:
+        #    self.create_config(config)
+        #self.read_config(config)
+        self.run_ftp()
         self.run_http(module)
-
+        
     def create_config(self, config):
         with open(config, 'w') as f:
             raw_data = [{'http':{'host':'0.0.0.0','port':'4444','token':'123456','path':"D:/dir/dir"},'ftp':{}}]
@@ -33,13 +34,12 @@ class main(object):
             print(data)
 
     def run_http(self, module):
-        th_http = threading.Thread(target=http.main, args=('127.0.0.1',4444,'123456','D:/'))
+        th_http = http.main('127.0.0.1',4444,'123456','D:/')
         th_http.start()
-        time.sleep(10)
-        th_http.join()
 
-    def run_ftp(self, module):
-        _thread.start_new_thread(http('127.0.0.1','4444').main, ('123456','D:/'))
+    def run_ftp(self):
+        th_ftp = ftp.ftp_server()
+        th_ftp.start()
 
 if __name__ == "__main__":
     main('config.yml', 'module')
