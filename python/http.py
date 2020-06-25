@@ -94,19 +94,36 @@ class http(object):
         return True
 
     def server_init(self, servername, path):
-        shutil.copytree('{}/ExampleServer'.format(path,servername),'{}/{}'.format(path,servername))
-        print('[INFO] Init Server {}'.format(servername))
-        return True
+        try:
+            shutil.copytree('{}/ExampleServer'.format(path,servername),'{}/{}'.format(path,servername))
+        except:
+            print('[ERROE] Init Server {} error, folder already exists'.format(servername))
+            return False
+        else:
+            print('[INFO] Init Server {}'.format(servername))
+            return True
 
     def server_delete(self, servername, path):
         shutil.rmtree('{}/{}/ShooterGame/Content'.format(path,servername))
         os.makedirs('{}/{}/ShooterGame/Content'.format(path,servername))
         print('[INFO] Delete Server {}'.format(servername))
-        return True
-
+        return True        
+        
     def __del__(self):
         # 当服务端程序结束时停止服务器服务
         self.server_socket.close()
-    
-def main(HOST, PORT, token, path):
+
+class public_channel_client(object):
+    def __init__(self, port):
+        self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.client.connect(('127.0.0.1', port))
+
+    def run(self, data):
+        self.client.send('POST ' + data)
+
+    def __del__(self):
+        self.client.close()
+
+def main(HOST, PORT, token, path, clannel_port):
     http(HOST, PORT).run(token, path)
+    public_channel_client(clannel_port)
