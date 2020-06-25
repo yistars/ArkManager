@@ -64,4 +64,4 @@
 * 管理员后台模板问题，但是不影响使用
 
 ### 特别鸣谢
-[pyftpdlib](https://github.com/giampaolo/pyftpdlib)
+* [pyftpdlib](https://github.com/giampaolo/pyftpdlib)
