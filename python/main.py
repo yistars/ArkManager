@@ -35,7 +35,7 @@ class public_channel_server(object):
         # 设置端口复用
         self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, True)
         # 绑定IP端口
-        self.server_socket.bind(('127.0.0.1', 0))
+        self.server_socket.bind(('localhost', 0))
         # 设置监听
         self.server_socket.listen(128)
         # 获取端口
@@ -77,13 +77,13 @@ class config(object):
             self.create_config(config)
         self.read_config(config)
 
-    def create_config(self, config):
+    def create_config(self):
         with open(self.config, 'w') as f:
             raw_data = [{'http':{'host':'0.0.0.0','port':'4444','token':'123456','path':"D:/dir/dir"},'ftp':{}}]
             with open(config, 'w') as f:
                 data = yaml.dump(raw_data, f)
 
-    def read_config(self, config):
+    def read_config(self):
         with open(self.config) as f:
             data = yaml.load(f)
             print(data)
