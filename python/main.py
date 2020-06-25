@@ -9,9 +9,9 @@ import socket
 
 class main(object):
     config = 'config.yml'
-    def __init__(self, module):
+    def __init__(self, path, channel_port):
         self.run_ftp()
-        self.run_http(module)
+        self.run_http(path, channel_port)
         
     def create_config(self, config):
         with open(config, 'w') as f:
@@ -24,19 +24,14 @@ class main(object):
             data = yaml.load(f)
             print(data)
 
-    def run_http(self, module):
-        th_http = http.main('127.0.0.1',4444,'123456','D:/')
+    def run_http(self, path, channel_port):
+        th_http = http.main('127.0.0.1', 4444, '123456', path, channel_port)
         th_http.start()
 
     def run_ftp(self):
         th_ftp = ftp.ftp_server()
         th_ftp.start()
-        th_ftp.add_user('user','password',".",'elradfmwM')
-
-    def main_socket(self):
-        s = socket.socket()
-        s.bind(('', 0))
-        print(s.getsockname()[1])
+        #th_ftp.add_user('user','password',".",'elradfmwM')
 
 class public_channel_server(object):
     def __init__(self):
@@ -53,7 +48,6 @@ class public_channel_server(object):
         public_channel_port = self.server_socket.getsockname()[1]
         # 信息输出
         print('[INFO] Serving public_channel_server on port %s ...' % public_channel_port)
-        
 
     def run(self, token, path):
         while True:
@@ -80,7 +74,7 @@ class public_channel_server(object):
                         data[single[0]] = single[1]
 
 class config(object):
-    def __init__(self, config, module):
+    def __init__(self, config):
         print('[INFO] Checking file integrity...')
         # 检查文件完整性
         #if not os.path.exists('http.py'):
@@ -98,8 +92,7 @@ class config(object):
 public_channel_port = 0
 if __name__ == "__main__":
     public_channel_server()
-    main('module')
+    main('module', public_channel_port)
     config('config.yml')
-    
     while True:
         pass
