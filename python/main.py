@@ -13,12 +13,12 @@ else:
 
 class main(object):
     config = 'config.yml'
-    def __init__(self, path, channel_port):
+    def __init__(self, host, port, token, path, channel_port):
         self.run_ftp()
-        self.run_http(path, channel_port)
+        self.run_http(host, port, token, path, channel_port)
 
-    def run_http(self, path, channel_port):
-        self.th_http = http.main('127.0.0.1', 4444, '123456', path, channel_port)
+    def run_http(self, host, port, token, path, channel_port):
+        self.th_http = http.main(host, port, token, path, channel_port)
         self.th_http.start()
 
     def run_ftp(self):
@@ -85,8 +85,7 @@ class config(object):
         with open(self.config) as f:
             data = yaml.load(f, Loader=yaml.FullLoader)
         global public_data
-        first_data = data[0]
-        
+        public_data = data
 
 public_channel_port = 0
 public_data = {}
@@ -94,7 +93,8 @@ public_data = {}
 if __name__ == "__main__":
     config('config.yml')
     public_channel_server()
-    main('module', public_channel_port)
+    http_data = public_data[0]['http']
+    main(http_data['host'], http_data['port'], http_data['token'], http_data['path'], public_channel_port)
 
     while True:
         pass
