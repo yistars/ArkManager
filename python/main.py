@@ -55,8 +55,6 @@ class public_channel_server(object):
         recv_data = client_socket.recv(1024).decode('utf-8')
         # 拆分换行符便于检索
         info = recv_data.split('\n')
-        # 设定是否返回200
-        right = False
         for i in range(len(info)):
             if info[i].find('POST') == 0:
                 # 拆分 POST 和 地址
@@ -71,24 +69,27 @@ class public_channel_server(object):
 class config(object):
     def __init__(self, config):
         print('[INFO] Checking file integrity...')
-        self.config = os.path.abspath(os.path.dirname(__file__)) + '/'+ config
+        self.config = os.path.abspath(os.path.dirname(__file__)) + '\\'+ config
         # 若配置文件不存在，则创建空白配置文件
-        if (self.config) == False:
-            self.create_config(config)
-        self.read_config(config)
+        if (os.path.exists(self.config)) == False:
+            self.create_config()
+        self.read_config()
 
     def create_config(self):
         with open(self.config, 'w') as f:
             raw_data = [{'http':{'host':'0.0.0.0','port':'4444','token':'123456','path':"D:/dir/dir"},'ftp':{}}]
-            with open(config, 'w') as f:
+            with open(self.config, 'w') as f:
                 data = yaml.dump(raw_data, f)
 
     def read_config(self):
         with open(self.config) as f:
-            data = yaml.load(f)
-            print(data)
+            data = yaml.load(f, Loader=yaml.FullLoader)
+        global public_data
+        first_data = data[0]
+        
 
 public_channel_port = 0
+public_data = {}
 
 if __name__ == "__main__":
     config('config.yml')
