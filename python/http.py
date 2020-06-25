@@ -63,7 +63,7 @@ class http(object):
                             right = self.ftp_add(data['username'],data['servername'],path)
                         elif data['type'] == 'edit':
                             right = self.ftp_add(data['username'],data['password'],data['servername'],path)
-                            right = self.ftp_add(data['username'],data['servername'],path)
+                            right = self.ftp_add(data['servername'],path)
         # 返回状态码
         if right:
             http_response = """/
@@ -111,12 +111,12 @@ class http(object):
         return True
 
     def ftp_add(self, username, password, servername, path):
-        data = 'type=add&username={}&password={}&loc={}/{}'.format(username,password,path,servername)
+        data = 'type=add&username={}&password={}&servername={}&path={}/{}'.format(username,password,servername,path,servername)
         public_channel_client.run(data)
         return True
     
-    def ftp_del(self, username, servername, path):
-        data = 'type=del&username={}&loc={}/{}'.format(username,path,servername)
+    def ftp_del(self, servername):
+        data = 'type=del&servername={}'.format(servername)
         public_channel_client.run(data)
         return True
 

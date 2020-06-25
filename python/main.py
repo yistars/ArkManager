@@ -13,7 +13,6 @@ else:
     import ftp
 
 class main(object):
-    config = 'config.yml'
     def __init__(self, ftp_host, ftp_port, http_host, http_port, token, path, channel_port):
         self.run_ftp(ftp_host, ftp_port)
         self.run_http(http_host, http_port, token, path, channel_port)
@@ -26,8 +25,11 @@ class main(object):
         self.th_ftp = ftp.ftp_server(host, port)
         self.th_ftp.start()
 
-    def ftp_add_user(self):
-        self.th_ftp.add_user('user','password',".",'elradfmwM')
+    def ftp_add_user(self, user, passwd, loc):
+        self.th_ftp.add_user(user, passwd, loc)
+
+    def ftp_del_user(self, user):
+        self.th_ftp.del_user(user)
 
 class public_channel_server(object):
     def __init__(self):
@@ -66,6 +68,16 @@ class public_channel_server(object):
                     single = parameter[a].split('=', 1)
                     if len(single) == 2:
                         data[single[0]] = single[1]
+                global public_data
+                if data['type'] == 'add':
+                    main.ftp_add_user(data['username'],data['password'],data['path'])
+                    user_data = {'username':data['username'],'password':data['password'],'path':data['path']}
+                    public_data[0]['user'][data['servername']] = user_data
+                    config.update_config()
+                elif data['type'] == 'add':
+                    main.ftp_del_user(data['username'])
+                    del public_data[0]['user'][data['servername']]
+                    config.update_config()
 
 class config(object):
     def __init__(self, config):
@@ -88,11 +100,11 @@ class config(object):
         global public_data
         public_data = data
     
-    def write_data(self):
-        global public_data
-    
-    def delete_data(self):
-        global public_data
+    def update_config(self):
+        with open(self.config, 'w') as f:
+            with open(self.config, 'w') as f:
+                global public_data
+                data = yaml.dump(public_data, f)
 
 public_channel_port = 0
 public_data = {}
@@ -102,6 +114,6 @@ if __name__ == "__main__":
     public_channel_server()
     global_data = public_data[0]['global']
     main(global_data['ftp_host'], global_data['ftp_port'], global_data['http_host'], global_data['http_port'], global_data['token'], global_data['path'], public_channel_port)
-
+    # 确保运行
     while True:
         pass
