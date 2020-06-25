@@ -18,8 +18,3 @@ class ftp_server(threading.Thread):
 
    def add_user(self,user,passwd,loc,privi):
        self.authorizer.add_user(str(user), str(passwd), str(loc), perm=str(privi))
-
-if __name__ == '__main__':
-    server = ftp_server()
-    server.start()
-    server.add_user('user','password',".",'elradfmwM')
