@@ -71,19 +71,20 @@ class public_channel_server(object):
 class config(object):
     def __init__(self, config):
         print('[INFO] Checking file integrity...')
+        self.config = os.path.abspath(os.path.dirname(__file__)) + config
         # 若配置文件不存在，则创建空白配置文件
-        if (os.path.abspath(os.path.dirname(__file__)) + config) == False:
+        if (self.config) == False:
             self.create_config(config)
-        #self.read_config(config)
+        self.read_config(config)
 
     def create_config(self, config):
-        with open(config, 'w') as f:
+        with open(self.config, 'w') as f:
             raw_data = [{'http':{'host':'0.0.0.0','port':'4444','token':'123456','path':"D:/dir/dir"},'ftp':{}}]
             with open(config, 'w') as f:
                 data = yaml.dump(raw_data, f)
 
     def read_config(self, config):
-        with open(config) as f:
+        with open(self.config) as f:
             data = yaml.load(f)
             print(data)
 
