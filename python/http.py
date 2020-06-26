@@ -78,14 +78,14 @@ class http(object):
 
     def server_start(self, args, servername, path):
         try:
-            args = base64.b64decode(args.decode("utf-8"))
+            args = base64.b64decode(args)
         except:
             print('[ERROR] Start Server {} error, wrong arg'.format(servername))
-            return True
+            return False
         else:
             os.system('start "{1}" /normal {0}/{1}/ShooterGame/Binaries/Win64/ShooterGameServer.exe {2}'.format(path,servername,args))
             print('[INFO] Start Server {}'.format(servername))
-            return False
+            return True
 
     def server_kill(self, servername, path):
         os.system('taskkill /fi "windowtitle eq {}"'.format(path,servername))
