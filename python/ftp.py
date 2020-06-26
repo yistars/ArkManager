@@ -10,7 +10,8 @@ from hashlib import md5
 class DummyMD5Authorizer(DummyAuthorizer):
    def validate_authentication(self, username, password, handler):
       if sys.version_info >= (3, 0):
-         password = md5(password.encode('latin1'))
+         new = new.strip()
+         password = md5(new.encode().hexdigest())
       hash = md5((password).strip().encode('utf-8')).hexdigest()
       try:
          if self.user_table[username]['pwd'] != hash:
