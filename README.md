@@ -4,12 +4,7 @@
 ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/yistars/ArkManager?include_prereleases)
 ![GitHub All Releases](https://img.shields.io/github/downloads/yistars/ArkManager/total)
 
-**警告**
-*当前储存库内容为开发中内容，暂不可用，点击[这里](https://github.com/yistars/ArkManager/releases)获取较稳定版本。*
-
-当前版本为社区版本，如有 bug 可以发 issue
-
-**预计此项目将在 6月底 出正式版本 *
+**预计此项目将在 6月底 出正式版本**
 
 注意：目前仅支持Windows。后续会支持更多操作系统！
 
@@ -33,9 +28,15 @@
 ### python 部分
 要求：Python 3 以上
 
-在命令行（Win 键 + R）输入 `pip install pyyaml`
+在命令行（Win 键 + R）输入 `cmd`，然后依次输入：
 
-将 python 中的文件放在节点上并运行 (位置随意)
+`pip install pyyaml`
+
+`pip install pyftpdlib`
+
+将`python`中的文件放在节点上并运行 (位置随意)
+
+运行`start.bat`
 
 可修改 `config.ini` 的内容以配置相关设置
 
@@ -49,7 +50,8 @@
     ├── main.py (主程序)
     ├── config.ini (配置文件)
     ├── http.py (http 模块)
-    └── ftp.py (ftp 模块)
+    ├── ftp.py (ftp 模块)
+    └── start.bat (运行脚本)
 ```
 
 ### 未来目标
@@ -60,3 +62,6 @@
 
 ### 已知问题
 * 管理员后台模板问题，但是不影响使用
+
+### 特别鸣谢
+* [pyftpdlib](https://github.com/giampaolo/pyftpdlib)

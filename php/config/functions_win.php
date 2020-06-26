@@ -2,6 +2,7 @@
 /*
     该文件是ArkManager的函数文件，请按需修改。如有bug，请立即向我们反馈。
     PS: 面向对象在计划中。。。
+    该文件为Linux专用。
 */
 
 /* 前提部分 */
@@ -23,8 +24,7 @@ function checkLogin($db_con)
 /* 管理员功能部分 */
 
 // 管理员：验证管理员密码
-function adminLogin($password, $admin_password)
-{
+function adminLogin($password, $admin_password) {
     if ($password == $admin_password) {
         $_SESSION['admin_login'] = 1;
         echo '<script>window.location.replace("/admin/dash.php");</script>';
@@ -255,14 +255,14 @@ function adminInitserver($serverid, $db_con)
         $ip_port = $row['ip_port'];
         $token = $row['token'];
     }
-    $shell = "nohup curl \"http://$ip_port/?token=$token&action=init&servername=$servername\" -X POST >> /dev/null 2>&1";
+    $shell = "start /b curl \"http://$ip_port/?token=$token&action=init&servername=$servername\" -X POST";
     exec($shell, $out);
     // 请求节点添加该FTP
     $shell = "curl \"http://$ip_port/?token=$token&action=ftp&type=add&username=$username&password=$password&servername=$servername\" -X POST";
     exec($shell, $out);
     $sql = "UPDATE `servers` SET `initialization` = '3' WHERE `servers`.`id` = $serverid";
     mysqli_query($db_con, $sql);
-    return '<script>alert("已经开始初始化，请稍等几分钟后操作（尽管显示完成）。大致时间由服务器性能和IO决定。");</script>';
+    return '<script>alert("已经开始初始化，请稍等十几分钟后操作（尽管显示完成）。大致时间由服务器性能和IO决定。");</script>';
 }
 
 // 管理员：删除服务器

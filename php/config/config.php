@@ -2,7 +2,7 @@
 // 启用session
 session_start();
 // 设置数据库的"服务器"，"用户名"，"密码"，"数据库名"。
-$db_config = array('localhost', 'ark_local_kawayi', '12345678', 'ark_local_kawayi');
+$db_config = array('localhost', 'database user', 'database password', 'database name');
 // 创建数据库链接
 $db_con = mysqli_connect($db_config[0], $db_config[1], $db_config[2], $db_config[3]);
 // 设置数据库编码

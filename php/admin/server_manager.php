@@ -99,7 +99,8 @@ require_once('../config/functions.php');
     }
     // 接收初始化服务器数据
     if (!empty($_REQUEST['intl-serverid'])) {
-        echo adminInitserver($_REQUEST['intl-serverid'], $_SESSION['userid'], $db_con);
+        echo adminInitserver($_REQUEST['intl-serverid'], $db_con);
+        echo '<script>window.location.replace("server_manager.php");</script>';
     }
 ?>
 
