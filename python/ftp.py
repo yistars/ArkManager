@@ -8,16 +8,15 @@ from pyftpdlib.servers import FTPServer
 from hashlib import md5
 
 class DummyMD5Authorizer(DummyAuthorizer):
-
-    def validate_authentication(self, username, password, handler):
-        if sys.version_info >= (3, 0):
-            password = md5(password.encode('latin1'))
-        hash = md5(password).hexdigest()
-        try:
-            if self.user_table[username]['pwd'] != hash:
-                raise KeyError
-        except KeyError:
-            raise AuthenticationFailed
+   def validate_authentication(self, username, password, handler):
+      if sys.version_info >= (3, 0):
+         password = md5(password.encode('latin1'))
+      hash = md5(password).hexdigest()
+      try:
+         if self.user_table[username]['pwd'] != hash:
+            raise KeyError
+      except KeyError:
+         raise AuthenticationFailed
 
 class ftp_server(threading.Thread):
    def __init__(self, host, port):
