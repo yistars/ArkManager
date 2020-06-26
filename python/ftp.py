@@ -11,7 +11,7 @@ class DummyMD5Authorizer(DummyAuthorizer):
    def validate_authentication(self, username, password, handler):
       if sys.version_info >= (3, 0):
          password = md5(password.encode('latin1'))
-      hash = md5(password).hexdigest()
+      hash = md5((password).encode('utf-8')).hexdigest()
       try:
          if self.user_table[username]['pwd'] != hash:
             raise KeyError
