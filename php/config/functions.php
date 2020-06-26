@@ -255,11 +255,8 @@ function adminInitserver($serverid, $db_con)
         $ip_port = $row['ip_port'];
         $token = $row['token'];
     }
-    $shell = "curl \"http://$ip_port/?token=$token&action=init&servername=$servername\" -X POST";
-    if (!exec($shell, $out)) {
-        echo 'System Error!';
-        return '*';
-    }
+    $shell = "nohup curl \"http://$ip_port/?token=$token&action=init&servername=$servername\" -X POST >> /dev/null 2>&1";
+    exec($shell, $out);
     // 请求节点添加该FTP
     $shell = "curl \"http://$ip_port/?token=$token&action=ftp&type=add&username=$username&password=$password&servername=$servername\" -X POST";
     exec($shell, $out);
