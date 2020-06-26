@@ -22,14 +22,13 @@ checkLogin($db_con);
             <th>最大玩家</th>
             <th>节点</th>
             <th>到期日期</th>
-            <th>配置文件</th>
             <th>操作</th>
         </tr>
     </thead>
     <tbody>
-        <?php 
-    // 返回当前服务器列表
-    echo userListallservers($db_con)
+    <?php 
+        // 返回当前服务器列表
+        echo userListallservers($db_con);
     ?>
     </tbody>
 </table>

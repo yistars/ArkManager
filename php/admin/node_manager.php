@@ -29,6 +29,10 @@ require_once('../config/functions.php');
                 <label class="mdui-textfield-label"><?php echo $lang['adminNodemanagerT5']; ?></label>
                 <input class="mdui-textfield-input" type="text" name="add-nodetoken" />
             </div>
+            <div class="mdui-textfield mdui-textfield-floating-label">
+                <label class="mdui-textfield-label">FTP Port</label>
+                <input class="mdui-textfield-input" type="text" name="add-ftp" />
+            </div>
         </div>
         <div class="mdui-dialog-actions">
             <span class="mdui-btn mdui-ripple" mdui-dialog-close><?php echo $lang['adminNodemanagerT6']; ?></span>
@@ -42,6 +46,7 @@ require_once('../config/functions.php');
             <th><?php echo $lang['adminNodemanagerT8']; ?></th>
             <th><?php echo $lang['adminNodemanagerT9']; ?></th>
             <th><?php echo $lang['adminNodemanagerT10']; ?></th>
+            <th><?php echo $lang['ftpT4']; ?></th>
             <th><?php echo $lang['adminNodemanagerT11']; ?></th>
             <th><?php echo $lang['adminNodemanagerT12']; ?></th>
         </tr>
@@ -61,7 +66,7 @@ require_once('../config/functions.php');
     }
     // 接收添加节点数据
     if (!empty($_POST['add-nodename'])||!empty($_POST['add-nodeipport'])||!empty($_POST['add-nodetoken'])) {
-        echo adminAddnode($_POST['add-nodename'],$_POST['add-nodeipport'],$_POST['add-nodetoken'],$db_con);
+        echo adminAddnode($_POST['add-nodename'],$_POST['add-nodeipport'], $_POST['add-ftp'], $_POST['add-nodetoken'],$db_con);
     }
     // 接收删除节点数据
     if (!empty($_REQUEST['del-nodeid'])) {

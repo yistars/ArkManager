@@ -9,6 +9,12 @@ checkLogin($db_con);
 <html>
 
 <head>
+    <style type="text/css">
+        a {
+            text-decoration: none;
+            color: blue;
+        }
+    </style>
     <?php mduiHead($lang['controlTitle']); ?>
 </head>
 <?php mduiBody(); mduiHeader($lang['controlHeader']); mduiMenu(); ?>
@@ -41,6 +47,8 @@ checkLogin($db_con);
     </div>
     <input style="display: none" type="text" value="start" name="action" />
 </form>
+<p>来自<a target="_blank" href="https://bbs.arkpsh.cn">ArkPsh</a>的<a target="_blank" href="https://rcon.arkpsh.cn/">WebRcon</a>（直接填入IP，端口，密码即可）</p>
+<iframe style="border: none; width: 100%; height: 700px;" src="https://rcon.arkpsh.cn/"></iframe>
 <?php
     if (!empty($_REQUEST['action'])||!empty($_POST['serverid'])||!empty($_REQUEST['map'])) {
         echo nodeControlserver($_REQUEST['serverid'], $_REQUEST['action'], $_SESSION['userid'], $_REQUEST['map'], $_REQUEST['more'], $db_con);

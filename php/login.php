@@ -10,7 +10,7 @@ require_once('config/functions.php');
     <?php mduiHead($lang['loginTitle']); ?>
 </head>
 
-    <?php mduiBody(); mduiHeader($lang['loginHeader']) ; mduiMenu(); ?>
+    <?php mduiBody(); mduiHeader($lang['loginHeader']); mduiMenu(); ?>
     <form name="login" method="post" action="login.php">
         <div class="mdui-textfield mdui-textfield-floating-label">
             <i class="mdui-icon material-icons">account_circle</i>

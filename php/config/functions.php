@@ -1,6 +1,7 @@
 <?php
 /*
     该文件是ArkManager的函数文件，请按需修改。如有bug，请立即向我们反馈。
+    PS: 面向对象在计划中。。。
 */
 
 /* 前提部分 */
@@ -99,10 +100,11 @@ function adminListalluser($db_con)
 }
 
 // 管理员：添加节点
-function adminAddnode($nodename, $nodeip, $token, $db_con)
+function adminAddnode($nodename, $nodeip, $ftpport, $token, $db_con)
 {
     $nodename = mysqli_real_escape_string($db_con, $nodename);
     $nodeip = mysqli_real_escape_string($db_con, $nodeip);
+    $ftpport = mysqli_real_escape_string($db_con, $ftpport);
     $token = mysqli_real_escape_string($db_con, $token);
     // 查找服务器名是否重复
     $sql = "SELECT `name` FROM `node` WHERE `name` = '$nodename'";
@@ -110,7 +112,7 @@ function adminAddnode($nodename, $nodeip, $token, $db_con)
     if (mysqli_num_rows($result) > 0) {
         return '<script>alert("节点名重复，请检查。");</script>';
     } else {
-        $sql = "INSERT INTO `node` (`id`, `name`, `ip_port`, `token`) VALUES (NULL, '$nodename', '$nodeip', '$token')";
+        $sql = "INSERT INTO `node` (`id`, `name`, `ip_port`, `ftpport`, `token`) VALUES (NULL, '$nodename', '$nodeip', $ftpport, '$token')";
         if (mysqli_query($db_con, $sql)) {
             return '<script>window.location.replace("node_manager.php");</script>';
         } else {
@@ -148,6 +150,9 @@ function adminListallnode($db_con)
                     '</td>' .
                     '<td>' .
                     $row['ip_port'] .
+                    '</td>' .
+                    '<td>' .
+                    $row['ftpport'] .
                     '</td>' .
                     '<td>' .
                     $row['token'] .
@@ -212,7 +217,7 @@ function adminCreateserver($servername, $serverport, $rconport, $query_port, $ma
                 if (mysqli_num_rows($result) > 0) {
                     return '<script>alert("Query端口重复，请检查。");</script>';
                 } else {
-                    $sql = "INSERT INTO `servers` (`id`, `name`, `port`, `rcon_port`, `query_port`, `max_players`, `by_node`, `by_user`, `initialization`, `conf`, `date`, `is_expire`, `status`) VALUES (NULL, '$servername', $serverport, $rconport, $query_port, $maxplayers, $by_node, $by_user, NULL, NULL, '$date', 0, 0)";
+                    $sql = "INSERT INTO `servers` (`id`, `name`, `port`, `rcon_port`, `query_port`, `max_players`, `by_node`, `by_user`, `initialization`, `date`, `is_expire`, `status`) VALUES (NULL, '$servername', $serverport, $rconport, $query_port, $maxplayers, $by_node, $by_user, NULL, '$date', 0, 0)";
 
                     if (mysqli_query($db_con, $sql)) {
                         return '<script>window.location.replace("server_manager.php");</script>';
@@ -255,12 +260,12 @@ function adminInitserver($serverid, $db_con)
         echo 'System Error!';
         return '*';
     }
-    // 这是新加的功能，目前还没有实现 （请求节点添加该FTP）
+    // 请求节点添加该FTP
     $shell = "curl \"http://$ip_port/?token=$token&action=ftp&type=add&username=$username&password=$password&servername=$servername\" -X POST";
-    // exec($shell, $out);
-    $sql = "UPDATE `servers` SET `initialization` = '3' WHERE `servers`.`id` = 4";
+    exec($shell, $out);
+    $sql = "UPDATE `servers` SET `initialization` = '3' WHERE `servers`.`id` = $serverid";
     mysqli_query($db_con, $sql);
-    return '<script>alert("已经开始初始化，请稍等几分钟后操作。大致时间由服务器性能和IO决定。");</script>';
+    return '<script>alert("已经开始初始化，请稍等几分钟后操作（尽管显示完成）。大致时间由服务器性能和IO决定。");</script>';
 }
 
 // 管理员：删除服务器
@@ -290,9 +295,9 @@ function adminDelserver($serverid, $db_con)
             $token = $row['token'];
         }
     }
-    // 这是新加的功能，目前还没有实现 （请求节点删除对应的FTP用户）
+    // 请求节点删除对应的FTP用户
     $shell = "curl \"http://$ip_port/?token=$token&action=ftp&type=del&username=$r_username&servername=$r_servername\" -X POST";
-    // exec($shell, $out);
+    exec($shell, $out);
 
     // 在删除服务器前停止服务器
     $shell = "curl \"http://$ip_port/?token=$token&action=kill&servername=$r_servername\" -X POST";
@@ -300,6 +305,9 @@ function adminDelserver($serverid, $db_con)
         echo 'System Error!';
         return '*';
     }
+    // 删除对应节点的目录（如果你希望保留服务器数据，可以注释下面两行）
+    $shell = "curl \"http://$ip_port/?token=$token&action=del&servername=$r_servername\" -X POST";
+    exec($shell, $out);
     // 执行删除
     $sql = "DELETE FROM `servers` WHERE `id` = $serverid";
     if (mysqli_query($db_con, $sql)) {
@@ -403,6 +411,7 @@ function userLogin($username, $password, $db_con)
             if ($password == $row['password']) {
                 $_SESSION['user'] = $row['username'];
                 $_SESSION['userid'] = $row['id'];
+                $_SESSION['password_md5'] = $row['password'];
                 header('Location: /index.php');
             } else {
                 return '<script>alert("密码错误");</script>';
@@ -420,11 +429,6 @@ function userLogout()
     session_destroy();
 }
 
-// 用户信息（带检测登录）
-function userInfo($username, $db_con)
-{
-}
-
 // 修改密码 重置密码
 function userChangepassword($oldpassword, $newpassword, $db_con)
 {
@@ -438,6 +442,7 @@ function userChangepassword($oldpassword, $newpassword, $db_con)
             if ($oldpassword == $row['password']) {
                 $sql = "UPDATE `users` SET `password` = '$password' WHERE `users`.`id` = $userid";
                 mysqli_query($db_con, $sql);
+                $_SESSION['password_md5'] = $newpassword;
                 header('Location: /index.php');
             } else {
                 return '<script>alert("原密码错误");</script>';
@@ -465,27 +470,22 @@ function userListallservers($db_con)
                 case '':
                     $row['initialization'] = '等待管理员初始化';
                     $con = '<a class="link" href="#">无权限操作</a>';
-                    $edit = '<a class="link" href="#">等待初始化</a>';
                     break;
                 case '1':
                     $row['initialization'] = '初始化中';
                     $con = '<a class="link" href="#">无法操作</a>';
-                    $edit = '<a class="link" href="#">等待初始化</a>';
                     break;
                 case '2':
                     $row['initialization'] = '初始化失败';
                     $con = '<a class="link" href="#">重试。</a>';
-                    $edit = '<a class="link" href="#">等待初始化</a>';
                     break;
                 case '3':
                     $row['initialization'] = '完成';
                     $con = '<a class="link" href="control.php?serverid=' . $row['id'] . '">控制台</a>';
-                    $edit = '<a class="link" href="conf.php?id=' . $row['id'] . '">编辑</a>';
                     break;
                 default:
                     $row['initialization'] = '未知';
                     $con = '<a class="link" href="#">未知</a>';
-                    $edit = '<a class="link" href="#">未知</a>';
                     break;
             }
             $date = $row['date'];
@@ -523,59 +523,9 @@ function userListallservers($db_con)
                     $serverdate .
                     '</td>' .
                     '<td>' .
-                    $edit .
-                    '</td>' .
-                    '<td>' .
                     $con .
                     '</td>' .
                     '</tr>';
-        }
-    }
-}
-// 编辑服务器配置文件
-function userEditserverconfig($serverid, $db_con)
-{
-    $userid = $_SESSION['userid'];
-    // 检测用户是否有这个服务器
-    $sql = "SELECT * FROM `servers` WHERE `id` = $serverid AND `by_user` = $userid";
-    $result = mysqli_query($db_con, $sql);
-    if (!mysqli_num_rows($result)) {
-        header('Location: server_manager.php');
-    } else {
-        while ($row = mysqli_fetch_array($result)) {
-            // 如果conf是空的则输出示例conf
-            if (empty($row['conf'])) {
-                $file = fopen("config/GameUserSettings.ini", 'r') or die('无法打开文件。');
-                return fread($file, filesize('config/GameUserSettings.ini'));
-                fclose($file);
-            } else {
-                // 否则就输出配置文件并BASE64解码
-                return base64_decode($row['conf']);
-            }
-        }
-    }
-}
-
-// 提交服务器配置文件
-function userSubmitserverconfig($serverid, $conf_content, $db_con)
-{
-    checkLogin($db_con);
-    $userid = $_SESSION['userid'];
-    $serverid = mysqli_real_escape_string($db_con, $serverid);
-    $conf_content = mysqli_real_escape_string($db_con, base64_encode($conf_content));
-    // 检测用户是否有这个服务器并判断是否到期
-    $sql = "SELECT * FROM `servers` WHERE `id` = $serverid AND `by_user` = $userid";
-    $result = mysqli_query($db_con, $sql);
-    if (!mysqli_num_rows($result)) {
-        //header('Location: server_manager.php');
-        echo 1;
-    } else {
-        // 如果有则提交配置文件并BASE64
-        $sql = "UPDATE `servers` SET `conf` = '$conf_content' WHERE `servers`.`id` = $serverid AND `by_user` = $userid";
-        if (!mysqli_query($db_con, $sql)) {
-            echo '<script>alert("失败。");</script>';
-        } else {
-            echo '<script>window.location.replace("server_manager.php");</script>';
         }
     }
 }
@@ -618,7 +568,9 @@ function userGetservername($serverid, $db_con)
 // FTP页面部分
 function userFTP($db_con, $doamin, $username)
 {
-    $sql = "SELECT `name` FROM `node`";
+    session_start();
+    $password_md5 = $_SESSION['password_md5'];
+    $sql = "SELECT `name`, `ftpport` FROM `node`";
     $result = mysqli_query($db_con, $sql);
     if (mysqli_num_rows($result)) {
         while ($row = mysqli_fetch_array($result)) {
@@ -628,13 +580,13 @@ function userFTP($db_con, $doamin, $username)
                     $row['name'] . '.' . $doamin .
                     '</td>' .
                     '<td>' .
-                    21 .
+                    $row['ftpport'] .
                     '</td>' .
                     '<td>' .
                     $username .
                     '</td>' .
                     '<td>' .
-                    '您的账户密码' .
+                    $password_md5 .
                     '</td>' .
                     '</tr>';
         }

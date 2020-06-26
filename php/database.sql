@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- 主机： localhost:3306
--- 生成日期： 2020-05-09 22:28:42
--- 服务器版本： 5.7.26-log
--- PHP 版本： 7.0.33
+-- 主机： localhost
+-- 生成日期： 2020-06-26 09:03:47
+-- 服务器版本： 5.7.30-log
+-- PHP 版本： 7.4.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- 数据库： `ark_local_kawayi`
+-- 数据库： `arkmanageros_tes`
 --
 
 -- --------------------------------------------------------
@@ -32,6 +31,7 @@ CREATE TABLE `node` (
   `id` bigint(20) NOT NULL,
   `name` text NOT NULL,
   `ip_port` text NOT NULL,
+  `ftpport` int(5) NOT NULL DEFAULT '21',
   `token` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -51,7 +51,6 @@ CREATE TABLE `servers` (
   `by_node` bigint(20) NOT NULL,
   `by_user` bigint(20) NOT NULL,
   `initialization` int(11) DEFAULT NULL,
-  `conf` longtext,
   `date` text,
   `is_expire` int(11) NOT NULL DEFAULT '0',
   `status` int(11) DEFAULT NULL
