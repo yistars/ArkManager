@@ -99,7 +99,7 @@ class http(object):
         try:
             shutil.copytree('{}/ExampleServer'.format(path,servername),'{}/{}'.format(path,servername))
         except:
-            print('[ERROE] Init Server {} error, folder already exists'.format(servername))
+            print('[ERROR] Init Server {} error, folder already exists'.format(servername))
             return False
         else:
             print('[INFO] Init Server {}'.format(servername))
