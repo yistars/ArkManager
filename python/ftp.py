@@ -2,6 +2,7 @@
 # By Bing_Yanchi
 # DO NOT CHANGE
 import threading,sys,os
+import logging
 from pyftpdlib.authorizers import DummyAuthorizer, AuthenticationFailed
 from pyftpdlib.handlers import FTPHandler
 from pyftpdlib.servers import FTPServer
@@ -27,6 +28,7 @@ class ftp_server(threading.Thread):
        
    def run(self):
       self.handler = FTPHandler
+      self.handler.log_prefix = '[FTP] %(remote_ip)s-[%(username)s]'
       self.handler.authorizer = self.authorizer
       self.address = (self.host, self.port)
       self.server = FTPServer(self.address, self.handler)

@@ -4,10 +4,11 @@
 import yaml,os,sys,threading,socket
 from threading import Thread
 from queue import Queue
+import time
 
 # 检测文件完整性
 if os.path.exists(os.path.abspath(os.path.dirname(__file__)) + '/http.py') == False or os.path.exists(os.path.abspath(os.path.dirname(__file__)) + '/ftp.py') == False:
-    print('[EROOR] File is missing, please try to download the program again')
+    print('[E {}] [main] File is missing, please try to download the program again'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),))
     input('Press enter to end...')
     sys.exit()
 else:
@@ -47,21 +48,21 @@ class main(object):
                 try:
                     self.ftp_add_user(data['username'],data['password'],data['path'])
                 except:
-                    print('[ERROE] Create ftp user for {} error, cannot find folder or the user already exists'.format(data['servername']))
+                    print('[E {}] [FTP] Create ftp user for {} error, cannot find folder or the user already exists'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),data['servername']))
                 else:
                     user_data = {'username':data['username'],'password':data['password'],'path':data['path']}
                     public_data[0]['user'][data['servername']] = user_data
                     config().update_config()
-                    print('[INFO] Create ftp user for {}'.format(data['servername']))
+                    print('[I {}] [FTP] Create ftp user for {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),data['servername']))
             elif data['type'] == 'del':
                 try:
                     self.ftp_del_user(data['username'])
                     del public_data[0]['user'][data['servername']]
                 except:
-                    print('[ERROE] Delete ftp user for {} error, the username or server name cannot be found'.format(data['servername']))
+                    print('[E {}] [FTP] Delete ftp user for {} error, the username or server name cannot be found'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),data['servername']))
                 else:
                     config().update_config()
-                    print('[INFO] Delete ftp user for {}'.format(data['servername']))
+                    print('[I {}] [FTP] Delete ftp user for {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),data['servername']))
 
     def ftp_add_user(self, user, passwd, loc):
         self.th_ftp.add_user(user, passwd, loc)
@@ -95,7 +96,7 @@ public_data = {}
 q = Queue()
 
 if __name__ == "__main__":
-    print('[INFO] Checking file integrity...')
+    print('[I {}] [main] Checking file integrity...'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),))
     
     config_path = os.path.abspath(os.path.dirname(__file__)) + '\\'+ 'config.yml'
     # 若配置文件不存在，则创建空白配置文件

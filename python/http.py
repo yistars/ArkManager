@@ -1,7 +1,7 @@
 # http For ArkManager
 # By Bing_Yanchi
 # DO NOT CHANGE
-import os,socket,base64,shutil,threading
+import os,socket,base64,shutil,threading,time
 from queue import Queue
 # 创建服务器类
 class http(object):
@@ -15,7 +15,7 @@ class http(object):
         # 设置监听
         self.server_socket.listen(128)
         # 信息输出
-        print('[INFO] Serving HTTP on port %s ...' % PORT)
+        print('[I {}] [HTTP] Serving HTTP on port {} ...'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),PORT))
 
     def run(self, token, path, out_q):
         while True:
@@ -80,11 +80,11 @@ class http(object):
         try:
             args = base64.b64decode(args)
         except:
-            print('[ERROR] Start Server {} error, wrong arg'.format(servername))
+            print('[E {}] [HTTP] Start Server {} error, wrong arg'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
             return False
         else:
             os.system('start "{1}" /normal {0}/{1}/ShooterGame/Binaries/Win64/ShooterGameServer.exe {2}'.format(path,servername,args))
-            print('[INFO] Start Server {}'.format(servername))
+            print('[I {}] [HTTP] Start Server {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
             return True
 
     def server_kill(self, servername, path):
@@ -92,23 +92,23 @@ class http(object):
         os.system('taskkill /fi "windowtitle eq {}/{}/ShooterGame/Binaries/Win64/ShooterGameServer.exe *'.format(path,servername))
         os.system('taskkill /fi "windowtitle eq {}"'.format(path,servername))
         os.system('taskkill /fi "windowtitle eq {}/{}/ShooterGame/Binaries/Win64/ShooterGameServer.exe *'.format(path,servername))
-        print('[INFO] Kill Server {}'.format(servername))
+        print('[I {}] [HTTP] Kill Server {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
         return True
 
     def server_init(self, servername, path):
         try:
             shutil.copytree('{}/ExampleServer'.format(path,servername),'{}/{}'.format(path,servername))
         except:
-            print('[ERROR] Init Server {} error, folder already exists'.format(servername))
+            print('[E {}] [HTTP] Init Server {} error, folder already exists'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
             return False
         else:
-            print('[INFO] Init Server {}'.format(servername))
+            print('[I {}] [HTTP] Init Server {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
             return True
 
     def server_delete(self, servername, path):
         shutil.rmtree('{}/{}/ShooterGame/Content'.format(path,servername))
         os.makedirs('{}/{}/ShooterGame/Content'.format(path,servername))
-        print('[INFO] Delete Server {}'.format(servername))
+        print('[I {}] [HTTP] Delete Server {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
         return True
 
     def ftp_add(self, username, password, servername, path, out_q):
