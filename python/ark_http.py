@@ -50,7 +50,7 @@ class http(object):
                     if ('args' in data):
                         right = self.server_start(data['args'], data['servername'], path)
                 elif data['action'] == 'kill':
-                    right = self.server_kill(data['servername'], path)
+                    right = self.server_kill(data, path)
                 elif data['action'] == 'init':
                     right = self.server_init(data['servername'], path)
                 elif data['action'] == 'delete':
@@ -88,11 +88,11 @@ class http(object):
             return True
 
     def server_kill(self, servername, path):
-        os.system(str('taskkill /fi "windowtitle eq {}"'.format(path,servername)))
-        os.system(str('taskkill /fi "windowtitle eq {}/{}/ShooterGame/Binaries/Win64/ShooterGameServer.exe *'.format(path,servername)))
-        os.popen(str('taskkill /fi "windowtitle eq {}"'.format(path,servername)))
-        os.popen(str('taskkill /fi "windowtitle eq {}/{}/ShooterGame/Binaries/Win64/ShooterGameServer.exe *'.format(path,servername)))
-        print('[I {}] [HTTP] Kill Server {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
+        os.system('taskkill /fi "windowtitle eq {}"'.format(path,servername['servername']))
+        os.system('taskkill /fi "windowtitle eq {}/{}/ShooterGame/Binaries/Win64/ShooterGameServer.exe *'.format(path,servername['servername']))
+        os.popen('taskkill /fi "windowtitle eq {}"'.format(path,servername['servername']))
+        os.popen('taskkill /fi "windowtitle eq {}/{}/ShooterGame/Binaries/Win64/ShooterGameServer.exe *'.format(path,servername['servername']))
+        print('[I {}] [HTTP] Kill Server {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername['servername']))
         return True
 
     def server_init(self, servername, path):
