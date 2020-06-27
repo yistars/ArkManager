@@ -37,12 +37,12 @@ class main(object):
                     data[single[0]] = single[1]
             global public_data
             if data['type'] == 'add':
+                data['path'] += '\ShooterGame\Saved'
                 try:
                     self.ftp_add_user(data['username'],data['password'],data['path'])
                 except:
                     print('[E {}] [FTP] Create ftp user for {} error, cannot find folder or the user already exists'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),data['servername']))
                 else:
-                    data['path'] += '\ShooterGame\Saved'
                     user_data = {'username':data['username'],'password':data['password'],'path':data['path']}
                     public_data[0]['user'][data['servername']] = user_data
                     config().update_config()
