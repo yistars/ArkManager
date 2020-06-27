@@ -27,19 +27,12 @@
 节点要求Windows系统且安装Python环境，配置完后请运行 `python main.py`。
 
 ### python 部分
-要求：Python 3 以上
+自 `v1.0.0` 开始，将不需要安装 Python3 和依赖库
 
-在命令行（Win 键 + R）输入 `cmd`，然后依次输入：
+将程序放在节点服务器上任意位置，运行目录下名为 `main.exe` 的可执行文件即可
 
-`pip install pyyaml`
-
-`pip install pyftpdlib`
-
-将`python`中的文件放在节点上并运行 (位置随意)
-
-运行`start.bat`
-
-可修改 `config.ini` 的内容以配置相关设置
+首次运行后，将会在程序目录下生成一个名为 `config.yml` 的配置文件，
+你可以在其中修改端口、文件路径等内容
 
 ### 节点文件部署
 ```
@@ -47,12 +40,10 @@
 │   ├── ExampleServer (用作模板服务器)
 │   └── OtherServer (其他服务器，无需自己创建)
 │
-└── python program directory
-    ├── main.py (主程序)
-    ├── config.ini (配置文件)
-    ├── http.py (http 模块)
-    ├── ftp.py (ftp 模块)
-    └── start.bat (运行脚本)
+└── program directory
+    ├── main.exe (主程序)
+    ├── config.yml (配置文件)
+    └── ...
 ```
 
 ### 未来目标
@@ -68,6 +59,7 @@
 
 ### 特别鸣谢
 * [pyftpdlib](https://github.com/giampaolo/pyftpdlib)
+* [pyinstaller](https://github.com/pyinstaller/pyinstaller)
 * [PHP-Minecraft-Rcon](https://github.com/thedudeguy/PHP-Minecraft-Rcon)
 * [Minecraft-RCON](https://github.com/Rauks/Minecraft-RCON)
 * [ARKPSH](https://rcon.arkpsh.cn/)
