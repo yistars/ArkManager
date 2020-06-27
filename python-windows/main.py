@@ -12,7 +12,7 @@ import time
 #    input('Press enter to end...')
 #    sys.exit()
 #else:
-import http
+import ahttp
 import ftp
 
 class main(object):
@@ -22,7 +22,7 @@ class main(object):
         self.run_q(q)
 
     def run_http(self, host, port, token, path, channel_port):
-        self.th_http = Thread(target=http.main, args=(host, port, token, path, channel_port))
+        self.th_http = Thread(target=ahttp.main, args=(host, port, token, path, channel_port))
         self.th_http.start()
 
     def run_ftp(self, host, port):
