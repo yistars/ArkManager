@@ -68,4 +68,4 @@
 * [pyftpdlib](https://github.com/giampaolo/pyftpdlib)
 * [PHP-Minecraft-Rcon](https://github.com/thedudeguy/PHP-Minecraft-Rcon)
 * [Minecraft-RCON](https://github.com/Rauks/Minecraft-RCON)
-* [ARKPSH] (https://rcon.arkpsh.cn/)
+* [ARKPSH](https://rcon.arkpsh.cn/)
