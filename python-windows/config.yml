@@ -1,8 +1,0 @@
-- global:
-    ftp_host: 0.0.0.0
-    ftp_port: '21'
-    http_host: 0.0.0.0
-    http_port: '4444'
-    path: D:/dir/dir
-    token: '123456'
-  user: {}

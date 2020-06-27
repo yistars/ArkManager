@@ -1,1 +1,0 @@
-pyinstaller main.py -p ark_ftp.py -p ark_http.py --hidden-import ark_ftp --hidden-import ark_http

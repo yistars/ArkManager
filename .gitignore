@@ -1,3 +1,6 @@
 /.vscode/
 /python/__pycache__
-/config.yml
+/python/build.cmd
+/python/main.spec
+/python/build
+/python/dist
