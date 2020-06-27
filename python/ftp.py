@@ -2,22 +2,21 @@
 # By Bing_Yanchi
 # DO NOT CHANGE
 import threading,sys,os
-from pyftpdlib.authorizers import DummyAuthorizer
+from pyftpdlib.authorizers import DummyAuthorizer, AuthenticationFailed
 from pyftpdlib.handlers import FTPHandler
 from pyftpdlib.servers import FTPServer
 from hashlib import md5
 
 class DummyMD5Authorizer(DummyAuthorizer):
-   def validate_authentication(self, username, password, handler):
-      if sys.version_info >= (3, 0):
-         new = new.strip()
-         password = md5(new.encode().hexdigest())
-      hash = md5((password).strip().encode('utf-8')).hexdigest()
-      try:
-         if self.user_table[username]['pwd'] != hash:
-            raise KeyError
-      except KeyError:
-         raise AuthenticationFailed
+    def validate_authentication(self, username, password, handler):
+        if sys.version_info >= (3, 0):
+            password = password.encode('latin1')
+        hash = md5(password).hexdigest()
+        try:
+            if self.user_table[username]['pwd'] != hash:
+                raise KeyError
+        except KeyError:
+            raise AuthenticationFailed
 
 class ftp_server(threading.Thread):
    def __init__(self, host, port):
