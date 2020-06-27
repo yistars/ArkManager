@@ -59,6 +59,7 @@
 
 ### 特别鸣谢
 * [pyftpdlib](https://github.com/giampaolo/pyftpdlib)
+* [pyinstaller](https://github.com/pyinstaller/pyinstaller)
 * [PHP-Minecraft-Rcon](https://github.com/thedudeguy/PHP-Minecraft-Rcon)
 * [Minecraft-RCON](https://github.com/Rauks/Minecraft-RCON)
 * [ARKPSH](https://rcon.arkpsh.cn/)
