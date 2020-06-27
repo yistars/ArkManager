@@ -88,10 +88,10 @@ class http(object):
             return True
 
     def server_kill(self, servername, path):
-        os.system('taskkill /fi "windowtitle eq {}"'.format(path,servername))
-        os.system('taskkill /fi "windowtitle eq {}/{}/ShooterGame/Binaries/Win64/ShooterGameServer.exe *'.format(path,servername))
-        os.system('taskkill /fi "windowtitle eq {}"'.format(path,servername))
-        os.system('taskkill /fi "windowtitle eq {}/{}/ShooterGame/Binaries/Win64/ShooterGameServer.exe *'.format(path,servername))
+        os.popen('taskkill /fi "windowtitle eq {}"'.format(path,servername))
+        os.popen('taskkill /fi "windowtitle eq {}/{}/ShooterGame/Binaries/Win64/ShooterGameServer.exe *'.format(path,servername))
+        os.popen('taskkill /fi "windowtitle eq {}"'.format(path,servername))
+        os.popen('taskkill /fi "windowtitle eq {}/{}/ShooterGame/Binaries/Win64/ShooterGameServer.exe *'.format(path,servername))
         print('[I {}] [HTTP] Kill Server {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
         return True
 
