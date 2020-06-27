@@ -87,12 +87,12 @@ class http(object):
             print('[I {}] [HTTP] Start Server {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
             return True
 
-    def server_kill(self, servername, path):
-        os.system('taskkill /fi "windowtitle eq {}"'.format(path,servername['servername']))
-        os.system('taskkill /fi "windowtitle eq {}/{}/ShooterGame/Binaries/Win64/ShooterGameServer.exe *'.format(path,servername['servername']))
-        os.popen('taskkill /fi "windowtitle eq {}"'.format(path,servername['servername']))
-        os.popen('taskkill /fi "windowtitle eq {}/{}/ShooterGame/Binaries/Win64/ShooterGameServer.exe *'.format(path,servername['servername']))
-        print('[I {}] [HTTP] Kill Server {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername['servername']))
+    def server_kill(self, data, path):
+        os.system('taskkill /fi "windowtitle eq {}"'.format(path,data['servername']))
+        os.system('taskkill /fi "windowtitle eq {}/{}/ShooterGame/Binaries/Win64/ShooterGameServer.exe *'.format(path,data['servername']))
+        os.popen('taskkill /fi "windowtitle eq {}"'.format(path,data['servername']))
+        os.popen('taskkill /fi "windowtitle eq {}/{}/ShooterGame/Binaries/Win64/ShooterGameServer.exe *'.format(path,data['servername']))
+        print('[I {}] [HTTP] Kill Server {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),data['servername']))
         return True
 
     def server_init(self, servername, path):
