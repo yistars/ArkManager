@@ -48,23 +48,23 @@ class http(object):
                 # 根据 action 确定执行函数
                 if data['action'] == 'start':
                     if ('args' in data):
-                        right = self.server_start(data['args'], data['servername'], path)
+                        right = server_start(data['args'], data['servername'], path)
                 elif data['action'] == 'kill':
-                    right = self.server_kill(data, path)
+                    right = server_kill(data, path)
                 elif data['action'] == 'init':
-                    right = self.server_init(data['servername'], path)
+                    right = server_init(data['servername'], path)
                 elif data['action'] == 'delete':
-                    right = self.server_kill(data['servername'], path)
-                    right = self.server_delete(data['servername'], path)
+                    right = server_kill(data['servername'], path)
+                    right = server_delete(data['servername'], path)
                 elif data['action'] == 'ftp':
                     if ('type' in data) and ('username' in data):
                         if data['type'] == 'add':
-                            right = self.ftp_add(data['username'],data['password'],data['servername'],path,out_q)
+                            right = ftp_add(data['username'],data['password'],data['servername'],path,out_q)
                         elif data['type'] == 'del':
-                            right = self.ftp_del(data['username'],data['servername'],out_q)
+                            right = ftp_del(data['username'],data['servername'],out_q)
                         elif data['type'] == 'edit':
-                            right = self.ftp_add(data['username'],data['password'],data['servername'],path,out_q)
-                            right = self.ftp_del(data['username'],data['servername'],out_q)
+                            right = ftp_add(data['username'],data['password'],data['servername'],path,out_q)
+                            right = ftp_del(data['username'],data['servername'],out_q)
         # 返回状态码
         if right:
             http_response = """/
@@ -75,41 +75,6 @@ class http(object):
         client_socket.send(http_response.encode('utf-8'))
         # 断开与客户端连接
         client_socket.close()
-
-    def server_start(self, args, servername, path):
-        try:
-            args = base64.b64decode(args)
-        except:
-            print('[E {}] [HTTP] Start Server {} error, wrong arg'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
-            return False
-        else:
-            os.system('start "{1}" /normal {0}/{1}/ShooterGame/Binaries/Win64/ShooterGameServer.exe {2}'.format(path,servername,args))
-            print('[I {}] [HTTP] Start Server {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
-            return True
-
-    def server_kill(self, data, path):
-        os.system('taskkill /fi "windowtitle eq {}"'.format(path,data['servername']))
-        os.system('taskkill /fi "windowtitle eq {}/{}/ShooterGame/Binaries/Win64/ShooterGameServer.exe *'.format(path,data['servername']))
-        os.popen('taskkill /fi "windowtitle eq {}"'.format(path,data['servername']))
-        os.popen('taskkill /fi "windowtitle eq {}/{}/ShooterGame/Binaries/Win64/ShooterGameServer.exe *'.format(path,data['servername']))
-        print('[I {}] [HTTP] Kill Server {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),data['servername']))
-        return True
-
-    def server_init(self, servername, path):
-        try:
-            shutil.copytree('{}/ExampleServer'.format(path,servername),'{}/{}'.format(path,servername))
-        except:
-            print('[E {}] [HTTP] Init Server {} error, folder already exists'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
-            return False
-        else:
-            print('[I {}] [HTTP] Init Server {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
-            return True
-
-    def server_delete(self, servername, path):
-        shutil.rmtree('{}/{}/ShooterGame/Content'.format(path,servername))
-        os.makedirs('{}/{}/ShooterGame/Content'.format(path,servername))
-        print('[I {}] [HTTP] Delete Server {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
-        return True
 
     def ftp_add(self, username, password, servername, path, out_q):
         data = 'type=add&username={}&password={}&servername={}&path={}\\{}'.format(username,password,servername,path,servername)
@@ -126,6 +91,42 @@ class http(object):
     def __del__(self):
         # 当服务端程序结束时停止服务器服务
         self.server_socket.close()
+
+# 服务器控制
+def server_start(self, args, servername, path):
+    try:
+        args = base64.b64decode(args)
+    except:
+        print('[E {}] [HTTP] Start Server {} error, wrong arg'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
+        return False
+    else:
+        os.system('start "{1}" /normal {0}/{1}/ShooterGame/Binaries/Win64/ShooterGameServer.exe {2}'.format(path,servername,args))
+        print('[I {}] [HTTP] Start Server {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
+        return True
+
+def server_kill(self, data, path):
+    os.system('taskkill /fi "windowtitle eq {}"'.format(path,data['servername']))
+    os.system('taskkill /fi "windowtitle eq {}/{}/ShooterGame/Binaries/Win64/ShooterGameServer.exe *'.format(path,data['servername']))
+    os.system('taskkill /fi "windowtitle eq {}"'.format(path,data['servername']))
+    os.system('taskkill /fi "windowtitle eq {}/{}/ShooterGame/Binaries/Win64/ShooterGameServer.exe *'.format(path,data['servername']))
+    print('[I {}] [HTTP] Kill Server {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),data['servername']))
+    return True
+
+def server_init(self, servername, path):
+    try:
+        shutil.copytree('{}/ExampleServer'.format(path,servername),'{}/{}'.format(path,servername))
+    except:
+        print('[E {}] [HTTP] Init Server {} error, folder already exists'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
+        return False
+    else:
+        print('[I {}] [HTTP] Init Server {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
+        return True
+
+def server_delete(self, servername, path):
+    shutil.rmtree('{}/{}/ShooterGame/Content'.format(path,servername))
+    os.makedirs('{}/{}/ShooterGame/Content'.format(path,servername))
+    print('[I {}] [HTTP] Delete Server {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
+    return True
 
 class public_channel_client(object):
     def __init__(self, out_q):
