@@ -44,15 +44,15 @@ class main(object):
                     data[single[0]] = single[1]
             global public_data
             if data['type'] == 'add':
-                #try:
-                self.ftp_add_user(data['username'],data['password'],data['path'])
-                #except:
-                #    print('[ERROE] Create ftp user for {} error, cannot find folder or the user already exists'.format(data['servername']))
-                #else:
-                user_data = {'username':data['username'],'password':data['password'],'path':data['path']}
-                public_data[0]['user'][data['servername']] = user_data
-                config().update_config()
-                print('[INFO] Create ftp user for {}'.format(data['servername']))
+                try:
+                    self.ftp_add_user(data['username'],data['password'],data['path'])
+                except:
+                    print('[ERROE] Create ftp user for {} error, cannot find folder or the user already exists'.format(data['servername']))
+                else:
+                    user_data = {'username':data['username'],'password':data['password'],'path':data['path']}
+                    public_data[0]['user'][data['servername']] = user_data
+                    config().update_config()
+                    print('[INFO] Create ftp user for {}'.format(data['servername']))
             elif data['type'] == 'del':
                 try:
                     self.ftp_del_user(data['username'])
