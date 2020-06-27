@@ -93,7 +93,7 @@ class http(object):
         self.server_socket.close()
 
 # 服务器控制
-def server_start(self, args, servername, path):
+def server_start(args, servername, path):
     try:
         args = base64.b64decode(args)
     except:
@@ -104,7 +104,7 @@ def server_start(self, args, servername, path):
         print('[I {}] [HTTP] Start Server {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
         return True
 
-def server_kill(self, data, path):
+def server_kill(data, path):
     os.system('taskkill /fi "windowtitle eq {}"'.format(path,data['servername']))
     os.system('taskkill /fi "windowtitle eq {}/{}/ShooterGame/Binaries/Win64/ShooterGameServer.exe *'.format(path,data['servername']))
     os.system('taskkill /fi "windowtitle eq {}"'.format(path,data['servername']))
@@ -112,7 +112,7 @@ def server_kill(self, data, path):
     print('[I {}] [HTTP] Kill Server {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),data['servername']))
     return True
 
-def server_init(self, servername, path):
+def server_init(servername, path):
     try:
         shutil.copytree('{}/ExampleServer'.format(path,servername),'{}/{}'.format(path,servername))
     except:
@@ -122,7 +122,7 @@ def server_init(self, servername, path):
         print('[I {}] [HTTP] Init Server {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
         return True
 
-def server_delete(self, servername, path):
+def server_delete(servername, path):
     shutil.rmtree('{}/{}/ShooterGame/Content'.format(path,servername))
     os.makedirs('{}/{}/ShooterGame/Content'.format(path,servername))
     print('[I {}] [HTTP] Delete Server {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
