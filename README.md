@@ -5,7 +5,7 @@
 ![GitHub All Releases](https://img.shields.io/github/downloads/yistars/ArkManager/total)
 
 **预计此项目将在 6月底 出正式版本**
-或者你可以在储存库中获取开发中版本 (或存在 bug)
+或者你可以在储存库中获取开发中版本
 
 注意：目前仅支持Windows。后续会支持更多操作系统！
 
@@ -66,3 +66,6 @@
 
 ### 特别鸣谢
 * [pyftpdlib](https://github.com/giampaolo/pyftpdlib)
+* [PHP-Minecraft-Rcon](https://github.com/thedudeguy/PHP-Minecraft-Rcon)
+* [Minecraft-RCON](https://github.com/Rauks/Minecraft-RCON)
+* [ARKPSH](https://rcon.arkpsh.cn/)
