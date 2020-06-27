@@ -4,8 +4,8 @@
   ('main.exe.manifest',
    'D:\\Github\\ArkManager\\python-windows\\build\\main\\main.exe.manifest',
    'BINARY'),
-  ('python36.dll', 'c:\\program files\\python\\python36.dll', 'BINARY'),
   ('VCRUNTIME140.dll', 'c:\\program files\\python\\VCRUNTIME140.dll', 'BINARY'),
+  ('python36.dll', 'c:\\program files\\python\\python36.dll', 'BINARY'),
   ('pywintypes36.dll',
    'c:\\program files\\python\\lib\\site-packages\\win32\\pywintypes36.dll',
    'BINARY'),
@@ -54,9 +54,16 @@
   ('base_library.zip',
    'D:\\Github\\ArkManager\\python-windows\\build\\main\\base_library.zip',
    'DATA'),
+  ('Include\\pyconfig.h',
+   'c:\\program files\\python\\Include\\pyconfig.h',
+   'DATA'),
   ('cryptography-2.4.2-py3.6.egg-info\\RECORD',
    'c:\\program '
    'files\\python\\lib\\site-packages\\cryptography-2.4.2.dist-info\\RECORD',
+   'DATA'),
+  ('cryptography-2.4.2-py3.6.egg-info\\top_level.txt',
+   'c:\\program '
+   'files\\python\\lib\\site-packages\\cryptography-2.4.2.dist-info\\top_level.txt',
    'DATA'),
   ('cryptography-2.4.2-py3.6.egg-info\\LICENSE',
    'c:\\program '
@@ -66,21 +73,6 @@
    'c:\\program '
    'files\\python\\lib\\site-packages\\cryptography-2.4.2.dist-info\\AUTHORS.rst',
    'DATA'),
-  ('cryptography-2.4.2-py3.6.egg-info\\LICENSE.BSD',
-   'c:\\program '
-   'files\\python\\lib\\site-packages\\cryptography-2.4.2.dist-info\\LICENSE.BSD',
-   'DATA'),
-  ('cryptography-2.4.2-py3.6.egg-info\\WHEEL',
-   'c:\\program '
-   'files\\python\\lib\\site-packages\\cryptography-2.4.2.dist-info\\WHEEL',
-   'DATA'),
-  ('cryptography-2.4.2-py3.6.egg-info\\METADATA',
-   'c:\\program '
-   'files\\python\\lib\\site-packages\\cryptography-2.4.2.dist-info\\METADATA',
-   'DATA'),
-  ('Include\\pyconfig.h',
-   'c:\\program files\\python\\Include\\pyconfig.h',
-   'DATA'),
   ('cryptography-2.4.2-py3.6.egg-info\\INSTALLER',
    'c:\\program '
    'files\\python\\lib\\site-packages\\cryptography-2.4.2.dist-info\\INSTALLER',
@@ -89,7 +81,15 @@
    'c:\\program '
    'files\\python\\lib\\site-packages\\cryptography-2.4.2.dist-info\\LICENSE.APACHE',
    'DATA'),
-  ('cryptography-2.4.2-py3.6.egg-info\\top_level.txt',
+  ('cryptography-2.4.2-py3.6.egg-info\\METADATA',
    'c:\\program '
-   'files\\python\\lib\\site-packages\\cryptography-2.4.2.dist-info\\top_level.txt',
+   'files\\python\\lib\\site-packages\\cryptography-2.4.2.dist-info\\METADATA',
+   'DATA'),
+  ('cryptography-2.4.2-py3.6.egg-info\\LICENSE.BSD',
+   'c:\\program '
+   'files\\python\\lib\\site-packages\\cryptography-2.4.2.dist-info\\LICENSE.BSD',
+   'DATA'),
+  ('cryptography-2.4.2-py3.6.egg-info\\WHEEL',
+   'c:\\program '
+   'files\\python\\lib\\site-packages\\cryptography-2.4.2.dist-info\\WHEEL',
    'DATA')],)

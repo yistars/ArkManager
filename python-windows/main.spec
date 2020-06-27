@@ -4,10 +4,10 @@ block_cipher = None
 
 
 a = Analysis(['main.py'],
-             pathex=['ftp.py', 'http.py', 'D:\\Github\\ArkManager\\python-windows'],
+             pathex=['ark_ftp.py', 'ark_http.py', 'D:\\Github\\ArkManager\\python-windows'],
              binaries=[],
              datas=[],
-             hiddenimports=['ftp', 'http'],
+             hiddenimports=['ark_ftp', 'ark_http'],
              hookspath=[],
              runtime_hooks=[],
              excludes=[],

@@ -1,19 +1,11 @@
 # Main For Arkmanager
 # By Bing_Yanchi
 # DO NOT CHANGE
-import yaml,os,sys,threading,socket
+import yaml,os,sys,threading,socket,time
 from threading import Thread
 from queue import Queue
-import time
-
-# 检测文件完整性
-#if os.path.exists(os.path.abspath(os.path.dirname(__file__)) + '/http.py') == False or os.path.exists(os.path.abspath(os.path.dirname(__file__)) + '/ftp.py') == False:
-#    print('[E {}] [main] File is missing, please try to download the program again'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),))
-#    input('Press enter to end...')
-#    sys.exit()
-#else:
-import http
-import ftp
+import ark_http
+import ark_ftp
 
 class main(object):
     def __init__(self, ftp_host, ftp_port, http_host, http_port, token, path, q):
@@ -22,11 +14,11 @@ class main(object):
         self.run_q(q)
 
     def run_http(self, host, port, token, path, channel_port):
-        self.th_http = Thread(target=http.main, args=(host, port, token, path, channel_port))
+        self.th_http = Thread(target=ark_http.main, args=(host, port, token, path, channel_port))
         self.th_http.start()
 
     def run_ftp(self, host, port):
-        self.th_ftp = ftp.ftp_server(host, port)
+        self.th_ftp = ark_ftp.ftp_server(host, port)
         self.th_ftp.start()
         global public_data
         data = public_data[0]['user'] 
@@ -50,6 +42,7 @@ class main(object):
                 except:
                     print('[E {}] [FTP] Create ftp user for {} error, cannot find folder or the user already exists'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),data['servername']))
                 else:
+                    data['path'] += '\ShooterGame\Saved'
                     user_data = {'username':data['username'],'password':data['password'],'path':data['path']}
                     public_data[0]['user'][data['servername']] = user_data
                     config().update_config()
