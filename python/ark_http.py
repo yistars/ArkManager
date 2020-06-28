@@ -106,9 +106,9 @@ def server_start(args, servername, path):
 
 def server_kill(data, path):
     os.system('taskkill /fi "windowtitle eq {}"'.format(path,data['servername']))
-    os.system('taskkill /fi "windowtitle eq {}/{}/ShooterGame/Binaries/Win64/ShooterGameServer.exe *'.format(path,data['servername']))
+    os.system('taskkill /fi "windowtitle eq {}\{}\ShooterGame\BinariesWin64\ShooterGameServer.exe *'.format(path,data['servername']))
     os.system('taskkill /fi "windowtitle eq {}"'.format(path,data['servername']))
-    os.system('taskkill /fi "windowtitle eq {}/{}/ShooterGame/Binaries/Win64/ShooterGameServer.exe *'.format(path,data['servername']))
+    os.system('taskkill /fi "windowtitle eq {}\{}\ShooterGame\BinariesWin64ShooterGameServer.exe *'.format(path,data['servername']))
     print('[I {}] [HTTP] Kill Server {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),data['servername']))
     return True
 
