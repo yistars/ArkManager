@@ -49,23 +49,23 @@ class http(object):
                 # 根据 action 确定执行函数
                 if data['action'] == 'start':
                     if ('args' in data):
-                        right = server_start(data['args'], data['servername'])
+                        right = self.server_start(data['args'], data['servername'])
                 elif data['action'] == 'kill':
-                    right = server_kill(data)
+                    right = self.server_kill(data)
                 elif data['action'] == 'init':
-                    right = server_init(data['servername'])
+                    right = self.server_init(data['servername'])
                 elif data['action'] == 'delete':
-                    right = server_kill(data['servername'])
-                    right = server_delete(data['servername'])
+                    right = self.server_kill(data['servername'])
+                    right = self.server_delete(data['servername'])
                 elif data['action'] == 'ftp':
                     if ('type' in data) and ('username' in data):
                         if data['type'] == 'add':
-                            right = ftp_add(data['username'],data['password'],data['servername'],out_q)
+                            right = self.ftp_add(data['username'],data['password'],data['servername'],out_q)
                         elif data['type'] == 'del':
-                            right = ftp_del(data['username'],data['servername'],out_q)
+                            right = self.ftp_del(data['username'],data['servername'],out_q)
                         elif data['type'] == 'edit':
-                            right = ftp_add(data['username'],data['password'],data['servername'],out_q)
-                            right = ftp_del(data['username'],data['servername'],out_q)
+                            right = self.ftp_add(data['username'],data['password'],data['servername'],out_q)
+                            right = self.ftp_del(data['username'],data['servername'],out_q)
         # 返回状态码
         if right:
             http_response = """/
