@@ -21,7 +21,7 @@ class http(object):
         while True:
             # 等待客户端连接
             client_socket, ip_port = self.server_socket.accept()
-            threading.Thread(target=self.task, args=(client_socket, ip_port, token, path, out_q), daemon=True).start()
+            threading.Thread(target=self.task, args=(client_socket, ip_port, token, out_q), daemon=True).start()
             self.path = path
 
     def task(self, client_socket, ip_port, token, out_q):
