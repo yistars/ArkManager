@@ -49,7 +49,7 @@ class http(object):
                 # 根据 action 确定执行函数
                 if data['action'] == 'start':
                     if ('args' in data):
-                        right = server_start(data['args'], data['servername']h)
+                        right = server_start(data['args'], data['servername'])
                 elif data['action'] == 'kill':
                     right = server_kill(data)
                 elif data['action'] == 'init':
