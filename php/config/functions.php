@@ -2,6 +2,7 @@
 /*
     该文件是ArkManager的函数文件，请按需修改。如有bug，请立即向我们反馈。
     PS: 面向对象在计划中。。。
+    该文件为Linux专用。
 */
 
 /* 前提部分 */
@@ -262,7 +263,7 @@ function adminInitserver($serverid, $db_con)
     exec($shell, $out);
     $sql = "UPDATE `servers` SET `initialization` = '3' WHERE `servers`.`id` = $serverid";
     mysqli_query($db_con, $sql);
-    return '<script>alert("已经开始初始化，请稍等几分钟后操作（尽管显示完成）。大致时间由服务器性能和IO决定。");</script>';
+    return '<script>alert("已经开始初始化，请稍等十几分钟后操作（尽管显示完成）。大致时间由服务器性能和IO决定。");</script>';
 }
 
 // 管理员：删除服务器
@@ -353,6 +354,12 @@ function adminListallserver($db_con)
             if (!empty($row['date'])) {
                 $date = $row['date'];
             }
+            $serverid = $row['id'];
+            if (empty($row['date'])) {
+                $date = '<a style="color: blue; text-decoration: none;" href="renew_server.php?serverid=' . $serverid . '">' . '永久' . '</a>';
+            }else {
+                $date = '<a style="color: blue; text-decoration: none;" href="renew_server.php?serverid=' . $serverid . '">' . $row['date'] . '</a>';
+            }
             echo
                 '<tr>
             <td>' .
@@ -393,6 +400,17 @@ function adminListallserver($db_con)
     }
 }
 
+// 管理员：续费服务器
+function adminRenewserver($serverid, $newdate, $db_con) {
+    // 自己人，别开枪
+    $newdate = mysqli_real_escape_string($db_con, $newdate);
+    $sql = "UPDATE `servers` SET `date` = '$newdate' WHERE `servers`.`id` = $serverid";
+    if (!mysqli_query($db_con, $sql)) {
+        // return '<script>alert("数据库操作失败");</script>';
+        // ToDo: $serverid 的问题排查。
+        echo '<script>alert("' . mysqli_error($db_con) . '");</script>';
+    }
+}
 
 /* 用户功能部分 */
 
@@ -408,7 +426,6 @@ function userLogin($username, $password, $db_con)
             if ($password == $row['password']) {
                 $_SESSION['user'] = $row['username'];
                 $_SESSION['userid'] = $row['id'];
-                $_SESSION['password_md5'] = $row['password'];
                 header('Location: /index.php');
             } else {
                 return '<script>alert("密码错误");</script>';
@@ -439,7 +456,6 @@ function userChangepassword($oldpassword, $newpassword, $db_con)
             if ($oldpassword == $row['password']) {
                 $sql = "UPDATE `users` SET `password` = '$password' WHERE `users`.`id` = $userid";
                 mysqli_query($db_con, $sql);
-                $_SESSION['password_md5'] = $newpassword;
                 header('Location: /index.php');
             } else {
                 return '<script>alert("原密码错误");</script>';
@@ -580,10 +596,10 @@ function userFTP($db_con, $doamin, $username)
                     $row['ftpport'] .
                     '</td>' .
                     '<td>' .
-                    $username .
+                    $username . '-服务器ID' .
                     '</td>' .
                     '<td>' .
-                    $password_md5 .
+                    '您的用户密码。' .
                     '</td>' .
                     '</tr>';
         }

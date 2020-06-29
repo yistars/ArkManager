@@ -393,6 +393,17 @@ function adminListallserver($db_con)
     }
 }
 
+// 管理员：续费服务器
+function adminRenewserver($serverid, $newdate, $db_con) {
+    // 自己人，别开枪
+    $newdate = mysqli_real_escape_string($db_con, $newdate);
+    $sql = "UPDATE `servers` SET `date` = '$newdate' WHERE `servers`.`id` = $serverid";
+    if (!mysqli_query($db_con, $sql)) {
+        // return '<script>alert("数据库操作失败");</script>';
+        // ToDo: $serverid 的问题排查。
+        echo '<script>alert("' . mysqli_error($db_con) . '");</script>';
+    }
+}
 
 /* 用户功能部分 */
 
@@ -408,7 +419,6 @@ function userLogin($username, $password, $db_con)
             if ($password == $row['password']) {
                 $_SESSION['user'] = $row['username'];
                 $_SESSION['userid'] = $row['id'];
-                $_SESSION['password_md5'] = $row['password'];
                 header('Location: /index.php');
             } else {
                 return '<script>alert("密码错误");</script>';
@@ -580,10 +590,10 @@ function userFTP($db_con, $doamin, $username)
                     $row['ftpport'] .
                     '</td>' .
                     '<td>' .
-                    $username .
+                    $username . '-服务器ID' .
                     '</td>' .
                     '<td>' .
-                    $password_md5 .
+                    '您的用户密码。' .
                     '</td>' .
                     '</tr>';
         }
