@@ -4,7 +4,6 @@
 import os,socket,base64,shutil,threading,time
 from queue import Queue
 from threading import Thread
-import ark_kill
 # 创建服务器类
 class http(object):
     def __init__(self, HOST, PORT):
