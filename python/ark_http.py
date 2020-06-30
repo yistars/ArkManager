@@ -4,6 +4,7 @@
 import os,socket,base64,shutil,threading,time
 from queue import Queue
 from threading import Thread
+import ark_kill
 # 创建服务器类
 class http(object):
     def __init__(self, HOST, PORT):
@@ -23,7 +24,7 @@ class http(object):
             # 等待客户端连接
             client_socket, ip_port = self.server_socket.accept()
             threading.Thread(target=self.task, args=(client_socket, ip_port, token, out_q), daemon=True).start()
-            self.path = path.replace('\\', '/')
+            self.path = path
 
     def task(self, client_socket, ip_port, token, out_q):
         # 接收数据
@@ -52,7 +53,7 @@ class http(object):
                     if ('args' in data):
                         right = self.server_start(data['args'], data['servername'])
                 elif data['action'] == 'kill':
-                    right = self.server_kill(data['servername'])
+                    right = self.server_kill(data)
                 elif data['action'] == 'init':
                     right = self.server_init(data['servername'])
                 elif data['action'] == 'delete':
@@ -90,17 +91,17 @@ class http(object):
             print('[I {}] [HTTP] Start Server {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
             return True
 
-    #def server_kill(self, data):
-    #    self.th_kill = Thread(target=ark_kill.main, args=(data, self.path))
-    #    self.th_kill.start()
+    def server_kill(self, data):
+        self.th_kill = Thread(target=ark_kill.main, args=(data, self.path))
+        self.th_kill.start()
 
-    def server_kill(self, servername):
-        os.system('taskkill /fi "windowtitle eq {}"'.format(self.path,servername))
-        os.system('taskkill /fi "windowtitle eq {}/{}/ShooterGame/BinariesWin64/ShooterGameServer.exe *"'.format(self.path,servername))
-        os.system('taskkill /fi "windowtitle eq {}"'.format(self.path,servername))
-        os.system('taskkill /fi "windowtitle eq {}/{}/ShooterGame/BinariesWin64/ShooterGameServer.exe *"'.format(self.path,servername))
-        print('[I {}] [HTTP] Kill Server {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
-        return True
+    #def server_kill(self, servername):
+    #    os.system('taskkill /fi "windowtitle eq {}"'.format(self.path,servername))
+    #    os.system('taskkill /fi "windowtitle eq {}/{}/ShooterGame/BinariesWin64/ShooterGameServer.exe *"'.format(self.path,servername))
+    #    os.system('taskkill /fi "windowtitle eq {}"'.format(self.path,servername))
+    #    os.system('taskkill /fi "windowtitle eq {}/{}/ShooterGame/BinariesWin64/ShooterGameServer.exe *"'.format(self.path,servername))
+    #    print('[I {}] [HTTP] Kill Server {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
+    #    return True
 
     def server_init(self, servername):
         try:
