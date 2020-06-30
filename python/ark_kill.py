@@ -1,4 +1,4 @@
-import os,time
+import os,time,threading
 def main(data,path):
 	os.system('taskkill /fi "windowtitle eq {}"'.format(path,data['servername']))
 	os.system('taskkill /fi "windowtitle eq {}/{}/ShooterGame/Binaries/Win64/ShooterGameServer.exe *'.format(path,data['servername']))
