@@ -5,13 +5,13 @@
 ![GitHub All Releases](https://img.shields.io/github/downloads/yistars/ArkManager/total)
 
 * 适用平台: Windows (其他平台将在项目成熟后开发)
-* 论坛：https://f.yistars.net/
+* 论坛: https://f.yistars.net/
 
 ## 使用方法
 ### php 部分
-前提：如果您的服务器禁用了php的 `exec` 函数，请解除。如果您的系统没有安装 `curl` ，请安装。
+前提：如果您的服务器禁用了php的 `exec` 函数，请解除。如果您的系统没有安装`curl`，请安装。
 
-导入 `php/databse.sql` 至你的数据库，并修改 `config/config.php` 中的值。如果你的环境中禁用了 php 的 `exec` 函数，请解除禁用。
+1. 导入 `php/databse.sql` 至数据库，并修改 `config/config.php` 中的值. 如果你的环境中禁用了 php 的 `exec` 函数，请解除禁用。
 
 为了安全着想，请务必重命名 `php/admin`
 
