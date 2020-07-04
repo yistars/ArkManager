@@ -6,6 +6,7 @@
 
 * 适用平台：Windows
 * 论坛：https://f.yistars.net/
+* 本地化：https://translate.yistars.net/
 
 ## 使用方法
 ### 面板部分
