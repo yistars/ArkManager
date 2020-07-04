@@ -4,9 +4,8 @@
 ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/yistars/ArkManager?include_prereleases)
 ![GitHub All Releases](https://img.shields.io/github/downloads/yistars/ArkManager/total)
 
-注意：目前仅支持Windows。后续会支持更多操作系统！
-
-前往我们的论坛：https://f.yistars.net/ 注册并开始预约吧！
+* 适用平台: Windows
+* 论坛：https://f.yistars.net/
 
 ## 使用方法
 ### php 部分
