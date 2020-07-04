@@ -34,7 +34,7 @@
     └── ...
 ```
 
-### 未来目标
+## 未来目标
 * ~~FTP 功能~~
 * ~~Python 面向对象~~
 * ~~节点配置文件独立~~
@@ -42,10 +42,10 @@
 * 更新服务器功能
 * 更加完整的 Wiki
 
-### 已知问题
+## 已知问题
 * 管理员后台模板问题，但是不影响使用
 
-### 特别鸣谢
+## 特别鸣谢
 * [pyftpdlib](https://github.com/giampaolo/pyftpdlib)
 * [pyinstaller](https://github.com/pyinstaller/pyinstaller)
 * [PHP-Minecraft-Rcon](https://github.com/thedudeguy/PHP-Minecraft-Rcon)
