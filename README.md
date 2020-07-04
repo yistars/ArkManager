@@ -21,8 +21,6 @@
 请使用定时任务（如crontab等）执行http://domain.com/config/cron.php?key=123456
 （请按实际情况修改），时间可以任意，推荐1小时执行一次。
 
-节点要求Windows系统且安装Python环境，配置完后请运行 `python main.py`。
-
 ### python 部分
 自 `v1.0.0` 开始，将不需要安装 Python3 和依赖库
 
