@@ -4,9 +4,6 @@
 ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/yistars/ArkManager?include_prereleases)
 ![GitHub All Releases](https://img.shields.io/github/downloads/yistars/ArkManager/total)
 
-**预计此项目将在 6月底 出正式版本**
-或者你可以在储存库中获取开发中版本
-
 注意：目前仅支持Windows。后续会支持更多操作系统！
 
 前往我们的论坛：https://f.yistars.net/ 注册并开始预约吧！
@@ -23,8 +20,6 @@
 
 请使用定时任务（如crontab等）执行http://domain.com/config/cron.php?key=123456
 （请按实际情况修改），时间可以任意，推荐1小时执行一次。
-
-节点要求Windows系统且安装Python环境，配置完后请运行 `python main.py`。
 
 ### python 部分
 自 `v1.0.0` 开始，将不需要安装 Python3 和依赖库
@@ -52,7 +47,7 @@
 * ~~节点配置文件独立~~
 * Python 输出 logs 文件
 * 更新服务器功能
-* 更加完整的Wiki
+* 更加完整的 Wiki
 
 ### 已知问题
 * 管理员后台模板问题，但是不影响使用
