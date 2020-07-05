@@ -44,7 +44,7 @@
 * 更加完整的 Wiki
 
 ## 已知问题
-* 管理员后台模板问题，但是不影响使用
+* 管理员后台模板问题，但不影响使用
 
 ## 特别鸣谢
 * [pyftpdlib](https://github.com/giampaolo/pyftpdlib)
