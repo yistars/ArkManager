@@ -12,7 +12,7 @@
 ### 面板部分
 1. 检查：你的系统已安装 `curl`；启用了 php 的 `exec` 函数。
 2. 导入 `php/databse.sql` 至数据库，并修改 `config/config.php` 中的值。
-3. 打开 `http://domain.com/admin` ，并输入你设置的密码，添加第一个节点。
+3. 打开 `http://domain.com/admin` ，输入你设置的密码，添加第一个节点。
 4. 添加定时任务 (如 `crontab` 等) 执行 `http://domain.com/config/cron.php?key=123456`(根据实际情况修改)，执行时间自定，推荐一小时执行一次。
 
 ### 服务器部分
