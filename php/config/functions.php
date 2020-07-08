@@ -303,8 +303,8 @@ function adminDelserver($serverid, $db_con)
         echo 'System Error!';
         return '*';
     }
-    // 删除对应节点的目录（如果你希望保留服务器数据，可以注释下面两行）
-    $shell = "curl \"http://$ip_port/?token=$token&action=del&servername=$r_servername\" -X POST";
+    // 在后台执行：删除对应节点的目录（如果你希望保留服务器数据，可以注释下面两行）
+    $shell = "nohup curl \"http://$ip_port/?token=$token&action=del&servername=$r_servername\" -X POST >> /dev/null 2>&1";
     exec($shell, $out);
     // 执行删除
     $sql = "DELETE FROM `servers` WHERE `id` = $serverid";
@@ -357,7 +357,7 @@ function adminListallserver($db_con)
             $serverid = $row['id'];
             if (empty($row['date'])) {
                 $date = '<a style="color: blue; text-decoration: none;" href="renew_server.php?serverid=' . $serverid . '">' . '永久' . '</a>';
-            }else {
+            } else {
                 $date = '<a style="color: blue; text-decoration: none;" href="renew_server.php?serverid=' . $serverid . '">' . $row['date'] . '</a>';
             }
             echo
@@ -401,7 +401,8 @@ function adminListallserver($db_con)
 }
 
 // 管理员：续费服务器
-function adminRenewserver($serverid, $newdate, $db_con) {
+function adminRenewserver($serverid, $newdate, $db_con)
+{
     // 自己人，别开枪
     $newdate = mysqli_real_escape_string($db_con, $newdate);
     $sql = "UPDATE `servers` SET `date` = '$newdate' WHERE `servers`.`id` = $serverid";

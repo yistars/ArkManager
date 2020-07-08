@@ -24,7 +24,8 @@ function checkLogin($db_con)
 /* 管理员功能部分 */
 
 // 管理员：验证管理员密码
-function adminLogin($password, $admin_password) {
+function adminLogin($password, $admin_password)
+{
     if ($password == $admin_password) {
         $_SESSION['admin_login'] = 1;
         echo '<script>window.location.replace("/admin/dash.php");</script>';
@@ -302,8 +303,8 @@ function adminDelserver($serverid, $db_con)
         echo 'System Error!';
         return '*';
     }
-    // 删除对应节点的目录（如果你希望保留服务器数据，可以注释下面两行）
-    $shell = "curl \"http://$ip_port/?token=$token&action=del&servername=$r_servername\" -X POST";
+    // 在后台执行：删除对应节点的目录（如果你希望保留服务器数据，可以注释下面两行）
+    $shell = "start /b curl \"http://$ip_port/?token=$token&action=del&servername=$r_servername\" -X POST";
     exec($shell, $out);
     // 执行删除
     $sql = "DELETE FROM `servers` WHERE `id` = $serverid";
@@ -394,7 +395,8 @@ function adminListallserver($db_con)
 }
 
 // 管理员：续费服务器
-function adminRenewserver($serverid, $newdate, $db_con) {
+function adminRenewserver($serverid, $newdate, $db_con)
+{
     // 自己人，别开枪
     $newdate = mysqli_real_escape_string($db_con, $newdate);
     $sql = "UPDATE `servers` SET `date` = '$newdate' WHERE `servers`.`id` = $serverid";
