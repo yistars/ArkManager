@@ -270,7 +270,7 @@ function adminDelserver($serverid, $db_con)
 {
     $serverid = mysqli_real_escape_string($db_con, $serverid);
     // 通过serverid查询服务器属于哪个用户和节点，并获取用户名
-    $sql = "SELECT `id` , `by_user`, `by_node` FROM `servers` WHERE `id` = $serverid";
+    $sql = "SELECT `id`, `name`, `by_user`, `by_node` FROM `servers` WHERE `id` = $serverid";
     $result = mysqli_query($db_con, $sql);
     while ($row = mysqli_fetch_array($result)) {
         $r_servername = $row['name'];
