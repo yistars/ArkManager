@@ -114,8 +114,8 @@ class http(object):
         return True
 
     def server_delete(self, servername):
-        shutil.rmtree('{}/{}/ShooterGame/Content'.format(self.path,servername))
-        os.makedirs('{}/{}/ShooterGame/Content'.format(self.path,servername))
+        shutil.rmtree('{}/{}'.format(self.path,servername))
+        #os.makedirs('{}/{}/ShooterGame/Content'.format(self.path,servername))
         print('[I {}] [HTTP] Delete Server {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
         return True
 
