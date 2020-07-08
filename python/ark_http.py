@@ -104,14 +104,14 @@ class http(object):
     #    return True
 
     def server_init(self, servername):
-        #try:
-        shutil.copytree('{}/ExampleServer'.format(self.path,servername),'{}/{}'.format(self.path,servername))
-        #except:
-        #    print('[E {}] [HTTP] Init Server {} error, folder already exists'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
-        #    return False
-        #else:
-        print('[I {}] [HTTP] Init Server {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
-        return True
+        try:
+            shutil.copytree('{}/ExampleServer'.format(self.path,servername),'{}/{}'.format(self.path,servername))
+        except:
+            print('[E {}] [HTTP] Init Server {} error, folder already exists'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
+            return False
+        else:
+            print('[I {}] [HTTP] Init Server {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
+            return True
 
     def server_delete(self, servername):
         shutil.rmtree('{}/{}'.format(self.path,servername))
