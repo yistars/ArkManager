@@ -2,8 +2,7 @@
 [![Crowdin](https://badges.crowdin.net/arkmanager/localized.svg)](https://translate.yistars.net/)
 [![GitHub](https://img.shields.io/github/license/yistars/ArkManager)](./LICENSE)
 [![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/yistars/ArkManager?include_prereleases)](https://github.com/yistars/ArkManager/releases/latest)
-[![GitHub All Releases](https://img.shields.io/github/downloads/yistars/ArkManager/total)]
-(https://github.com/yistars/ArkManager/releases)
+[![GitHub All Releases](https://img.shields.io/github/downloads/yistars/ArkManager/total)](https://github.com/yistars/ArkManager/releases)
 
 * 适用平台：Windows
 * 论坛：https://f.yistars.net/
