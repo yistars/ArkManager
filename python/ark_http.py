@@ -82,7 +82,7 @@ class http(object):
     # 服务器控制
     def server_start(self, args, servername):
         try:
-            args = base64.b64decode(args)
+            args = bytes(base64.b64decode(args), encoding='utf-8')
         except:
             print('[E {}] [HTTP] Start Server {} error, wrong arg'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
             return False
