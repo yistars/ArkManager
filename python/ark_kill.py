@@ -1,3 +1,6 @@
+# kill For Arkmanager
+# By Bing_Yanchi
+# DO NOT CHANGE
 import os,time
 def main(data,path):
 	os.system('taskkill /fi "windowtitle eq {}"'.format(path,data['servername']))
