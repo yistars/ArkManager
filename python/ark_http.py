@@ -56,6 +56,8 @@ class http(object):
                     right = self.server_kill(data)
                 elif data['action'] == 'init':
                     right = self.server_init(data['servername'])
+                    if right and ('password' in data):
+                        right = self.ftp_add(data['username'],data['password'],data['servername'],out_q)
                 elif data['action'] == 'delete':
                     right = self.server_kill(data['servername'])
                     right = self.server_delete(data['servername'])
@@ -135,8 +137,6 @@ class http(object):
     def __del__(self):
         # 当服务端程序结束时停止服务器服务
         self.server_socket.close()
-
-
 
 class public_channel_client(object):
     def __init__(self, out_q):
