@@ -109,8 +109,11 @@ class http(object):
     def server_init(self, servername):
         try:
             shutil.copytree('{}/ExampleServer'.format(self.path,servername),'{}/{}'.format(self.path,servername))
+            os.mkdir('{}/{}/sefolder'.format(self.path,servername))
+            os.system('mklink /d "{path}/{servername}/sefolder/Content" "{path}/{servername}/ShooterGame/Content"'.format(path=self.path,servername=servername))
+            os.system('mklink /d "{path}/{servername}/sefolder/Saved" "{path}/{servername}/ShooterGame/Saved"'.format(path=self.path,servername=servername))
         except:
-            print('[E {}] [HTTP] Init Server {} error, folder already exists'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
+            print('[E {}] [HTTP] Init Server {} error'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
             return False
         else:
             print('[I {}] [HTTP] Init Server {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
