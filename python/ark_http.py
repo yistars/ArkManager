@@ -94,6 +94,7 @@ class http(object):
     def server_kill(self, data):
         self.th_kill = Thread(target=ark_kill.main, args=(data, self.path))
         self.th_kill.start()
+        return True
 
     #def server_kill(self, servername):
     #    os.system('taskkill /fi "windowtitle eq {}"'.format(self.path,servername))
