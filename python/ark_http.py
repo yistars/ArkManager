@@ -1,9 +1,9 @@
 # http For ArkManager
 # By Bing_Yanchi
 # DO NOT CHANGE
-import os,socket,base64,shutil,threading,time
 from queue import Queue
 from threading import Thread
+import os,socket,base64,shutil,threading,time
 import ark_kill
 # 创建服务器类
 class http(object):
@@ -84,7 +84,7 @@ class http(object):
     # 服务器控制
     def server_start(self, args, servername):
         try:
-            args = bytes(base64.b64decode(args), encoding='utf-8')
+            args = base64.b64decode(args).decode(encoding='utf-8')
         except:
             print('[E {}] [HTTP] Start Server {} error, wrong arg'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
             return False
@@ -108,7 +108,8 @@ class http(object):
 
     def server_init(self, servername):
         try:
-            shutil.copytree('{}/ExampleServer'.format(self.path,servername),'{}/{}'.format(self.path,servername))
+            os.system('robocopy {path}\ExampleServer {path}\{ServerName} /e'.format(path=self.path,servername=servername))
+            #shutil.copytree('{}/ExampleServer'.format(self.path,servername),'{}/{}'.format(self.path,servername))
             os.mkdir('{}/{}/sefolder'.format(self.path,servername))
             os.system('mklink /d "{path}/{servername}/sefolder/Content" "{path}/{servername}/ShooterGame/Content"'.format(path=self.path,servername=servername))
             os.system('mklink /d "{path}/{servername}/sefolder/Saved" "{path}/{servername}/ShooterGame/Saved"'.format(path=self.path,servername=servername))
