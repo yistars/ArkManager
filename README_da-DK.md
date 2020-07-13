@@ -45,6 +45,7 @@
 * 管理员后台模板问题，但不影响使用
 
 ## 特别鸣谢
+* [Crowdin](https://crowdin.com/)
 * [pyftpdlib](https://github.com/giampaolo/pyftpdlib)
 * [pyinstaller](https://github.com/pyinstaller/pyinstaller)
 * [PHP-Minecraft-Rcon](https://github.com/thedudeguy/PHP-Minecraft-Rcon)
