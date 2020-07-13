@@ -3,30 +3,30 @@
 // $lang['indexTitle']
 $lang = array(
     // index.php
-    'indexTitle' => '首页',
+    'indexTitle' => '首頁',
     'indexHeader' => '控制面板',
     'indexWelcome' => '欢迎使用控制面板',
     'indexContent' => '请从左侧菜单选择操作。',
     
     // changepwd.php
-    'changepwdTitle' => '重置密码',
-    'changepwdHeader' => '重置密码',
-    'changepwdoldPassword' => '原密码',
+    'changepwdTitle' => '重設密碼',
+    'changepwdHeader' => '重設密碼',
+    'changepwdoldPassword' => '舊密碼',
     'changepwdoldPasswordtip' => '请输入原密码！',
-    'changepwdnewPassword' => '新密码',
-    'changepwdnewPasswordtip' => '请输入新密码!',
+    'changepwdnewPassword' => '新密碼',
+    'changepwdnewPasswordtip' => '請輸入您的新密碼',
 
     // control.php
     'controlTitle' => '控制台',
     'controlHeader' => '控制台',
-    'controlh1' => '服务器控制台',
-    'controlstart' => '启动',
+    'controlh1' => '伺服器主控台',
+    'controlstart' => '啟動',
     'controlstop' => '停止',
     'controlc' => '请选择对：',
     'controlc1' => '的操作',
     'controlc2' => '在启动前请调整以下参数，我们不会保存以下参数。',
-    'controlc3' => '选择地图',
-    'controlc4' => '额外参数',
+    'controlc3' => '選擇地圖',
+    'controlc4' => '額外參數',
 
     // ftp.php
     'ftpTitle' => 'FTP',
