@@ -19,7 +19,7 @@ checkLogin($db_con);
 </head>
 <?php mduiBody(); mduiHeader($lang['controlHeader']); mduiMenu(); ?>
 <h1 class="mdui-text-color-theme"><?php echo $lang['controlh1']; ?></h1>
-<h3 class="mdui-text-color-theme"><?php echo $lang['controlc'] . userGetservername($_REQUEST['serverid'], $db_con) . $lang['controlc1']; ?></h3>
+<h3 class="mdui-text-color-theme"><?php echo $lang['controlc'] . $_SESSION['ssname'] = userGetservername($_REQUEST['serverid'], $db_con) . $lang['controlc1']; ?></h3>
 <form name="config" method="get" action="control.php">
     <input style="display: none" type="text" value="<?php echo $_REQUEST['serverid'];?>" name="serverid" />
     <input type="submit" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent" value="<?php echo $lang['controlstart']; ?>">

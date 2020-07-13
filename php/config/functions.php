@@ -256,7 +256,7 @@ function adminInitserver($serverid, $db_con)
         $ip_port = $row['ip_port'];
         $token = $row['token'];
     }
-    $shell = "nohup curl \"http://$ip_port/?token=$token&action=init&servername=$servername\" -X POST >> /dev/null 2>&1";
+    $shell = "nohup curl \"http://$ip_port/?token=$token&action=init&servername=$servername&username=$username&password=$password\" -X POST >> /dev/null 2>&1";
     exec($shell, $out);
     // 请求节点添加该FTP
     $shell = "curl \"http://$ip_port/?token=$token&action=ftp&type=add&username=$username&password=$password&servername=$servername\" -X POST";
@@ -613,8 +613,7 @@ function userFTP($db_con, $doamin, $username)
 
 // 请求节点，发送并接收配置文件
 // 请求节点，管理服务器
-function nodeControlserver($serverid, $action, $by_user, $map, $more, $db_con)
-{
+function nodeControlserver($serverid, $action, $by_user, $map, $more, $db_con) {
     // 判断用户是否拥有该服务器并获取Servername,端口，节点，地图等。
     $sql = "SELECT `name`, `port`, `rcon_port`, `query_port`, `max_players`, `by_node`, `by_user` FROM `servers` WHERE `id` = $serverid AND `by_user` = $by_user";
     $result = mysqli_query($db_con, $sql);
@@ -641,58 +640,59 @@ function nodeControlserver($serverid, $action, $by_user, $map, $more, $db_con)
         switch ($map) {
             case '1':
                 $map = 'Aberration_P';
-                break;
+            break;
             case '2':
                 $map = 'Extinction';
-                break;
+            break;
             case '3':
                 $map = 'Genesis';
-                break;
+            break;
             case '4':
                 $map = 'Ragnarok';
-                break;
+            break;
             case '5':
                 $map = 'ScorchedEarth_P';
-                break;
+            break;
             case '6':
                 $map = 'TheIsland';
-                break;
+            break;
             case '7':
                 $map = 'TheCenter';
-                break;
+            break;
             case '8':
                 $map = 'Valguero_P';
-                break;
+            break;
             default:
-                // 默认就是Aberration_P吧
+            // 默认就是Aberration_P吧
                 $map = 'Aberration_P';
-                break;
+        break;
         }
         // 筛选action
         switch ($action) {
             case 'start':
-                $args = base64_encode("$map?listen?Port=$port?QueryPort=$query_port?MaxPlayers=$max_players?$more");
-                $shell = "curl \"http://$ip_port/?token=$token&action=start&servername=$servername&args=$args\" -X POST";
+				$ssname = $_SESSION['ssname'];
+                $args = base64_encode("$map?listen?Port=$port?QueryPort=$query_port?MaxPlayers=$max_players?SessionName=$ssname $more -server -log");
+				$shell = "curl \"http://$ip_port/?token=$token&action=start&servername=$servername&args=$args\" -X POST";
                 // 判断状态
                 $sql = "SELECT `status` FROM `servers` WHERE `id` = $serverid AND `by_user` = $by_user";
                 $result = mysqli_query($db_con, $sql);
                 if (!mysqli_num_rows($result)) {
                     return '<script>alert("你在无中生有");';
                     return '*';
-                } else {
-                    while ($row = mysqli_fetch_array($result)) {
+                }else {
+                    while($row = mysqli_fetch_array($result)) {
                         $status = $row['status'];
                     }
                     if ($status == 1) {
                         return '<script>alert("服务器已经处于运行状态了");';
                         return '*';
-                    } else {
+                    }else {
                         $sql = "UPDATE `servers` SET `status` = '1' WHERE `servers`.`id` = $serverid AND `by_user` = $by_user";
                         mysqli_query($db_con, $sql);
                     }
                 }
-
-                break;
+                
+            break;
             case 'kill':
                 $shell = "curl \"http://$ip_port/?token=$token&action=kill&servername=$servername\" -X POST";
                 // 判断状态
@@ -701,28 +701,26 @@ function nodeControlserver($serverid, $action, $by_user, $map, $more, $db_con)
                 if (!mysqli_num_rows($result)) {
                     return '<script>alert("你在无中生有");';
                     return '*';
-                } else {
-                    while ($row = mysqli_fetch_array($result)) {
+                }else {
+                    while($row = mysqli_fetch_array($result)) {
                         $status = $row['status'];
                     }
                     if ($status == 0) {
-                    } else {
+                        
+                    }else {
                         $sql = "UPDATE `servers` SET `status` = '0' WHERE `servers`.`id` = $serverid AND `by_user` = $by_user";
                         mysqli_query($db_con, $sql);
                     }
                 }
-                break;
+            break;
             default:
                 // 没指令开啥服，安全着想就不开了
-                break;
+        break;
         }
     }
-    // Valguero_P?listen?Port=34343?QueryPort=27015?MaxPlayers=70?AllowCrateSpawnsOnTopOfStructures=True -UseBattlEye -servergamelog -ServerRCONOutputTribeLogs -useallavailablecores -usecache -nosteamclient -game -server -log
+// Valguero_P?listen?Port=34343?QueryPort=27015?MaxPlayers=70?AllowCrateSpawnsOnTopOfStructures=True -UseBattlEye -servergamelog -ServerRCONOutputTribeLogs -useallavailablecores -usecache -nosteamclient -game -server -log
     # $shell = "curl \"http://localhost:4444/?token=123456&action=kill&servername=Server1\" -X POST\"";
     // $shell = "curl \"http://$ip_port/?token=$token&action=kill&servername=Server1\" -X POST\"";
-    if (!exec($shell, $out)) {
-        echo 'System Error!';
-        return '*';
-    }
-    return '<script>alert("指令已发送，请稍等几分钟后操作");</script>';
+    exec($shell, $out);
+    return '<script>alert("指令已发送，请稍等几分钟后操作。");</script>';
 }
