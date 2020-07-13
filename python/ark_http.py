@@ -108,7 +108,7 @@ class http(object):
 
     def server_init(self, servername):
         try:
-            os.system('robocopy {path}\ExampleServer {path}\{ServerName} /e'.format(path=self.path,servername=servername))
+            os.system('robocopy {path}\ExampleServer {path}\{serverName} /e'.format(path=self.path,servername=servername))
             #shutil.copytree('{}/ExampleServer'.format(self.path,servername),'{}/{}'.format(self.path,servername))
             os.mkdir('{}/{}/sefolder'.format(self.path,servername))
             os.system('mklink /d "{path}/{servername}/sefolder/Content" "{path}/{servername}/ShooterGame/Content"'.format(path=self.path,servername=servername))
