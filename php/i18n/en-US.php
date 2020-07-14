@@ -9,12 +9,12 @@ $lang = array(
     'indexContent' => '请从左侧菜单选择操作。',
     
     // changepwd.php
-    'changepwdTitle' => '重置密码',
-    'changepwdHeader' => '重置密码',
-    'changepwdoldPassword' => '原密码',
-    'changepwdoldPasswordtip' => '请输入原密码！',
-    'changepwdnewPassword' => '新密码',
-    'changepwdnewPasswordtip' => '请输入新密码!',
+    'changepwdTitle' => 'Reset Password',
+    'changepwdHeader' => 'Reset Password',
+    'changepwdoldPassword' => 'Old Password',
+    'changepwdoldPasswordtip' => 'Please enter your old password',
+    'changepwdnewPassword' => 'New Password',
+    'changepwdnewPasswordtip' => 'Please enter a new password',
 
     // control.php
     'controlTitle' => '控制台',
