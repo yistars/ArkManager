@@ -5,7 +5,7 @@
 * 论坛：https://f.yistars.net/
 * 本地化：https://translate.yistars.net/
 
-## 使用方法
+## 使い方
 ### 面板部分
 1. 检查：你的系统已安装 `curl`；启用了 php 的 `exec` 函数。
 2. 导入 `php/databse.sql` 至数据库，并修改 `config/config.php` 中的值。
@@ -41,7 +41,7 @@
 * Python 增加 debug 接口
 * 更加完整的 Wiki
 
-## 已知问题
+## 既知の問題
 * 管理员后台模板问题，但不影响使用
 
 ## 特别鸣谢
