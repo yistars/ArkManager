@@ -41,7 +41,7 @@
 * Python 增加 debug 接口
 * 更加完整的 Wiki
 
-## 已知问题
+## Known issues
 * 管理员后台模板问题，但不影响使用
 
 ## Thanks
