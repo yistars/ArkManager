@@ -17,11 +17,11 @@ $lang = array(
     'changepwdnewPasswordtip' => 'Please enter a new password',
 
     // control.php
-    'controlTitle' => '控制台',
-    'controlHeader' => '控制台',
-    'controlh1' => '服务器控制台',
-    'controlstart' => '启动',
-    'controlstop' => '停止',
+    'controlTitle' => 'Console',
+    'controlHeader' => 'Console',
+    'controlh1' => 'Server Console',
+    'controlstart' => 'Start',
+    'controlstop' => 'Stop',
     'controlc' => '请选择对：',
     'controlc1' => '的操作',
     'controlc2' => '在启动前请调整以下参数，我们不会保存以下参数。',
