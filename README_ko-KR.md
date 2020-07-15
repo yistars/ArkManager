@@ -3,9 +3,9 @@
 
 * 适用平台：Windows
 * 论坛：https://f.yistars.net/
-* 本地化：https://translate.yistars.net/
+* 현지화: https://translate.yistars.net/
 
-## 使用方法
+## 사용하는 방법
 ### 面板部分
 1. 检查：你的系统已安装 `curl`；启用了 php 的 `exec` 函数。
 2. 导入 `php/databse.sql` 至数据库，并修改 `config/config.php` 中的值。
