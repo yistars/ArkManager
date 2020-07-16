@@ -108,11 +108,11 @@ class http(object):
 
     def server_init(self, servername):
         try:
-            os.system('start robocopy {path}\ExampleServer {path}\{servername} /e'.format(path=self.path,servername=servername))
+            os.system('start robocopy {path}\ExampleServer {path}\{servername} /e && exit'.format(path=self.path,servername=servername))
             #shutil.copytree('{}/ExampleServer'.format(self.path,servername),'{}/{}'.format(self.path,servername))
-            os.mkdir('{}/{}/sefolder'.format(self.path,servername))
-            os.system('start mklink /d "{path}/{servername}/sefolder/Content" "{path}/{servername}/ShooterGame/Content"'.format(path=self.path,servername=servername))
-            os.system('start mklink /d "{path}/{servername}/sefolder/Saved" "{path}/{servername}/ShooterGame/Saved"'.format(path=self.path,servername=servername))
+            os.makedirs('{}/{}/sefolder'.format(self.path,servername))
+            os.system('start mklink /d "{path}/{servername}/sefolder/Content" "{path}/{servername}/ShooterGame/Content" && exit'.format(path=self.path,servername=servername))
+            os.system('start mklink /d "{path}/{servername}/sefolder/Saved" "{path}/{servername}/ShooterGame/Saved" && exit'.format(path=self.path,servername=servername))
         except:
             print('[E {}] [HTTP] Init Server {} error'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
             return False
