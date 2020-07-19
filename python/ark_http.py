@@ -108,11 +108,11 @@ class http(object):
 
     def server_init(self, servername):
         self.th_init = Thread(target=ark_init, args=(self.path,servername))
+        self.th_init.start()
         return True
 
     def server_delete(self, servername):
         shutil.rmtree('{}/{}'.format(self.path,servername))
-        #os.makedirs('{}/{}/ShooterGame/Content'.format(self.path,servername))
         print('[I {}] [HTTP] Delete Server {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
         return True
 
