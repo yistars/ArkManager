@@ -107,7 +107,7 @@ class http(object):
     #    return True
 
     def server_init(self, servername):
-        self.th_init = Thread(target=ark_init, args=(self.path,servername))
+        self.th_init = Thread(target=ark_init.main, args=(self.path,servername))
         self.th_init.start()
         return True
 
