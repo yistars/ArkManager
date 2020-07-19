@@ -44,7 +44,7 @@ require_once('../config/functions.php');
     <tbody>
     <?php 
     // 返回当前用户列表
-    echo adminListalluser($db_con);
+    echo $Admin->Listalluser();
     ?>
     </tbody>
 </table>
@@ -56,11 +56,11 @@ require_once('../config/functions.php');
     }
     // 接收添加用户数据
     if (!empty($_POST['add-username'])||!empty($_POST['add-password'])) {
-        echo adminAdduser($_POST['add-username'],md5($_POST['add-password']),$db_con);
+        echo $Admin->Adduser($_POST['add-username'],md5($_POST['add-password']),);
     }
     // 接收删除用户数据
     if (!empty($_REQUEST['del-userid'])) {
-        echo adminDeluserbyid($_REQUEST['del-userid'],$db_con);
+        echo $Admin->Deluserbyid($_REQUEST['del-userid'],);
     }
 ?>
 

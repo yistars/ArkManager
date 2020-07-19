@@ -3,7 +3,6 @@ session_start();
 require_once('../config/config.php');
 require_once('../config/admin_theme.php');
 require_once('checkuser.php');
-require_once('../config/functions.php');
 ?>
 <!DOCTYPE html>
 <html>

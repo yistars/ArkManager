@@ -2,7 +2,6 @@
 require_once('../config/config.php');
 require_once('../config/admin_theme.php');
 require_once('checkuser.php');
-require_once('../config/functions.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -54,7 +53,7 @@ require_once('../config/functions.php');
     <tbody>
     <?php 
     // 返回当前节点列表
-    echo adminListallnode($db_con);
+    echo $Admin->listAllnode();
     ?>
     </tbody>
 </table>
@@ -66,11 +65,11 @@ require_once('../config/functions.php');
     }
     // 接收添加节点数据
     if (!empty($_POST['add-nodename'])||!empty($_POST['add-nodeipport'])||!empty($_POST['add-nodetoken'])) {
-        echo adminAddnode($_POST['add-nodename'],$_POST['add-nodeipport'], $_POST['add-ftp'], $_POST['add-nodetoken'],$db_con);
+        echo $Admin->addNode($_POST['add-nodename'],$_POST['add-nodeipport'], $_POST['add-ftp'], $_POST['add-nodetoken']);
     }
     // 接收删除节点数据
     if (!empty($_REQUEST['del-nodeid'])) {
-        echo adminDelnode($_REQUEST['del-nodeid'],$db_con);
+        echo $Admin->delNode($_REQUEST['del-nodeid']);
     }
 ?>
 

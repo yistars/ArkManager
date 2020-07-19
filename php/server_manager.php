@@ -1,8 +1,7 @@
 <?php
 require_once('config/config.php');
 require_once('config/theme.php');
-require_once('config/functions.php');
-checkLogin($db_con);
+$User->checkLogin();
 ?>
 <!DOCTYPE html>
 <html>
@@ -28,7 +27,7 @@ checkLogin($db_con);
     <tbody>
     <?php 
         // 返回当前服务器列表
-        echo userListallservers($db_con);
+        echo $User->Listallservers();
     ?>
     </tbody>
 </table>

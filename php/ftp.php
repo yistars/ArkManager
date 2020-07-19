@@ -2,8 +2,7 @@
 session_start();
 require_once('config/config.php');
 require_once('config/theme.php');
-require_once('config/functions.php');
-checkLogin($db_con);
+$User->checkLogin();
 ?>
 <!doctype html>
 <html>
@@ -25,7 +24,7 @@ checkLogin($db_con);
         </tr>
     </thead>
     <tbody>
-        <?php userFTP($db_con, DOMAIN, $_SESSION['user']); ?>
+        <?php $User->FTP(DOMAIN, $_SESSION['user']); ?>
     </tbody>
 </table>
 </body>

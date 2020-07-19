@@ -3,7 +3,6 @@ session_start();
 require_once('../config/config.php');
 require_once('../config/admin_theme.php');
 require_once('checkuser.php');
-require_once('../config/functions.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -43,7 +42,7 @@ require_once('../config/functions.php');
             </div>
             <label class="mdui-textfield-label"><?php echo $lang['adminServermanagerT7']; ?></label>
             <select class="mdui-select" name="add-bynode" mdui-select>
-                <?php echo adminListallnodeselect($db_con); ?>
+                <?php echo $Admin->Listallnodeselect(); ?>
             </select>
             <div class="mdui-textfield mdui-textfield-floating-label">
                 <label class="mdui-textfield-label"><?php echo $lang['adminServermanagerT8']; ?></label>
@@ -79,7 +78,7 @@ require_once('../config/functions.php');
     <tbody>
         <?php 
         // 返回当前服务器列表
-        adminListallserver($db_con);
+        $Admin->Listallserver();
         ?>
     </tbody>
 </table>
@@ -91,15 +90,15 @@ require_once('../config/functions.php');
     }
     // 接收创建服务器数据
     if (!empty($_POST['add-servername'])||!empty($_POST['add-serverport'])||!empty($_POST['add-rconport'])||!empty($_POST['add-maxplayers'])||!empty($_POST['add-queryport'])||!empty($_POST['add-bynode'])||!empty($_POST['add-byuser'])) {
-        echo adminCreateserver($_POST['add-servername'], $_POST['add-serverport'], $_POST['add-rconport'], $_POST['add-queryport'], $_POST['add-maxplayers'], $_POST['add-byuser'], $_POST['add-bynode'], $_POST['add-date'], $db_con);
+        echo $Admin->createServer($_POST['add-servername'], $_POST['add-serverport'], $_POST['add-rconport'], $_POST['add-queryport'], $_POST['add-maxplayers'], $_POST['add-byuser'], $_POST['add-bynode'], $_POST['add-date']);
     }
     // 接收删除服务器数据
     if (!empty($_REQUEST['del-serverid'])) {
-        echo adminDelserver($_REQUEST['del-serverid'], $db_con);
+        echo $Admin->delServer($_REQUEST['del-serverid']);
     }
     // 接收初始化服务器数据
     if (!empty($_REQUEST['intl-serverid'])) {
-        echo adminInitserver($_REQUEST['intl-serverid'], $db_con);
+        echo $Admin->initServer($_REQUEST['intl-serverid']);
         echo '<script>window.location.replace("server_manager.php");</script>';
     }
 ?>

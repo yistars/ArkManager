@@ -2,7 +2,6 @@
 session_start();
 require_once('config/config.php');
 require_once('config/theme.php');
-
 ?>
 <!doctype html>
 <html>

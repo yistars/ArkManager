@@ -2,8 +2,7 @@
 session_start();
 require_once('config/config.php');
 require_once('config/theme.php');
-require_once('config/functions.php');
-checkLogin($db_con);
+$User->checkLogin();
 ?>
 <!doctype html>
 <html>
@@ -19,7 +18,7 @@ checkLogin($db_con);
 </head>
 <?php mduiBody(); mduiHeader($lang['controlHeader']); mduiMenu(); ?>
 <h1 class="mdui-text-color-theme"><?php echo $lang['controlh1']; ?></h1>
-<h3 class="mdui-text-color-theme"><?php echo $lang['controlc'] . $_SESSION['ssname'] = userGetservername($_REQUEST['serverid'], $db_con) . $lang['controlc1']; ?></h3>
+<h3 class="mdui-text-color-theme"><?php echo $lang['controlc'] . $_SESSION['ssname'] = $User->Getservername($_REQUEST['serverid']) . $lang['controlc1']; ?></h3>
 <form name="config" method="get" action="control.php">
     <input style="display: none" type="text" value="<?php echo $_REQUEST['serverid'];?>" name="serverid" />
     <input type="submit" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent" value="<?php echo $lang['controlstart']; ?>">
@@ -51,7 +50,7 @@ checkLogin($db_con);
 <iframe style="border: none; width: 100%; height: 700px;" src="https://rcon.arkpsh.cn/"></iframe>
 <?php
     if (!empty($_REQUEST['action'])||!empty($_POST['serverid'])||!empty($_REQUEST['map'])) {
-        echo nodeControlserver($_REQUEST['serverid'], $_REQUEST['action'], $_SESSION['userid'], $_REQUEST['map'], $_REQUEST['more'], $db_con);
+        echo $User->nodeControlserver($_REQUEST['serverid'], $_REQUEST['action'], $_SESSION['userid'], $_REQUEST['map'], $_REQUEST['more']);
     }
     if ($_REQUEST['action'] == 'kill') {
         $serverid = $_REQUEST['serverid'];

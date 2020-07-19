@@ -2,7 +2,6 @@
 require_once('../config/config.php');
 require_once('../config/admin_theme.php');
 require_once('checkuser.php');
-require_once('../config/functions.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -26,7 +25,7 @@ require_once('../config/functions.php');
 <?php
     // 接收添加用户数据
     if (!empty($_POST['add-username'])||!empty($_POST['add-password'])) {
-        echo adminAdduser($_POST['add-username'],md5($_POST['add-password']),$db_con);
+        echo $Admin->addUser($_POST['add-username'],md5($_POST['add-password']));
     }
 ?>
 <h1 class="mdui-text-color-theme"><?php echo $lang['adminDashT4']; ?></h1>
@@ -40,7 +39,7 @@ require_once('../config/functions.php');
 <?php
     // 接收删除用户数据
     if (!empty($_POST['del-username'])) {
-        echo adminDeluser($_POST['del-username'],$db_con);
+        echo $Admin->delUser($_POST['del-username']);
     }
 ?>
 </body>

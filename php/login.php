@@ -1,7 +1,6 @@
 <?php
 require_once('config/config.php');
 require_once('config/theme.php');
-require_once('config/functions.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -30,7 +29,7 @@ require_once('config/functions.php');
     <?php
     // 验证用户登录
     if (!empty($_POST['username'])||!empty($_POST['password'])) {
-        echo userLogin($_POST['username'], md5($_POST['password']), $db_con);
+        echo $User->Login($_POST['username'], md5($_POST['password']));
     }
     ?>
 </body>

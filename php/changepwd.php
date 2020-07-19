@@ -1,8 +1,7 @@
 <?php
 require_once('config/config.php');
 require_once('config/theme.php');
-require_once('config/functions.php');
-checkLogin($db_con);
+$User->checkLogin();
 ?>
 <!DOCTYPE html>
 <html>
@@ -11,7 +10,7 @@ checkLogin($db_con);
     <?php mduiHead($lang['changepwdTitle']); ?>
 </head>
 
-    <?php mduiBody(); mduiHeader($lang['indexHeader']); mduiMenu(); checkLogin($db_con); ?>
+    <?php mduiBody(); mduiHeader($lang['indexHeader']); mduiMenu();?>
     <form name="reg" method="post" action="changepwd.php">
     <div class="mdui-textfield mdui-textfield-floating-label">
             <i class="mdui-icon material-icons">lock</i>
@@ -31,7 +30,7 @@ checkLogin($db_con);
     <?php
     // 验证用户输入
     if (!empty($_POST['oldpassword'])||!empty($_POST['password'])) {
-        echo userChangepassword(md5($_POST['oldpassword']), md5($_POST['password']), $db_con);
+        echo $user->Changepassword(md5($_POST['oldpassword']), md5($_POST['password']));
     }
     ?>
 </body>

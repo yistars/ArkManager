@@ -1,7 +1,6 @@
 <?php
 require_once('../config/config.php');
 require_once('../config/admin_theme.php');
-require_once('../config/functions.php');
 if ($_SESSION['admin_login'] == 1) {
     header('Location: dash.php');
 }
@@ -25,7 +24,7 @@ if ($_SESSION['admin_login'] == 1) {
     <?php
     // 验证用户登录
     if (!empty($_POST['password'])) {
-    adminLogin($_POST['password'],$admin_password);
+    $Admin->Login($_POST['password'], $admin_password);
     }
     ?>
 </body>
