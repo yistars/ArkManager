@@ -4,7 +4,7 @@
 from queue import Queue
 from threading import Thread
 import os,socket,base64,shutil,threading,time
-import ark_kill
+import ark_kill,ark_init
 # 创建服务器类
 class http(object):
     def __init__(self, HOST, PORT):
@@ -107,18 +107,8 @@ class http(object):
     #    return True
 
     def server_init(self, servername):
-        try:
-            os.system('start robocopy {path}\ExampleServer {path}\{servername} /e && exit'.format(path=self.path,servername=servername))
-            #shutil.copytree('{}/ExampleServer'.format(self.path,servername),'{}/{}'.format(self.path,servername))
-            os.makedirs('{}/{}/sefolder'.format(self.path,servername))
-            os.system('start mklink /d "{path}/{servername}/sefolder/Content" "{path}/{servername}/ShooterGame/Content" && exit'.format(path=self.path,servername=servername))
-            os.system('start mklink /d "{path}/{servername}/sefolder/Saved" "{path}/{servername}/ShooterGame/Saved" && exit'.format(path=self.path,servername=servername))
-        except:
-            print('[E {}] [HTTP] Init Server {} error'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
-            return False
-        else:
-            print('[I {}] [HTTP] Init Server {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
-            return True
+        self.th_init = Thread(target=ark_init, args=(self.path,servername))
+        return True
 
     def server_delete(self, servername):
         shutil.rmtree('{}/{}'.format(self.path,servername))
