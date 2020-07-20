@@ -42,7 +42,6 @@ def main(path,servername):
         os.system('mklink /d "{path}/{servername}/sefolder/Content" "{path}/{servername}/ShooterGame/Content" && exit'.format(path=path,servername=servername))
         os.system('mklink /d "{path}/{servername}/sefolder/Saved" "{path}/{servername}/ShooterGame/Saved" && exit'.format(path=path,servername=servername))
         copy_main('{}/ExampleServer'.format(path), '{}/{}'.format(path,servername))
-        #os.system('robocopy {path}\ExampleServer {path}\{servername} /e && exit'.format(path=path,servername=servername))
     except:
         print('[E {}] [HTTP] Init Server {} error'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
     else:
