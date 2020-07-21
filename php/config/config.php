@@ -48,4 +48,4 @@ $User = new User();
 $Admin->db_con = $db_con;
 $User->db_con = $db_con;
 
-/* 非常感谢您能使用ArkManager! */
+/* 非常感谢您能使用Yistars/ArkManager! */
