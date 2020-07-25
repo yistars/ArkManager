@@ -37,7 +37,7 @@ class main(object):
                     data[single[0]] = single[1]
             global public_data
             if data['type'] == 'add':
-                data['path'] += '\sefolder'
+                data['path'] += '/sefolder'
                 try:
                     self.ftp_add_user(data['username'],data['password'],data['path'])
                 except:
