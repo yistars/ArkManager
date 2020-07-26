@@ -286,21 +286,21 @@ class User
                     $sql = "SELECT `status` FROM `servers` WHERE `id` = $serverid AND `by_user` = $by_user";
                     $result = $this->db_con->query($sql);
                     if (!mysqli_num_rows($result)) {
-                        return '<script>alert("你在无中生有");';
+                        echo '<script>alert("你在无中生有");</script>';
                         return '*';
                     } else {
                         while ($row = mysqli_fetch_array($result)) {
                             $status = $row['status'];
                         }
                         if ($status == 1) {
-                            return '<script>alert("服务器已经处于运行状态了");';
+                            echo '<script>alert("服务器已经处于运行状态了");</script>';
                             return '*';
                         } else {
+                            echo '<script>alert("启动指令已发送！");</script>';
                             $sql = "UPDATE `servers` SET `status` = '1' WHERE `servers`.`id` = $serverid AND `by_user` = $by_user";
                             $this->db_con->query($sql);
                         }
                     }
-
                     break;
                 case 'kill':
                     $shell = "curl \"http://$ip_port/?token=$token&action=kill&servername=$servername\" -X POST";
@@ -308,19 +308,41 @@ class User
                     $sql = "SELECT `status` FROM `servers` WHERE `id` = $serverid AND `by_user` = $by_user";
                     $result = $this->db_con->query($sql);
                     if (!mysqli_num_rows($result)) {
-                        return '<script>alert("你在无中生有");';
+                        echo '你在无中生有';
                         return '*';
                     } else {
                         while ($row = mysqli_fetch_array($result)) {
                             $status = $row['status'];
                         }
                         if ($status == 0) {
+                            echo '服务器已经处于停止状态了。';
                         } else {
+                            echo '停止指令已发送！';
                             $sql = "UPDATE `servers` SET `status` = '0' WHERE `servers`.`id` = $serverid AND `by_user` = $by_user";
                             $this->db_con->query($sql);
                         }
                     }
                     break;
+                case 'update':
+                    $shell = "curl \"http://$ip_port/?token=$token&action=update&servername=$servername\" -X POST";
+                    // 判断状态
+                    $sql = "SELECT `status` FROM `servers` WHERE `id` = $serverid AND `by_user` = $by_user";
+                    $result = $this->db_con->query($sql);
+                    if (!mysqli_num_rows($result)) {
+                        echo '你在无中生有';
+                        return '*';
+                    } else {
+                        while ($row = mysqli_fetch_array($result)) {
+                            $status = $row['status'];
+                        }
+                        if ($status == 0) {
+                            echo '已开始更新服务器，在接下来的1小时内请勿操作服务器，也不要重复点击更新，否则可能会出现意想不到的问题';
+                        } else {
+                            echo '服务器必须处于停止状态才能更新，点击更新后在1小时内请勿操作服务器，否则可能会出现意想不到的问题！';
+                        }
+                    }
+                    break;
+                break;
                 default:
                     // 没指令开啥服，安全着想就不开了
                     break;
@@ -330,6 +352,5 @@ class User
         # $shell = "curl \"http://localhost:4444/?token=123456&action=kill&servername=Server1\" -X POST\"";
         // $shell = "curl \"http://$ip_port/?token=$token&action=kill&servername=Server1\" -X POST\"";
         exec($shell, $out);
-        return '<script>alert("指令已发送，请稍等几分钟后操作。");</script>';
     }
 }
