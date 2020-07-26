@@ -1,9 +1,15 @@
 <?php
+session_start();
 require_once('config/config.php');
 require_once('config/theme.php');
+// 生成Token，防止跨域
+if(empty($_POST['token'])) {
+    $_SESSION['form_token'] = mt_rand();
+}
 // 验证用户登录
 if (!empty($_POST['username']) || !empty($_POST['password'])) {
-    echo $User->Login($_POST['username'], md5($_POST['password']));
+    echo $User->Login($_POST['username'], md5($_POST['password']), $_POST['token']);
+    unset($_SESSION['form_token']);
 }
 ?>
 <!DOCTYPE html>
@@ -30,6 +36,7 @@ mduiMenu(); ?>
         <i class="mdui-icon material-icons">lock</i>
         <label class="mdui-textfield-label"><?php echo $lang['loginPassword']; ?></label>
         <input class="mdui-textfield-input" type="password" name="password" required />
+        <input style="display: none" type="hidden" name="token" value="<?php echo $_SESSION['form_token']; ?>" required />
         <div class="mdui-textfield-error"><?php echo $lang['loginPasswordtip']; ?></div>
     </div>
     <input name="Submit" type="submit" class="mdui-btn mdui-color-theme-accent mdui-ripple" value="确认" />

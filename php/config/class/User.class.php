@@ -24,8 +24,16 @@ class User
     /* 用户功能部分 */
 
     // 用户登录
-    public function Login($username, $password)
+    public function Login($username, $password, $form_token)
     {
+        if($form_token == $_SESSION['form_token']) {
+            unset($_SESSION['form_token']);
+        }else {
+            echo $form_token;
+            unset($_SESSION['form_token']);
+            return '<script>alert("可能存在跨域问题，请点击菜单中的任意项目重新加载本页面重试。");</script>';
+            return '*';
+        }
         $username = mysqli_real_escape_string($this->db_con, $username);
         $password = mysqli_real_escape_string($this->db_con, $password);
         $sql = "SELECT `id`, `username`, `password` FROM `users` WHERE `username`='$username' AND `password` = '$password'";
@@ -33,14 +41,17 @@ class User
         if (mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_array($result)) {
                 if ($password == $row['password']) {
+                    unset($_SESSION['form_token']);
                     $_SESSION['user'] = $row['username'];
                     $_SESSION['userid'] = $row['id'];
-                    header('Location: /index.php');
+                    header('Location: server_manager.php');
                 } else {
+                    $_SESSION['form_token'] = mt_rand();
                     return '<script>alert("密码错误");</script>';
                 }
             }
         } else {
+            $_SESSION['form_token'] = mt_rand();
             return '<script>alert("用户信息有误");</script>';
         }
     }
