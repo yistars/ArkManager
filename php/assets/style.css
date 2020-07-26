@@ -1,0 +1,9 @@
+.link {
+    color: blue;
+    text-decoration: none
+}
+
+#menu .mdui-list-item,
+.mdui-collapse-item-header {
+    border-radius: 0px 50px 50px 0px;
+}
