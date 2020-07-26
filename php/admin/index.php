@@ -16,7 +16,7 @@ if ($_SESSION['admin_login'] == 1) {
         <div class="mdui-textfield mdui-textfield-floating-label">
             <i class="mdui-icon material-icons">lock</i>
             <label class="mdui-textfield-label"><?php $lang['adminLoginpassword']; ?></label>
-            <input class="mdui-textfield-input" type="password" name="password" required />
+            <input class="mdui-textfield-input" type="password" name="password" required placeholder="Password" />
             <div class="mdui-textfield-error"><?php $lang['adminLoginpasswordtip']; ?></div>
         </div>
         <input name="Submit" type="submit" class="mdui-btn mdui-color-theme-accent mdui-ripple" value="确认" />
