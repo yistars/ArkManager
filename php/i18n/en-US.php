@@ -27,6 +27,7 @@ $lang = array(
     'controlc2' => '在启动前请调整以下参数，我们不会保存以下参数。',
     'controlc3' => '选择地图',
     'controlc4' => '额外参数',
+    'update' => '更新',
 
     // ftp.php
     'ftpTitle' => 'FTP',
