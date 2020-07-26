@@ -1,4 +1,4 @@
-# init_copy For ArkManager
+# init For ArkManager
 # By Bing_Yanchi
 # DO NOT CHANGE
 import os,time
