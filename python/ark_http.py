@@ -4,7 +4,7 @@
 from queue import Queue
 from threading import Thread
 import os,socket,base64,shutil,threading,time
-import ark_kill,ark_init
+import ark_kill,ark_init_copy,ark_init_link
 # 创建服务器类
 class http(object):
     def __init__(self, HOST, PORT):
@@ -55,9 +55,12 @@ class http(object):
                 elif data['action'] == 'kill':
                     right = self.server_kill(data)
                 elif data['action'] == 'init':
-                    right = self.server_init(data['servername'])
+                    right = self.server_init_link(data['servername'])
                     if right and ('password' in data):
                         right = self.ftp_add(data['username'],data['password'],data['servername'],out_q)
+                    else:
+                        continue
+                    right = self.server_init_copy(data['servername'])
                 elif data['action'] == 'delete':
                     right = self.server_kill(data['servername'])
                     right = self.server_delete(data['servername'])
@@ -98,15 +101,18 @@ class http(object):
         self.th_kill.start()
         return True
 
-    #def server_kill(self, servername):
-    #    os.system('taskkill /fi "windowtitle eq {}"'.format(self.path,servername))
-    #    os.system('taskkill /fi "windowtitle eq {}/{}/ShooterGame/BinariesWin64/ShooterGameServer.exe *"'.format(self.path,servername))
-    #    os.system('taskkill /fi "windowtitle eq {}"'.format(self.path,servername))
-    #    os.system('taskkill /fi "windowtitle eq {}/{}/ShooterGame/BinariesWin64/ShooterGameServer.exe *"'.format(self.path,servername))
-    #    print('[I {}] [HTTP] Kill Server {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
-    #    return True
+    def server_init_link(self, servername):
+        try:
+            os.makedirs('{}/{}/sefolder'.format(self.path,servername))
+            os.system('mklink /d "{path}/{servername}/sefolder/Content" "{path}/{servername}/ShooterGame/Content" && exit'.format(path=self.path,servername=servername))
+            os.system('mklink /d "{path}/{servername}/sefolder/Saved" "{path}/{servername}/ShooterGame/Saved" && exit'.format(path=self.path,servername=servername))
+        except:
+            print('[E {}] [HTTP] Init Server {} error, create link error'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
+            return False
+        else:
+            return True
 
-    def server_init(self, servername):
+    def server_init_copy(self, servername):
         self.th_init = Thread(target=ark_init.main, args=(self.path,servername))
         self.th_init.start()
         return True
