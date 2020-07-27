@@ -6,7 +6,7 @@
 * Localizations: https://translate.yistars.net/
 
 ## Instructions
-[bilibili](https://www.bilibili.com/video/BV1Gk4y1m7cw)
+* [bilibili](https://www.bilibili.com/video/BV1Gk4y1m7cw)
 ### 面板部分
 1. 检查：你的系统已安装 `curl`；启用了 php 的 `exec` 函数。
 2. 导入 `php/databse.sql` 至数据库，并修改 `config/config.php` 中的值。
@@ -34,7 +34,7 @@
 ```
 
 ## Future goals
-* ~~FTP function~~
+* ~~FTP 功能~~
 * ~~Python 面向对象~~
 * ~~节点配置文件独立~~
 * Python 输出 logs 文件
