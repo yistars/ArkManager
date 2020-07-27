@@ -34,15 +34,18 @@
 ```
 
 ## 未来目标
+* Python 输出 logs 文件
+* Python 增加 debug 接口
+* 更加完整的 Wiki
+
+<details>
+<summary>已完成</summary>
+
 * ~~FTP 功能~~
 * ~~Python 面向对象~~
 * ~~节点配置文件独立~~
-* Python 输出 logs 文件
 * ~~更新服务器功能~~
-* Python 增加 debug 接口
-* 更加完整的 Wiki
-* ~~更新服务器功能~~
-* ~~php 面向对象~~
+* ~~php 面向对象~~ </details>
 
 ## 已知问题
 * 管理员后台模板问题，但不影响使用
@@ -54,10 +57,3 @@
 * [PHP-Minecraft-Rcon](https://github.com/thedudeguy/PHP-Minecraft-Rcon)
 * [Minecraft-RCON](https://github.com/Rauks/Minecraft-RCON)
 * [ArkPsh](https://rcon.arkpsh.cn/)
-
-
-<!--
-<details>
-<summary>点击展开</summary>
-</details>
--->
