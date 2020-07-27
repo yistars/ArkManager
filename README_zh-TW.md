@@ -6,6 +6,7 @@
 * 本地化：https://translate.yistars.net/
 
 ## 使用方法
+[bilibili](https://www.bilibili.com/video/BV1Gk4y1m7cw)
 ### 面板部分
 1. 檢查：你的系統已安裝 `curl`；啟用了 php 的 `exec` 函數。
 2. 導入 `php/databse.sql` 至數據庫,並修改 `config/config.php` 中的值。
@@ -13,7 +14,7 @@
 4. 添加定時任務(如`crontab` 等) 執行`http://domain.com/config/cron.php?key=123456`(根據實際情況修改)，執行時間自定，推荐一小時執行一次。
 
 ### 服务器部分
-自 `v1.0.0` 開始，將不需要安裝 Python3 和依賴庫
+自 `v1.0.0` 开始，将不需要安装 Python3 和依赖库
 
 1. 將程序放在節點服務器上任意位置
 2. 運行目錄下名為 `main.exe` 的可執行文件
