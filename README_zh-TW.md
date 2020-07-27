@@ -6,7 +6,7 @@
 * 本地化：https://translate.yistars.net/
 
 ## 使用方法
-[bilibili](https://www.bilibili.com/video/BV1Gk4y1m7cw)
+* [bilibili](https://www.bilibili.com/video/BV1Gk4y1m7cw)
 ### 面板部分
 1. 檢查：你的系統已安裝 `curl`；啟用了 php 的 `exec` 函數。
 2. 導入 `php/databse.sql` 至數據庫,並修改 `config/config.php` 中的值。
@@ -35,15 +35,15 @@
 
 ## 未來目標
 * ~~FTP 功能~~
-* ~~Python 面向對象~~
-* ~~節點配置文件獨立~~
-* Python 輸出 logs 文件
+* ~~Python 面向对象~~
+* ~~节点配置文件独立~~
+* Python 输出 logs 文件
 * ~~更新服务器功能~~
 * Python 增加 debug 接口
 * 更加完整的 Wiki
 
 ## 已知問題
-* 管理員後台模板問題，但不影響使用
+* 管理员后台模板问题，但不影响使用
 
 ## 特別感謝
 * [Crowdin](https://crowdin.com/)
