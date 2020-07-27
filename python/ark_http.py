@@ -4,7 +4,7 @@
 from queue import Queue
 from threading import Thread
 import os,socket,base64,shutil,threading,time
-import ark_kill,ark_init
+import ark_kill,ark_init,ark_update
 # 创建服务器类
 class http(object):
     def __init__(self, HOST, PORT):
@@ -64,6 +64,9 @@ class http(object):
                 elif data['action'] == 'delete':
                     right = self.server_kill(data['servername'])
                     right = self.server_delete(data['servername'])
+                elif data['action'] == 'update':
+                    if 'servername' in data:
+                        right = self.server_update(data['servername'])
                 elif data['action'] == 'ftp':
                     if ('type' in data) and ('username' in data):
                         if data['type'] == 'add':
@@ -120,6 +123,11 @@ class http(object):
     def server_delete(self, servername):
         shutil.rmtree('{}/{}'.format(self.path,servername))
         print('[I {}] [HTTP] Delete Server {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
+        return True
+
+    def server_update(self, servername):
+        self.th_update = Thread(target=ark_update.main, args=(self.path, servername))
+        self.th_update.start()
         return True
 
     def ftp_add(self, username, password, servername, out_q):
