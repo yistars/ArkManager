@@ -44,7 +44,7 @@ $lang = array(
     'loginHeader' => '登录',
     'loginUsername' => '用户名',
     'loginUsernanetip' => '用户名不能为空！',
-    'loginPassword' => '密码',
+    'loginPassword' => 'Password',
     'loginPasswordtip' => '请输入密码！',
 
     // Admin Login
