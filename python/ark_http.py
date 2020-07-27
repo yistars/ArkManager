@@ -73,6 +73,9 @@ class http(object):
                         elif data['type'] == 'edit':
                             right = self.ftp_add(data['username'],data['password'],data['servername'],out_q)
                             right = self.ftp_del(data['username'],data['servername'],out_q)
+                elif data['action'] == 'update':
+                    if 'servername' in data:
+                        right = self.server_update(data['servername'])
         # 返回状态码
         if right:
             http_response = """/
@@ -120,6 +123,11 @@ class http(object):
     def server_delete(self, servername):
         shutil.rmtree('{}/{}'.format(self.path,servername))
         print('[I {}] [HTTP] Delete Server {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
+        return True
+
+    def server_update(self, servername):
+        os.system('steamcmd +login anonymous +force_install_dir {Path}/{ServerName} +app_update 376030 +quit'.format(path=self.path,servername=servername))
+        print('[I {}] [HTTP] Update Server {}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
         return True
 
     def ftp_add(self, username, password, servername, out_q):
