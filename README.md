@@ -42,13 +42,13 @@
 * 更加完整的 Wiki
 
 <details>
-    <summary>已完成</summary>
-    
-    FTP 功能
-    Python 面向对象
-    节点配置文件独立
-    更新服务器功能
-    php 面向对象
+<summary>已完成</summary>
+
+* ~~FTP 功能~~
+* ~~Python 面向对象~~
+* ~~节点配置文件独立~~
+* ~~更新服务器功能~~
+* ~~php 面向对象~~
 </details>
 
 ## 已知问题
