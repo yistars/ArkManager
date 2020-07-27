@@ -26,7 +26,7 @@ if ($_REQUEST['action'] == 'start') {
 mduiHeader($lang['controlHeader']);
 mduiMenu(); ?>
 <h1 class="mdui-text-color-theme"><?php echo $lang['controlh1']; ?></h1>
-<h3 class="mdui-text-color-theme"><?php echo $lang['controlc'] . $_SESSION['ssname'] = $User->Getservername($_REQUEST['serverid']) . $lang['controlc1']; ?></h3>
+<h3 class="mdui-text-color-theme"><?php echo $lang['controlc'] . $_SESSION['ssname'] = $User->Getservername($_REQUEST['serverid']);?><?php echo $lang['controlc1']; ?></h3>
 <form name="config" method="get" action="control.php">
     <input style="display: none" type="text" value="<?php echo $_REQUEST['serverid']; ?>" name="serverid" />
     <input type="submit" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent" value="<?php echo $lang['controlstart']; ?>">
