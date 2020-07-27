@@ -9,7 +9,7 @@
 * 本地化：https://translate.yistars.net/
 
 ## 使用方法
-<iframe src="//player.bilibili.com/player.html?aid=754016471&bvid=BV1Gk4y1m7cw&cid=217142463&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+[bilibili](https://www.bilibili.com/video/BV1Gk4y1m7cw)
 ### 面板部分
 1. 检查：你的系统已安装 `curl`；启用了 php 的 `exec` 函数。
 2. 导入 `php/databse.sql` 至数据库，并修改 `config/config.php` 中的值。
