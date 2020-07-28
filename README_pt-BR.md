@@ -57,3 +57,13 @@
 * [PHP-Minecraft-Rcon](https://github.com/thedudeguy/PHP-Minecraft-Rcon)
 * [Minecraft-RCON](https://github.com/Rauks/Minecraft-RCON)
 * [ArkPsh](https://rcon.arkpsh.cn/)
+
+
+## 捐赠支持
+我们也只是个业余爱好者，如果你喜欢，请捐赠让我们做的更好
+
+![捐赠](https://i.loli.net/2020/07/28/6hZBNGrd71LjYeE.jpg)
+
+爱发电：
+* Bing_Yanchi： [https://afdian.net/@Bing_Yanchi](https://afdian.net/@Bing_Yanchi)
+* iVampireSP： [https://afdian.net/@iVampireSP](https://afdian.net/@iVampireSP)
