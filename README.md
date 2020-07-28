@@ -68,6 +68,6 @@
 
 ![捐赠](https://i.loli.net/2020/07/28/6hZBNGrd71LjYeE.jpg)
 
-Bing_Yanchi:[https://afdian.net/@Bing_Yanchi](https://afdian.net/@Bing_Yanchi)
-
-iVampireSP:[https://afdian.net/@iVampireSP](https://afdian.net/@iVampireSP)
+爱发电：
+* Bing_Yanchi： [https://afdian.net/@Bing_Yanchi](https://afdian.net/@Bing_Yanchi)
+* iVampireSP： [https://afdian.net/@iVampireSP](https://afdian.net/@iVampireSP)
