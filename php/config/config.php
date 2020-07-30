@@ -27,7 +27,9 @@ $cron_password = '123456';
 $admin_path = 'admin';
 // 语言文件
 $lang = 'zh_cn.php';
-
+// 发送数据（如果为true，则向我们发送一些数据。如果为false，则不会发送任何信息。）
+$report = true;
+# 发送的内容：‘站点名称’， ‘控制面板域名’， ‘ArkManager版本’。这些项目。他将会发送到我们的服务器，以告知我们您正在使用ArkManager。
 
 
 /* 好了，请不要再编辑了，现在关闭该文件，尽情使用吧! */
@@ -42,6 +44,13 @@ else {
 // 引入配置文件
 require_once('class/Admin.class.php');
 require_once('class/User.class.php');
+// ArkManager Version
+define( 'VERSION', 'v1.0.4 Beta' );
+// 发送数据
+if ($report == true) {
+    require_once('report.php');
+    report_data(SITENAME, DOMAIN, VERSION);
+}
 // 实例化并配置数据库
 $Admin = new Admin();
 $User = new User();
