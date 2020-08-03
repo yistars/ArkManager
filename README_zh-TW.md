@@ -7,6 +7,7 @@
 
 ## 使用方法
 * [bilibili](https://www.bilibili.com/video/BV1Gk4y1m7cw)
+
 ### 面板部分
 1. 檢查：你的系統已安裝 `curl`；啟用了 php 的 `exec` 函數。
 2. 導入 `php/databse.sql` 至數據庫,並修改 `config/config.php` 中的值。
