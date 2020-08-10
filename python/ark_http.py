@@ -111,7 +111,7 @@ class http(object):
             os.system('mklink /d "{path}/{servername}/sefolder/Saved" "{path}/{servername}/ShooterGame/Saved" && exit'.format(path=self.path,servername=servername))
             os.system('mklink "{path}/{servername}/sefolder/config.json" "{path}/{servername}/ShooterGame/Binaries/Win64/config.json" && exit'.format(path=self.path,servername=servername))
             os.system('mklink /d "{path}/{servername}/sefolder/ArkApi" "{path}/{servername}/ShooterGame/Binaries/Win64/ArkApi" && exit'.format(path=self.path,servername=servername))
-            f = open('{path}/{servername}/sefolder/Readme.txt'.format(path=self.path,servername=servername),'w')
+            f = open('{path}/{servername}/sefolder/Readme.txt'.format(path=self.path,servername=servername),'w', encoding='utf-8')
             f.writelines('ArkApi 为插件存放目录，config.json 为 ArkApi 相关的配置文件')
             f.close()
         except:
