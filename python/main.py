@@ -1,4 +1,4 @@
-# Main For Arkmanager
+# main For Arkmanager
 # By Bing_Yanchi
 # DO NOT CHANGE
 import yaml,os,sys,threading,socket,time
