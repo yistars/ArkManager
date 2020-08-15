@@ -3,10 +3,15 @@ session_start();
 require_once('config/config.php');
 require_once('config/theme.php');
 $User->checkLogin();
+if(!empty($_REQUEST['custommap'])) {
+    $setmap = $_REQUEST['custommap'];
+}else {
+    $setmap = $_REQUEST['map'];
+}
 if ($_REQUEST['action'] == 'start') {
-    echo $User->nodeControlserver($_REQUEST['serverid'], $_REQUEST['action'], $_SESSION['userid'], $_REQUEST['map'], $_REQUEST['more']);
+    echo $User->nodeControlserver($_REQUEST['serverid'], $_REQUEST['action'], $_SESSION['userid'], $setmap, $_REQUEST['more']);
 }elseif (!empty($_REQUEST['action']) || !empty($_POST['serverid']) || !empty($_REQUEST['map'])) {
-    echo $User->nodeControlserver($_REQUEST['serverid'], $_REQUEST['action'], $_SESSION['userid'], $_REQUEST['map'], $_REQUEST['more']);
+    echo $User->nodeControlserver($_REQUEST['serverid'], $_REQUEST['action'], $_SESSION['userid'], $setmap, $_REQUEST['more']);
     return '*';
 }
 ?>
@@ -46,7 +51,7 @@ mduiMenu(); ?>
         <option value="6">TheIsland</option>
         <option value="7">TheCenter</option>
         <option value="8">Valguero_P</option>
-    </select>
+    </select>，或者您自行输入地图的名称：<input type="text" name="custommap" placeholder="如Mod里的地图" />
     <div class="mdui-textfield">
         <label class="mdui-textfield-label"><?php echo $lang['controlc4']; ?></label>
         <input class="mdui-textfield-input" type="text" name="more" placeholder="Example: -UseBattlEye -servergamelog -ServerRCONOutputTribeLogs -useallavailablecores" />
