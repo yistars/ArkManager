@@ -35,8 +35,6 @@
 ```
 
 ## 未來目標
-* Python 输出 logs 文件
-* Python 增加 debug 接口
 * 更加完整的 Wiki
 
 <details>
