@@ -28,6 +28,7 @@ $lang = array(
     'controlc3' => '选择地图',
     'controlc4' => '额外参数',
     'update' => '更新',
+    'OrCustomMap' => '，或者您自行输入地图的名称：',
 
     // ftp.php
     'ftpTitle' => 'FTP',
