@@ -51,7 +51,7 @@ mduiMenu(); ?>
         <option value="6">TheIsland</option>
         <option value="7">TheCenter</option>
         <option value="8">Valguero_P</option>
-    </select>，或者您自行输入地图的名称：<input type="text" name="custommap" placeholder="如Mod里的地图" />
+    </select><?php echo $lang['OrCustomMap']; ?><input type="text" name="custommap" placeholder="如Mod里的地图" />
     <div class="mdui-textfield">
         <label class="mdui-textfield-label"><?php echo $lang['controlc4']; ?></label>
         <input class="mdui-textfield-input" type="text" name="more" placeholder="Example: -UseBattlEye -servergamelog -ServerRCONOutputTribeLogs -useallavailablecores" />
