@@ -4,7 +4,7 @@
 from queue import Queue
 from threading import Thread
 import os,socket,base64,shutil,threading,time
-import ark_kill,ark_init,ark_update
+import ark_kill,ark_init,ark_update,ark_config
 # 创建服务器类
 class http(object):
     def __init__(self, HOST, PORT):
@@ -17,7 +17,7 @@ class http(object):
         # 设置监听
         self.server_socket.listen(128)
         # 信息输出
-        print('[I {}] [HTTP] Serving HTTP on port {} ...'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),PORT))
+        print('[I {}] [HTTP] Serving HTTP on port {} ...'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()), PORT))
 
     def run(self, token, path, out_q):
         while True:
@@ -147,13 +147,20 @@ class http(object):
         send.run(data)
         return True
     
-    def config_get(self, servername, path):
+    def config_get(self, servername):
+        
         return True
 
     def __del__(self):
         # 当服务端程序结束时停止服务器服务
         self.server_socket.close()
 
+'''
+公共信道与主程序沟通
+FTP 由主程序控制
+请求不由主程序控制
+信道用于传递请求
+'''
 class public_channel_client(object):
     def __init__(self, out_q):
         self.q = out_q
