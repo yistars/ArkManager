@@ -146,6 +146,9 @@ class http(object):
         send = public_channel_client(out_q)
         send.run(data)
         return True
+    
+    def config_get(self, servername, path):
+        return True
 
     def __del__(self):
         # 当服务端程序结束时停止服务器服务
