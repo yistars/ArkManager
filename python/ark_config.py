@@ -6,10 +6,9 @@ from configparser import ConfigParser
 
 def init(path,servername):
     config_file = "{}/{}/ShooterGame/Saved/Config/WindowsServer/GameUserSettings.ini".format(path,servername)
-    f_r = open(config_file,'r')
-    last_key,config_data = '',''
-
     try:
+        f_r = open(config_file,'r')
+        last_key,config_data = '',''
         for line in f_r:
             line = line.strip('\n')
             last_line = line
@@ -36,6 +35,7 @@ def read(path,servername):
     print('[I {}] [HTTP] read {} config file'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
     return json.dumps(data)
 
-def edit(path,servername):
+def edit(path,servername,key,value):
     ini_path = "{}/{}/ShooterGame/Saved/Config/WindowsServer/GameUserSettings.ini".format(path,servername)
-        
+    data = json.loads(read(path,servername))
+    
