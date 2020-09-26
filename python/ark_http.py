@@ -76,6 +76,13 @@ class http(object):
                         elif data['type'] == 'edit':
                             right = self.ftp_add(data['username'],data['password'],data['servername'],out_q)
                             right = self.ftp_del(data['username'],data['servername'],out_q)
+                elif data['action'] == 'GUS':
+                    if ('type' in data):
+                        if data['type'] == 'get':
+                            right = self.GUS_get(data['servername'])
+                        elif data['type'] == 'update':
+                            right = self.GUS_update(data['servername'])
+
         # 返回状态码
         if right:
             http_response = """/
@@ -147,8 +154,9 @@ class http(object):
         send.run(data)
         return True
     
-    def config_get(self, servername):
-        
+    def GUS_get(self, servername):
+        self.th_update = Thread(target=ark_update.main, args=(self.path, servername))
+        self.th_update.start()
         return True
 
     def __del__(self):

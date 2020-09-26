@@ -21,8 +21,10 @@ def init(path,servername):
         f_w.write(config_data)
     except:
         print('[E {}] [HTTP] init {} config file error, maybe file is break'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
+        return False
     else:
         print('[I {}] [HTTP] Init {} config file'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
+        return True
 
 def read(path,servername):
     ini_path = "{}/{}/ShooterGame/Saved/Config/WindowsServer/GameUserSettings.ini".format(path,servername)
@@ -38,4 +40,5 @@ def read(path,servername):
 def edit(path,servername,key,value):
     ini_path = "{}/{}/ShooterGame/Saved/Config/WindowsServer/GameUserSettings.ini".format(path,servername)
     data = json.loads(read(path,servername))
-    
+
+
