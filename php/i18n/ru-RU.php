@@ -33,8 +33,8 @@ $lang = array(
     // ftp.php
     'ftpTitle' => 'FTP',
     'ftpHeader' => 'FTP',
-    'ftpT1' => 'FTP文件管理',
-    'ftpT2' => '您可以使用FTP来管理服务器上的文件',
+    'ftpT1' => 'FTP-клиент',
+    'ftpT2' => 'Вы можете управлять файлами на сервере используя протокол FTP',
     'ftpT3' => '节点域名',
     'ftpT4' => 'FTP端口',
     'ftpT5' => '用户名',
