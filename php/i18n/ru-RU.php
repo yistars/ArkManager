@@ -17,9 +17,9 @@ $lang = array(
     'changepwdnewPasswordtip' => 'Пожалуйста, введите новый пароль!',
 
     // control.php
-    'controlTitle' => 'Пульт управления',
-    'controlHeader' => 'Пульт управления',
-    'controlh1' => 'Пульт управления сервером',
+    'controlTitle' => 'Консоль',
+    'controlHeader' => 'Консоль',
+    'controlh1' => 'Консоль управления сервером',
     'controlstart' => '启动',
     'controlstop' => '停止',
     'controlc' => '请选择对：',
