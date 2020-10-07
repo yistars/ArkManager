@@ -4,22 +4,22 @@
 $lang = array(
     // index.php
     'indexTitle' => 'Главная страница',
-    'indexHeader' => '控制面板',
-    'indexWelcome' => '欢迎使用控制面板',
-    'indexContent' => '请从左侧菜单选择操作。',
+    'indexHeader' => 'Панель управления',
+    'indexWelcome' => 'Добро пожаловать в Панель управления',
+    'indexContent' => 'Выберите операцию из меню слева.',
     
     // changepwd.php
-    'changepwdTitle' => '重置密码',
-    'changepwdHeader' => '重置密码',
-    'changepwdoldPassword' => '原密码',
-    'changepwdoldPasswordtip' => '请输入原密码！',
-    'changepwdnewPassword' => '新密码',
-    'changepwdnewPasswordtip' => '请输入新密码!',
+    'changepwdTitle' => 'Сбросить пароль',
+    'changepwdHeader' => 'Сбросить пароль',
+    'changepwdoldPassword' => 'Старый пароль',
+    'changepwdoldPasswordtip' => 'Пожалуйста, введите старый пароль!',
+    'changepwdnewPassword' => 'Новый пароль',
+    'changepwdnewPasswordtip' => 'Пожалуйста, введите новый пароль!',
 
     // control.php
-    'controlTitle' => '控制台',
-    'controlHeader' => '控制台',
-    'controlh1' => '服务器控制台',
+    'controlTitle' => 'Пульт управления',
+    'controlHeader' => 'Пульт управления',
+    'controlh1' => 'Пульт управления сервером',
     'controlstart' => '启动',
     'controlstop' => '停止',
     'controlc' => '请选择对：',
