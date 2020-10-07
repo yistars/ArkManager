@@ -67,7 +67,7 @@ $lang = array(
     'adminNodemanagertitle' => 'Node Manager',
     'adminNodemanagerHeader' => 'Node Manager',
     'adminNodemanagerT1' => 'Управление узлами кластера',
-    'adminNodemanagerT2' => '欢迎使用Node Manager。',
+    'adminNodemanagerT2' => 'Добро пожаловать в Node Manager!',
     'adminNodemanagerT3' => '节点名称',
     'adminNodemanagerT4' => 'IP-адрес и порт (например, localhost:1234)',
     'adminNodemanagerT5' => 'Токен',
@@ -82,10 +82,10 @@ $lang = array(
 
     // Admin Server Manager
     'adminServermanagertitle' => 'Server Manager',
-    'adminServermanagerHeader' => '服务器管理',
-    'adminServermanagerT1' => '欢迎使用Server Manager。',
+    'adminServermanagerHeader' => 'Управление сервером',
+    'adminServermanagerT1' => 'Добро пожаловать в Server Manager!',
     'adminServermanagerT2' => '服务器名称（尽量英文）',
-    'adminServermanagerT3' => '端口',
+    'adminServermanagerT3' => 'Порт',
     'adminServermanagerT4' => 'RCON端口(ARK的输出比较那个啥，所以只能用RCON。)',
     'adminServermanagerT5' => 'Query端口(与Steam通信的端口)',
     'adminServermanagerT6' => '最大玩家数量',
