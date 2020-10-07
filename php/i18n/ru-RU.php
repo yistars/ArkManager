@@ -3,7 +3,7 @@
 // $lang['indexTitle']
 $lang = array(
     // index.php
-    'indexTitle' => '首页',
+    'indexTitle' => 'Главная страница',
     'indexHeader' => '控制面板',
     'indexWelcome' => '欢迎使用控制面板',
     'indexContent' => '请从左侧菜单选择操作。',
