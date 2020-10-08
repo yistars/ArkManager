@@ -7,19 +7,19 @@ $User->checkLogin();
 <html>
 
 <head>
-    <?php mduiHead($lang['ftpTitle']) ?>
+    <?php mduiHead('FTP') ?>
 </head>
-<?php mduiBody(); mduiHeader($lang['ftpHeader']); mduiMenu(); ?>
-<h1 class="mdui-text-color-theme"><?php echo $lang['ftpT1']; ?></h1>
+<?php mduiBody(); mduiHeader('FTP'); mduiMenu(); ?>
+<h1 class="mdui-text-color-theme"><?php echo $lang['filemanager']; ?></h1>
 
-<p><?php echo $lang['ftpT2']; ?></p>
+<p><?php echo $lang['ftptip']; ?></p>
 <table class="mdui-table" style="margin-top: 1%">
     <thead>
         <tr>
-            <th><?php echo $lang['ftpT3']; ?></th>
-            <th><?php echo $lang['ftpT4']; ?></th>
-            <th><?php echo $lang['ftpT5']; ?></th>
-            <th><?php echo $lang['ftpT6']; ?></th>
+            <th><?php echo $lang['nodedomain']; ?></th>
+            <th>ID</th>
+            <th><?php echo $lang['username']; ?></th>
+            <th><?php echo $lang['password']; ?></th>
         </tr>
     </thead>
     <tbody>

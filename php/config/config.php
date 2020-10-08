@@ -13,7 +13,7 @@ if (!$db_con) {
 
 }
 // 隐藏报错
-// error_reporting(E_ALL^E_NOTICE^E_WARNING);
+error_reporting(0);
 
 // 站点名称
 define( 'SITENAME' , 'Ark');

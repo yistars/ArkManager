@@ -31,7 +31,7 @@ class User
         }else {
             echo $form_token;
             unset($_SESSION['form_token']);
-            return '<script>alert("可能存在跨域问题，请点击菜单中的任意项目重新加载本页面重试。");</script>';
+            return '<script>alert("It maybe CORS, Please reload page.");</script>';
             return '*';
         }
         $username = mysqli_real_escape_string($this->db_con, $username);
@@ -47,12 +47,12 @@ class User
                     header('Location: server_manager.php');
                 } else {
                     $_SESSION['form_token'] = mt_rand();
-                    return '<script>alert("密码错误");</script>';
+                    return '<script>alert("Password wrong.");</script>';
                 }
             }
         } else {
             $_SESSION['form_token'] = mt_rand();
-            return '<script>alert("用户信息有误");</script>';
+            return '<script>alert("User info wrong.");</script>';
         }
     }
 
@@ -78,11 +78,11 @@ class User
                     $this->db_con->query($sql);
                     header('Location: /index.php');
                 } else {
-                    return '<script>alert("原密码错误");</script>';
+                    return '<script>alert("Old Password wrong.");</script>';
                 }
             }
         } else {
-            return '<script>alert("用户信息有误");</script>';
+            return '<script>alert("User Info Wrong.");</script>';
         }
     }
 
@@ -95,38 +95,38 @@ class User
         $sql = "SELECT * FROM `servers` WHERE `by_user` = $userid";
         $result = $this->db_con->query($sql);
         if (!mysqli_num_rows($result) > 0) {
-            return '<tr><td colspan="9"><p align="center" style="color: gray">道生一，一生二，二生三，三生万物。</p></td></tr>';
+            return '<tr><td colspan="9"><p align="center" style="color: gray">Empty</p></td></tr>';
         } else {
             while ($row = mysqli_fetch_array($result)) {
                 switch ($row['initialization']) {
                     case '':
-                        $row['initialization'] = '等待管理员初始化';
-                        $con = '<a class="link" href="#">无权限操作</a>';
+                        $row['initialization'] = 'Waiting for Admin init.';
+                        $con = '<a class="link" href="#">Forbidden.</a>';
                         break;
                     case '1':
-                        $row['initialization'] = '初始化中';
-                        $con = '<a class="link" href="#">无法操作</a>';
+                        $row['initialization'] = 'Init...';
+                        $con = '<a class="link" href="#">Forbidden.</a>';
                         break;
                     case '2':
-                        $row['initialization'] = '初始化失败';
-                        $con = '<a class="link" href="#">重试。</a>';
+                        $row['initialization'] = 'Failed';
+                        $con = '<a class="link" href="#">Retry。</a>';
                         break;
                     case '3':
-                        $row['initialization'] = '完成';
-                        $con = '<a class="link" href="control.php?serverid=' . $row['id'] . '">控制台</a>';
+                        $row['initialization'] = 'Done';
+                        $con = '<a class="link" href="control.php?serverid=' . $row['id'] . '">Console</a>';
                         break;
                     default:
-                        $row['initialization'] = '未知';
-                        $con = '<a class="link" href="#">未知</a>';
+                        $row['initialization'] = 'Unknown';
+                        $con = '<a class="link" href="#">Unknown</a>';
                         break;
                 }
                 $date = $row['date'];
                 if (empty($date)) {
-                    $serverdate = '永久';
+                    $serverdate = 'Forever';
                 } elseif (strtotime($nowdate) > strtotime($date)) {
-                    $row['initialization'] = '<span style="color: red">服务器已过期</span>';
-                    $con = '<a class="link" href="#"><span style="color: red">服务器已过期</span></a>';
-                    $edit = '<a class="link" href="#"><span style="color: red">服务器已过期</span></a>';
+                    $row['initialization'] = '<span style="color: red">Expired</span>';
+                    $con = '<a class="link" href="#"><span style="color: red">Expired</span></a>';
+                    $edit = '<a class="link" href="#"><span style="color: red">Expired</span></a>';
                     $serverdate = '<span style="color: red">' . $row['date'] . '</span>';
                 } else {
                     $serverdate = $row['date'];
@@ -170,7 +170,7 @@ class User
         $sql = "SELECT * FROM `servers` WHERE `by_user` = $userid";
         $result = $this->db_con->query($sql);
         if (!mysqli_num_rows($result) > 0) {
-            return "<option disabled>您没有任何服务器。</option>";
+            return "<option disabled>Empty List.</option>";
         } else {
             while ($row = mysqli_fetch_array($result)) {
                 $serverid = $row['id'];
@@ -189,7 +189,7 @@ class User
         $sql = "SELECT * FROM `servers` WHERE `by_user` = $userid AND `id` = $serverid";
         $result = $this->db_con->query($sql);
         if (!mysqli_num_rows($result) > 0) {
-            return "未知服务器";
+            return "Unknown Server";
         } else {
             while ($row = mysqli_fetch_array($result)) {
                 return $row['name'];
@@ -215,15 +215,15 @@ class User
                         $row['ftpport'] .
                         '</td>' .
                         '<td>' .
-                        $username . '-服务器ID' .
+                        $username . '-Server ID' .
                         '</td>' .
                         '<td>' .
-                        '您的用户密码。' .
+                        'Your Password' .
                         '</td>' .
                         '</tr>';
             }
         } else {
-            echo '<tr><td colspan="4"><p align="center" style="color: gray">道生一，一生二，二生三，三生万物。</p></td></tr>';
+            echo '<tr><td colspan="4"><p align="center" style="color: gray">Empty.</p></td></tr>';
         }
     }
     // 判断服务器是否到期
@@ -296,17 +296,17 @@ class User
                     $sql = "SELECT `status` FROM `servers` WHERE `id` = $serverid AND `by_user` = $by_user";
                     $result = $this->db_con->query($sql);
                     if (!mysqli_num_rows($result)) {
-                        echo '<script>alert("你在无中生有");</script>';
+                        echo '<script>alert("Undefined");</script>';
                         return '*';
                     } else {
                         while ($row = mysqli_fetch_array($result)) {
                             $status = $row['status'];
                         }
                         if ($status == 1) {
-                            echo '<script>alert("服务器已经处于运行状态了");</script>';
+                            echo '<script>alert("Server already start.");</script>';
                             return '*';
                         } else {
-                            echo '<script>alert("启动指令已发送！");</script>';
+                            echo '<script>alert("Server was starting...");</script>';
                             $sql = "UPDATE `servers` SET `status` = '1' WHERE `servers`.`id` = $serverid AND `by_user` = $by_user";
                             $this->db_con->query($sql);
                         }
@@ -318,16 +318,16 @@ class User
                     $sql = "SELECT `status` FROM `servers` WHERE `id` = $serverid AND `by_user` = $by_user";
                     $result = $this->db_con->query($sql);
                     if (!mysqli_num_rows($result)) {
-                        echo '你在无中生有';
+                        echo 'Undefined';
                         return '*';
                     } else {
                         while ($row = mysqli_fetch_array($result)) {
                             $status = $row['status'];
                         }
                         if ($status == 0) {
-                            echo '服务器已经处于停止状态了。';
+                            echo 'Server already stopped.';
                         } else {
-                            echo '停止指令已发送！';
+                            echo 'Server was stopping...';
                             $sql = "UPDATE `servers` SET `status` = '0' WHERE `servers`.`id` = $serverid AND `by_user` = $by_user";
                             $this->db_con->query($sql);
                         }
@@ -339,16 +339,16 @@ class User
                     $sql = "SELECT `status` FROM `servers` WHERE `id` = $serverid AND `by_user` = $by_user";
                     $result = $this->db_con->query($sql);
                     if (!mysqli_num_rows($result)) {
-                        echo '你在无中生有';
+                        echo 'Undefined';
                         return '*';
                     } else {
                         while ($row = mysqli_fetch_array($result)) {
                             $status = $row['status'];
                         }
                         if ($status == 0) {
-                            echo '已开始更新服务器，在接下来的1小时内请勿操作服务器，也不要重复点击更新，否则可能会出现意想不到的问题';
+                            echo 'Server Updating, Do not send command or control server!';
                         } else {
-                            echo '服务器必须处于停止状态才能更新，点击更新后在1小时内请勿操作服务器，否则可能会出现意想不到的问题！';
+                            echo 'Server should be stopped.';
                             return '*';
                         }
                     }
