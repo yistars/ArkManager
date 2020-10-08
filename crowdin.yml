@@ -1,3 +1,3 @@
 files:
-  - source: /php/i18n/zh_cn.php
-    translation: /php/i18n/%locale%.php
+  - source: /php/i18n/zh_CN.php
+    translation: /php/i18n/%locale_with_underscore%.php

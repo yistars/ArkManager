@@ -19,14 +19,14 @@ class http(object):
         # 信息输出
         print('[I {}] [HTTP] Serving HTTP on port {} ...'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()), PORT))
 
-    def run(self, token, path, out_q):
+    def run(self, token, path, out_q, c):
         while True:
             # 等待客户端连接
             client_socket, ip_port = self.server_socket.accept()
-            threading.Thread(target=self.task, args=(client_socket, ip_port, token, out_q), daemon=True).start()
+            threading.Thread(target=self.task, args=(client_socket, ip_port, token, out_q, c), daemon=True).start()
             self.path = path
 
-    def task(self, client_socket, ip_port, token, out_q):
+    def task(self, client_socket, ip_port, token, out_q, in_c):
         # 接收数据
         recv_data = client_socket.recv(1024).decode('utf-8')
         # 拆分换行符便于检索
@@ -79,7 +79,7 @@ class http(object):
                 elif data['action'] == 'GUS':
                     if ('type' in data):
                         if data['type'] == 'get':
-                            right = self.GUS_get(data['servername'])
+                            right = self.GUS_get(data['servername'],in_c)
                         elif data['type'] == 'update':
                             right = self.GUS_update(data['servername'])
 
@@ -154,15 +154,16 @@ class http(object):
         send.run(data)
         return True
     
-    def GUS_get(self, servername):
-        self.th_update = Thread(target=ark_update.main, args=(self.path, servername))
-        self.th_update.start()
-        return True
+    def GUS_get(self, servername, in_c):
+        self.th_get = Thread(target=ark_update.main, args=(self.path, servername))
+        self.th_get.start()
+        return c.get()
 
     def __del__(self):
         # 当服务端程序结束时停止服务器服务
         self.server_socket.close()
 
+c = Queue()
 '''
 公共信道与主程序沟通
 FTP 由主程序控制
@@ -177,5 +178,4 @@ class public_channel_client(object):
         self.q.put(data)
 
 def main(HOST, PORT, token, path, out_q):
-    http(HOST, int(PORT)).run(token, path, out_q)
-    
+    http(HOST, int(PORT)).run(token, path, out_q, c)
