@@ -2,7 +2,7 @@
 $lang = array(
     // Global
     'language' => '简体中文',
-    'translator' => 'iVampireSP',
+    'translator' => 'iVampireSP, Bing_Yanchi',
 
     // index.php
     'index' => '首页',
