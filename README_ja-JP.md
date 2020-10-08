@@ -5,7 +5,7 @@
 * 论坛：https://f.yistars.net/
 * 本地化：https://translate.yistars.net/
 
-## 使い方
+## 使用方法
 * [bilibili](https://www.bilibili.com/video/BV1Gk4y1m7cw)
 
 ### 面板部分
