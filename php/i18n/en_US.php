@@ -14,7 +14,6 @@ $lang = array(
     'newpasswd' => '新密码',
     'enternewpasswd' => '请输入新密码！',
     
-
     // control.php
     'console' => '控制台',
     'serverconsole' => '服务器控制台',
@@ -25,6 +24,8 @@ $lang = array(
     'select_map' => '选择地图',
     'more_args' => '额外参数',
     'update' => '更新',
+    /* 前文：默认地图选项卡
+       后文：自定义地图文本框*/
     'OrCustomMap' => '，或者您自行输入地图的名称：',
     'likemodmap' => '如 Mod 里的地图',
 
