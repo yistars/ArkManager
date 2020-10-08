@@ -90,7 +90,6 @@ class User
     public function Listallservers()
     {
         $this->checkLogin();
-        session_start();
         $nowdate = date('Y-m-d');
         $userid = $_SESSION['userid'];
         $sql = "SELECT * FROM `servers` WHERE `by_user` = $userid";
