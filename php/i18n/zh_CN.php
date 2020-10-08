@@ -14,7 +14,6 @@ $lang = array(
     'newpasswd' => '新密码',
     'enternewpasswd' => '请输入新密码！',
     
-
     // control.php
     'console' => '控制台',
     'serverconsole' => '服务器控制台',
