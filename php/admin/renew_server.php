@@ -17,10 +17,10 @@ mduiMenu(); ?>
 
 <form name="renew-server-form" method="get" action="action_renew.php">
     <div class="mdui-textfield">
-        <label class="mdui-textfield-label">新的日期，留空则为永久</label>
+        <label class="mdui-textfield-label"><?php echo $lang['renew_date'] ?></label>
         <input class="mdui-textfield-input" type="date" name="new-date" />
         <input type="text" name="serverid" style="display: none" value="<?php echo $_REQUEST['serverid']; ?>" /><br />
-        <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent" type="submit" >确定更改</button>
+        <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent" type="submit" ><?php echo $lang['confirm'] ?></button>
     </div>
 </form>
 

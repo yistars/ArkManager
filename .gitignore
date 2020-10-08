@@ -5,3 +5,5 @@
 /python/build
 /python/dist
 /python/config.yml
+php/config/Reported
+php/.vscode/settings.json

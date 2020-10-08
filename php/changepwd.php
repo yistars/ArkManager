@@ -7,25 +7,25 @@ $User->checkLogin();
 <html>
 
 <head>
-    <?php mduiHead($lang['changepwdTitle']); ?>
+    <?php mduiHead($lang['changepwd']); ?>
 </head>
 
-    <?php mduiBody(); mduiHeader($lang['indexHeader']); mduiMenu();?>
+    <?php mduiBody(); mduiHeader($lang['changepwd']); mduiMenu();?>
     <form name="reg" method="post" action="changepwd.php">
     <div class="mdui-textfield mdui-textfield-floating-label">
             <i class="mdui-icon material-icons">lock</i>
-            <label class="mdui-textfield-label"><?php echo $lang['changepwdoldPassword']; ?></label>
+            <label class="mdui-textfield-label"><?php echo $lang['oldpasswd']; ?></label>
             <input class="mdui-textfield-input" type="password" name="oldpassword" required />
-            <div class="mdui-textfield-error"><?php echo $lang['changepwdoldPasswordtip']; ?></div>
+            <div class="mdui-textfield-error"><?php echo $lang['enteroldpasswd']; ?></div>
         </div>
 
         <div class="mdui-textfield mdui-textfield-floating-label">
             <i class="mdui-icon material-icons">lock</i>
-            <label class="mdui-textfield-label"><?php echo $lang['changepwdnewPassword']; ?></label>
+            <label class="mdui-textfield-label"><?php echo $lang['newpasswd']; ?></label>
             <input class="mdui-textfield-input" type="password" name="password" required />
-            <div class="mdui-textfield-error"><?php echo $lang['changepwdnewPasswordtip']; ?></div>
+            <div class="mdui-textfield-error"><?php echo $lang['enternewpasswd']; ?></div>
         </div>
-        <input name="Submit" type="submit" class="mdui-btn mdui-color-theme-accent mdui-ripple" value="确认" />
+        <input name="Submit" type="submit" class="mdui-btn mdui-color-theme-accent mdui-ripple" value="<?php echo $lang['changepwd']; ?>" />
     </form>
     <?php
     // 验证用户输入

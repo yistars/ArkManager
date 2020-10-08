@@ -17,7 +17,12 @@ function mduiHeader($subtitle) {
 EOF;
 }
 function mduiMenu() {
-    $username = $_SESSION['user'];
+    if (!empty($_SESSION['user'])) {
+        $username = $_SESSION['user'];
+    }else {
+        $username = null;
+    }
+    
     echo <<<EOF
     <div class="mdui-drawer" id="main-drawer">
         <div class="mdui-list" mdui-collapse="{accordion: true}" style="margin-bottom: 76px;">

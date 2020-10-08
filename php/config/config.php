@@ -2,7 +2,7 @@
 // 启用session
 session_start();
 // 设置数据库的"服务器"，"用户名"，"密码"，"数据库名"。
-$db_config = array('localhost', 'ark_local_kawayi', '12345678', 'ark_local_kawayi');
+$db_config = array('localhost', 'arkmanageros', 'arkmanageros', 'arkmanageros');
 // 创建数据库链接
 $db_con = new mysqli($db_config[0], $db_config[1], $db_config[2], $db_config[3]);
 $db_con->query("set names utf8");
@@ -13,7 +13,7 @@ if (!$db_con) {
 
 }
 // 隐藏报错
-// error_reporting(E_ALL^E_NOTICE^E_WARNING);
+error_reporting(0);
 
 // 站点名称
 define( 'SITENAME' , 'Ark');

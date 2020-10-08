@@ -8,71 +8,71 @@ require_once('checkuser.php');
 <html>
 
 <head>
-    <?php mduiHead($lang['adminServermanagertitle']); ?>
+    <?php mduiHead($lang['sever_manager']); ?>
 </head>
-<?php mduiBody(); mduiHeader($lang['adminServermanagerHeader']); mduiMenu(); ?>
-<h1 class="mdui-text-color-theme"><?php echo $lang['adminServermanagerT1']; ?></h1>
+<?php mduiBody(); mduiHeader($lang['sever_manager']); mduiMenu(); ?>
+<h1 class="mdui-text-color-theme"><?php echo $lang['sever_manager']; ?></h1>
 
-<button class="mdui-btn mdui-color-theme-accent mdui-ripple" mdui-dialog="{target: '#createserver'}"><?php echo $lang['adminServermanagerT22']; ?></button>
+<button class="mdui-btn mdui-color-theme-accent mdui-ripple" mdui-dialog="{target: '#createserver'}"><?php echo $lang['create_server']; ?></button>
 
 <div class="mdui-dialog" id="createserver">
     <form name="addnode" method="post" action="server_manager.php">
         <div class="mdui-dialog-content">
             <div class="mdui-textfield mdui-textfield-floating-label">
-                <label class="mdui-textfield-label"><?php echo $lang['adminServermanagerT2']; ?></label>
+                <label class="mdui-textfield-label"><?php echo $lang['server_name_tip']; ?></label>
                 <input class="mdui-textfield-input" name="add-servername" type="text" />
             </div>
             <div class="mdui-textfield mdui-textfield-floating-label">
-                <label class="mdui-textfield-label"><?php echo $lang['adminServermanagerT3']; ?></label>
+                <label class="mdui-textfield-label"><?php echo $lang['port']; ?></label>
                 <input class="mdui-textfield-input" type="text" name="add-serverport" />
             </div>
             <div class="mdui-textfield mdui-textfield-floating-label">
-                <label class="mdui-textfield-label"><?php echo $lang['adminServermanagerT4']; ?></label>
+                <label class="mdui-textfield-label"><?php echo $lang['rcon_port_tip']; ?></label>
                 <input class="mdui-textfield-input" type="text" name="add-rconport" />
             </div>
             <div class="mdui-textfield mdui-textfield-floating-label">
-                <label class="mdui-textfield-label"><?php echo $lang['adminServermanagerT5']; ?></label>
+                <label class="mdui-textfield-label"><?php echo $lang['query_port_tip']; ?></label>
                 <input class="mdui-textfield-input" type="text" name="add-queryport" />
             </div>
             <div class="mdui-p-t-5">
-                <label class="mdui-textfield-label"><?php echo $lang['adminServermanagerT6']; ?></label>
+                <label class="mdui-textfield-label"><?php echo $lang['maxplayers']; ?></label>
                 <label class="mdui-slider mdui-slider-discrete">
                     <input type="range" step="1" min="0" max="200" name="add-maxplayers" />
                 </label>
             </div>
-            <label class="mdui-textfield-label"><?php echo $lang['adminServermanagerT7']; ?></label>
+            <label class="mdui-textfield-label"><?php echo $lang['node']; ?></label>
             <select class="mdui-select" name="add-bynode" mdui-select>
                 <?php echo $Admin->Listallnodeselect(); ?>
             </select>
             <div class="mdui-textfield mdui-textfield-floating-label">
-                <label class="mdui-textfield-label"><?php echo $lang['adminServermanagerT8']; ?></label>
+                <label class="mdui-textfield-label"><?php echo $lang['by_user']; ?></label>
                 <input class="mdui-textfield-input" type="text" name="add-byuser" />
             </div>
             <div class="mdui-textfield">
-                <label class="mdui-textfield-label"><?php echo $lang['adminServermanagerT9']; ?></label>
+                <label class="mdui-textfield-label"><?php echo $lang['exp_date']; ?></label>
                 <input class="mdui-textfield-input" type="date" name="add-date" />
             </div>
         </div>
         <div class="mdui-dialog-actions">
-            <span class="mdui-btn mdui-ripple" mdui-dialog-close><?php echo $lang['adminServermanagerT10']; ?></span>
-            <input type="submit" class="mdui-btn mdui-ripple" value="<?php echo $lang['adminServermanagerT11']; ?>" />
+            <span class="mdui-btn mdui-ripple" mdui-dialog-close><?php echo $lang['cancel']; ?></span>
+            <input type="submit" class="mdui-btn mdui-ripple" value="<?php echo $lang['confirm']; ?>" />
         </div>
     </form>
 </div>
 <table class="mdui-table" style="margin-top: 1%">
     <thead>
         <tr>
-            <th><?php echo $lang['adminServermanagerT12']; ?></th>
-            <th><?php echo $lang['adminServermanagerT13']; ?></th>
-            <th><?php echo $lang['adminServermanagerT14']; ?></th>
-            <th><?php echo $lang['adminServermanagerT23']; ?></th>
-            <th><?php echo $lang['adminServermanagerT15']; ?></th>
-            <th><?php echo $lang['adminServermanagerT16']; ?></th>
-            <th><?php echo $lang['adminServermanagerT17']; ?></th>
-            <th><?php echo $lang['adminServermanagerT18']; ?></th>
-            <th><?php echo $lang['adminServermanagerT19']; ?></th>
-            <th><?php echo $lang['adminServermanagerT20']; ?></th>
-            <th><?php echo $lang['adminServermanagerT21']; ?></th>
+            <th>ID</th>
+            <th><?php echo $lang['name']; ?></th>
+            <th><?php echo $lang['port']; ?></th>
+            <th><?php echo $lang['rcon_port']; ?></th>
+            <th><?php echo $lang['query_port']; ?></th>
+            <th><?php echo $lang['maxplayers']; ?></th>
+            <th><?php echo $lang['node']; ?></th>
+            <th><?php echo $lang['by_user']; ?></th>
+            <th><?php echo $lang['exp_date']; ?></th>
+            <th><?php echo $lang['init']; ?></th>
+            <th><?php echo $lang['action']; ?></th>
         </tr>
     </thead>
     <tbody>
