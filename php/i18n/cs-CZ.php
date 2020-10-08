@@ -26,6 +26,7 @@ $lang = array(
     'more_args' => '额外参数',
     'update' => '更新',
     'OrCustomMap' => '，或者您自行输入地图的名称：',
+    'likemodmap' => '如Mod里的地图',
 
     // ftp.php
     'filemanager' => 'FTP文件管理',
@@ -65,6 +66,7 @@ $lang = array(
     // Admin Server Manager
     'sever_manager' => '服务器管理',
     'server_name_tip' => '服务器名称（尽量英文）',
+    'port' => '端口',
     'rcon_port_tip' => 'RCON端口(ARK的输出比较那个啥，所以只能用RCON。)',
     'query_port_tip' => 'Query端口(与Steam通信的端口)',
     'by_node' => '属于节点',
@@ -78,7 +80,12 @@ $lang = array(
     'init' => '初始化',
     'create_server' => '创建服务器',
     'rcon_port' => 'RCON端口',
+    'query_port' => 'Query端口',
 
     // Admin User Manager
-    'adduser' => '添加用户'
+    'adduser' => '添加用户',
+
+    // Admin Renew
+    'renew_date' => '新的到期日期，留空则为永久。',
+    'confirm' => '确定'
 );
