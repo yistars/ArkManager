@@ -1,6 +1,9 @@
 <?php
-/* 简体中文 By iVampireSP */
 $lang = array(
+    // Global
+    'language' => '简体中文',
+    'translator' => 'iVampireSP',
+
     // index.php
     'index' => '首页',
     'controlpanel' => '控制面板',
