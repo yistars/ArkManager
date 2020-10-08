@@ -3,6 +3,7 @@
 # DO NOT CHANGE
 import time,json
 from configparser import ConfigParser
+from queue import Queue
 
 def init(path,servername):
     config_file = "{}/{}/ShooterGame/Saved/Config/WindowsServer/GameUserSettings.ini".format(path,servername)
@@ -21,12 +22,10 @@ def init(path,servername):
         f_w.write(config_data)
     except:
         print('[E {}] [HTTP] init {} config file error, maybe file is break'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
-        return False
     else:
         print('[I {}] [HTTP] Init {} config file'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
-        return True
 
-def read(path,servername):
+def read(path,servername,out_c):
     ini_path = "{}/{}/ShooterGame/Saved/Config/WindowsServer/GameUserSettings.ini".format(path,servername)
     data = {}
     cfg = ConfigParser()
@@ -35,10 +34,21 @@ def read(path,servername):
         print(s)
         data[s] = dict(cfg.items(s))
     print('[I {}] [HTTP] read {} config file'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
-    return json.dumps(data)
+    send = config_channel_client(out_c)
+    send.run(json.dumps(data))
 
-def edit(path,servername,key,value):
+def edit(path,servername,data):
     ini_path = "{}/{}/ShooterGame/Saved/Config/WindowsServer/GameUserSettings.ini".format(path,servername)
     data = json.loads(read(path,servername))
 
+'''
+配置读取信道
+用于与 http 部分沟通
+'''
+class config_channel_client(object):
+    def __init__(self, out_c):
+        self.c = out_c
+
+    def run(self, data):
+        self.c.put(data)
 
