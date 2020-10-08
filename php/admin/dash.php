@@ -7,20 +7,20 @@ require_once('checkuser.php');
 <html>
 
 <head>
-    <?php mduiHead($lang['adminDashTitle']); ?>
+    <?php mduiHead($lang['dashboard']); ?>
 </head>
-<?php mduiBody(); mduiHeader($lang['adminDashheader']); mduiMenu(); ?>
-<h1 class="mdui-text-color-theme"><?php echo $lang['adminDashT1']; ?></h1>
+<?php mduiBody(); mduiHeader($lang['dashboard']); mduiMenu(); ?>
+<h1 class="mdui-text-color-theme"><?php echo $lang['quickadduser']; ?></h1>
 <form name="adduser" method="post" action="dash.php">
     <div class="mdui-textfield mdui-textfield-floating-label">
-        <label class="mdui-textfield-label"><?php echo $lang['adminDashT2']; ?></label>
+        <label class="mdui-textfield-label"><?php echo $lang['username']; ?></label>
         <input class="mdui-textfield-input" type="text" name="add-username" required />
     </div>
     <div class="mdui-textfield mdui-textfield-floating-label">
-        <label class="mdui-textfield-label"><?php echo $lang['adminDashT3']; ?></label>
+        <label class="mdui-textfield-label"><?php echo $lang['password']; ?></label>
         <input class="mdui-textfield-input" type="password" name="add-password" required />
     </div>
-    <input type="submit" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent" value="添加" />
+    <input type="submit" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent" value="<?php echo $lang['quickadduser']; ?>" />
 </form>
 <?php
     // 接收添加用户数据
@@ -28,13 +28,13 @@ require_once('checkuser.php');
         echo $Admin->addUser($_POST['add-username'],md5($_POST['add-password']));
     }
 ?>
-<h1 class="mdui-text-color-theme"><?php echo $lang['adminDashT4']; ?></h1>
+<h1 class="mdui-text-color-theme"><?php echo $lang['quickdeluser']; ?></h1>
 <form name="deluser" method="post" action="dash.php">
     <div class="mdui-textfield mdui-textfield-floating-label">
-        <label class="mdui-textfield-label"><?php echo $lang['adminDashT5']; ?></label>
+        <label class="mdui-textfield-label"><?php echo $lang['username']; ?></label>
         <input class="mdui-textfield-input" type="text" name="del-username" required />
     </div>
-    <input type="submit" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent" value="我确认删除！" />
+    <input type="submit" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent" value="<?php echo $lang['quickdeluser']; ?>" />
 </form>
 <?php
     // 接收删除用户数据

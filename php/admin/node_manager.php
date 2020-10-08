@@ -6,12 +6,12 @@ require_once('checkuser.php');
 <!DOCTYPE html>
 <html>
 <head>
-    <?php mduiHead($lang['adminNodemanagertitle']); ?>
+    <?php mduiHead($lang['nodemanager']); ?>
 </head>
-<?php mduiBody(); mduiHeader($lang['adminNodemanagerHeader']); mduiMenu(); ?>
-<h1 class="mdui-text-color-theme"><?php echo $lang['adminNodemanagerT2']; ?></h1>
+<?php mduiBody(); mduiHeader($lang['nodemanager']); mduiMenu(); ?>
+<h1 class="mdui-text-color-theme"><?php echo $lang['welcome'].$lang['nodemanager']; ?></h1>
 
-<button class="mdui-btn mdui-color-theme-accent mdui-ripple" mdui-dialog="{target: '#addnode'}"><?php echo $lang['adminNodemanagerT13']; ?></button>
+<button class="mdui-btn mdui-color-theme-accent mdui-ripple" mdui-dialog="{target: '#addnode'}"><?php echo $lang['add']; ?></button>
 
 <div class="mdui-dialog" id="addnode">
     <form name="addnode" method="post" action="node_manager.php">

@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once('config/config.php');
 require_once('config/theme.php');
 ?>
@@ -7,11 +6,11 @@ require_once('config/theme.php');
 <html>
 
 <head>
-    <?php mduiHead($lang['indexTitle']) ?>
+    <?php mduiHead($lang['index']) ?>
 </head>
-    <?php mduiBody(); mduiHeader($lang['indexHeader']); mduiMenu(); ?>
-    <h1 class="mdui-text-color-theme"><?php echo $lang['indexWelcome']; ?></h1>
-    <?php echo $lang['IndexContent']; ?>
+    <?php mduiBody(); mduiHeader($lang['index']); mduiMenu(); ?>
+    <h1 class="mdui-text-color-theme"><?php echo $lang['welcome']; ?></h1>
+    <?php echo $lang['leftaction']; ?>
     <p>常见问题帮助</p>
             <p>在您的服务器被初始化完成后，请不要急于启动服务器。您应该将到“管理”页面确认一下您的服务器的RCON端口等信息，然后将下列内容复制并通过FTP粘贴到“Saved\Config\WindowsServer\GameUserSettings.ini”的第一行“[ServerSettings]”的下方。<br />注意：在您增加之前请先阅览配置文件，默认的配置文件中可能已经包含了RCONPort，那个是程序自动生成的，我们目前无法修改。您可以删除那一行，或者修改那一行，但是不能保留那一行的默认参数。</p>
             <textarea readonly="readonly" rows="10" cols="50" style="border: none">
