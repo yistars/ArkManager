@@ -5,23 +5,23 @@ $lang = array(
     'translator' => 'iVampireSP, Bing_Yanchi',
 
     // index.php
-    'index' => '首页',
-    'controlpanel' => '控制面板',
-    'welcome' => '欢迎使用控制面板',
-    'leftaction' => '在左侧菜单选择操作',
+    'index' => 'Главная страница',
+    'controlpanel' => 'Панель управления',
+    'welcome' => 'Добро пожаловать в Панель управления',
+    'leftaction' => 'Выберите действие в меню слева',
 
     // changepwd.php
-    'changepwd' => '重置密码',
-    'oldpasswd' => '原密码',
-    'enteroldpasswd' => '请输入原密码！',
-    'newpasswd' => '新密码',
-    'enternewpasswd' => '请输入新密码！',
+    'changepwd' => 'Сброс пароля',
+    'oldpasswd' => 'Старый пароль',
+    'enteroldpasswd' => 'Пожалуйста, введите старый пароль!',
+    'newpasswd' => 'Новый пароль',
+    'enternewpasswd' => 'Пожалуйста, введите новый пароль！',
     
     // control.php
-    'console' => '控制台',
-    'serverconsole' => '服务器控制台',
-    'start' => '启动',
-    'stop' => '停止',
+    'console' => 'Консоль',
+    'serverconsole' => 'Консоль управления сервером',
+    'start' => 'Запустить',
+    'stop' => 'Остановить',
     'doaction' => '控制服务器：',
     'start_args' => '请在启动前调整参数，并且参数不会保存',
     'select_map' => '选择地图',
@@ -73,21 +73,21 @@ $lang = array(
     'query_port_tip' => 'Порт Query (порт связанный со Steam)',
     'by_node' => 'Принадлежность узла сети',
     'by_user_id' => 'Принадлежность пользователя (ID)',
-    'exp_date_tip' => 'Дата истечения срока (если не заполнить, срок не истечёт)',
+    'exp_date_tip' => 'Дата истечения срока (в случае незаполнения - бессрочно)',
     'name' => 'Название',
     'maxplayers' => '最大玩家',
     'node' => 'Узел сети',
     'by_user' => 'Принадлежность пользователя',
     'exp_date' => 'Дата истечения срока',
-    'init' => '初始化',
-    'create_server' => '创建服务器',
-    'rcon_port' => 'RCON 端口',
-    'query_port' => 'Query 端口',
+    'init' => 'Инициализация',
+    'create_server' => 'Создать сервер',
+    'rcon_port' => 'Порт RCON',
+    'query_port' => 'Порт Query',
 
     // Admin User Manager
-    'adduser' => '添加用户',
+    'adduser' => 'Добавить пользователя',
 
     // Admin Renew
-    'renew_date' => '新的到期日期，留空则为永久',
-    'confirm' => '确定'
+    'renew_date' => 'Новая дата истечения срока (в случае незаполнения - бессрочно)',
+    'confirm' => 'Подтвердить'
 );
