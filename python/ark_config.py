@@ -8,7 +8,7 @@ from queue import Queue
 def init(path,servername):
     config_file = "{}/{}/ShooterGame/Saved/Config/WindowsServer/GameUserSettings.ini".format(path,servername)
     try:
-        f_r = open(config_file,'r')
+        f_r = open(config_file,'r',encoding='utf-16')
         last_key,config_data = '',''
         for line in f_r:
             line = line.strip('\n')
@@ -16,6 +16,8 @@ def init(path,servername):
             if ('=' in line) and (line.split('=')[0] != last_key):
                 config_data += line + '\n'
                 last_key = line.split('=')[0]
+            elif ('=' in line) and (line.split('=')[0] == last_key):
+                continue
             else:
                 config_data += line + '\n'
         f_w = open(config_file,'w',encoding='utf-16')
@@ -31,7 +33,6 @@ def read(path,servername,out_c):
     cfg = ConfigParser()
     cfg.read(ini_path,encoding='utf-16')
     for s in cfg.sections():
-        print(s)
         data[s] = dict(cfg.items(s))
     print('[I {}] [HTTP] read {} config file'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
     send = config_channel_client(out_c)
@@ -53,3 +54,6 @@ class config_channel_client(object):
     def run(self, data):
         self.c.put(data)
 
+def main_read(path,servername,out_c):
+    init(path,servername)
+    read(path,servername,out_c)

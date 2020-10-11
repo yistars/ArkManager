@@ -4,7 +4,7 @@
 from queue import Queue
 from threading import Thread
 import os,socket,base64,shutil,threading,time
-import ark_kill,ark_init,ark_update,ark_config
+import ark_kill,ark_init,ark_config
 # 创建服务器类
 class http(object):
     def __init__(self, HOST, PORT):
@@ -33,8 +33,8 @@ class http(object):
         info = recv_data.split('\n')
         # 设定是否返回200
         right = False
+        data = ''
         for i in range(len(info)):
-            data = ''
             if info[i].find('POST') == 0:
                 # 拆分 POST 和 地址
                 post = info[i].split(' ')
@@ -83,11 +83,10 @@ class http(object):
                             data = self.GUS_get(data['servername'],in_c)
                         elif data['type'] == 'update':
                             right = self.GUS_update(data['servername'])
-        # 如果是用于传输配置文件
-        if data != '':
-            http_response = data 
         # 返回状态码
-        elif right == True:
+        if data != '':
+            http_response = data
+        elif right:
             http_response = """/
             HTTP/1.1 200 OK""".replace('    ','')
         else:
@@ -159,13 +158,17 @@ class http(object):
         return True
     
     def GUS_get(self, servername, in_c):
-        self.th_gus_init = Thread(target=ark_config.init, args=(self.path, servername))
-        self.th_gus_init.start()
-        self.th_read = Thread(target=ark_config.read, args=(self.path, servername))
-        self.th_read.start()
-        if c.get() == False:
+        self.th_gus_read = Thread(target=ark_config.main_read, args=(self.path, servername, in_c))
+        self.th_gus_read.start()
+        data = c.get()
+        if data == '':
             return 'error'
-        return c.get()
+        else:
+            return data
+
+    def GUS_update(self, servername, data):
+        self.th_gus_update = Thread(target=ark_config.update, args=(self.path, servername, data)
+        return True
 
     def __del__(self):
         # 当服务端程序结束时停止服务器服务
