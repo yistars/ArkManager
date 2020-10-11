@@ -1,8 +1,8 @@
 <?php
 $lang = array(
     // Global
-    'language' => '简体中文',
-    'translator' => 'iVampireSP, Bing_Yanchi',
+    'language' => 'Русский',
+    'translator' => 'Hake08',
 
     // index.php
     'index' => 'Главная страница',
