@@ -1,12 +1,12 @@
 <?php
 $lang = array(
     // Global
-    'language' => '简体中文',
+    'language' => '簡體中文',
     'translator' => 'iVampireSP, Bing_Yanchi',
 
     // index.php
-    'index' => '首页',
-    'controlpanel' => '控制面板',
+    'index' => '首頁',
+    'controlpanel' => '控制台',
     'welcome' => '欢迎使用控制面板',
     'leftaction' => '在左侧菜单选择操作',
 
@@ -14,7 +14,7 @@ $lang = array(
     'changepwd' => '重置密码',
     'oldpasswd' => '原密码',
     'enteroldpasswd' => '请输入原密码！',
-    'newpasswd' => '新密码',
+    'newpasswd' => '新密碼',
     'enternewpasswd' => '请输入新密码！',
     
     // control.php
