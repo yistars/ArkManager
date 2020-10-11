@@ -20,8 +20,8 @@ $lang = array(
     // control.php
     'console' => '控制台',
     'serverconsole' => '服务器控制台',
-    'start' => '启动',
-    'stop' => '停止',
+    'start' => 'Start',
+    'stop' => 'Stop',
     'doaction' => '控制服务器：',
     'start_args' => '请在启动前调整参数，并且参数不会保存',
     'select_map' => '选择地图',
