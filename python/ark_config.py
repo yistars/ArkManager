@@ -40,6 +40,7 @@ def read(path,servername,out_c):
 def edit(path,servername,data):
     ini_path = "{}/{}/ShooterGame/Saved/Config/WindowsServer/GameUserSettings.ini".format(path,servername)
     data = json.loads(read(path,servername))
+    
 
 '''
 配置读取信道
