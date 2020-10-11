@@ -1,11 +1,11 @@
 <?php
 $lang = array(
     // Global
-    'language' => '简体中文',
+    'language' => 'English',
     'translator' => 'iVampireSP, Bing_Yanchi',
 
     // index.php
-    'index' => '首页',
+    'index' => 'Home',
     'controlpanel' => '控制面板',
     'welcome' => '欢迎使用控制面板',
     'leftaction' => '在左侧菜单选择操作',
@@ -34,14 +34,14 @@ $lang = array(
     'filemanager' => 'FTP 文件管理',
     'ftptip' => '您可以使用 FTP 来管理服务器上的文件',
     'nodedomain' => '节点域名',
-    'port' => '端口',
-    'username' => '用户名',
-    'password' => '密码',
+    'port' => 'Port',
+    'username' => 'Username',
+    'password' => 'Password',
 
     // login.php
-    'login' => '登录',
+    'login' => 'Login',
     'enterusername' => '用户名不能为空！',
-    'pwd' => '密码',
+    'pwd' => 'Password',
     'enterpwd' => '请输入密码！',
 
     // Admin Login
@@ -59,10 +59,10 @@ $lang = array(
     'nodemanager' => '集群节点管理',
     'nodename' => '节点名称',
     'ip_and_port' => 'IP 与端口 (如 localhost:1234)',
-    'cancel' => '取消',
-    'add' => '添加',
-    'name' => '名称',
-    'action' => '操作',
+    'cancel' => 'Cancel',
+    'add' => 'Add',
+    'name' => 'Name',
+    'action' => 'Actions',
     'addnode' => '添加节点',
 
     // Admin Server Manager
