@@ -167,7 +167,7 @@ class http(object):
             return data
 
     def GUS_update(self, servername, data):
-        self.th_gus_update = Thread(target=ark_config.update, args=(self.path, servername, data)
+        self.th_gus_update = Thread(target=ark_config.update, args=(self.path, servername, data))
         return True
 
     def __del__(self):
