@@ -39,9 +39,15 @@ def read(path,servername,out_c):
     send.run(json.dumps(data))
 
 def edit(path,servername,data):
-    ini_path = "{}/{}/ShooterGame/Saved/Config/WindowsServer/GameUserSettings.ini".format(path,servername)
-    data = json.loads(read(path,servername))
     
+    ini_path = "{}/{}/ShooterGame/Saved/Config/WindowsServer/GameUserSettings.ini".format(path,servername)
+    #data = json.loads(read(path,servername))
+
+    with open(ini_path, 'w') as f:
+        dic = json.load(data)
+        cfg = ConfigParser()
+        for section, section_items in zip(dic.keys(), dic.values()):
+            cfg._write_section(f, section, section_items.items(), delimiter='=')
 
 '''
 配置读取信道
