@@ -1,7 +1,7 @@
 <?php
 $lang = array(
     // Global
-    'language' => '简体中文',
+    'language' => 'Français',
     'translator' => 'iVampireSP, Bing_Yanchi',
 
     // index.php
