@@ -5,8 +5,8 @@ import time,json
 from configparser import ConfigParser
 from queue import Queue
 
-def init(path,servername):
-    config_file = "{}/{}/ShooterGame/Saved/Config/WindowsServer/GameUserSettings.ini".format(path,servername)
+def init(path,servername,filename):
+    config_file = "{}/{}/ShooterGame/Saved/Config/WindowsServer/{}".format(path,servername,filename)
     try:
         f_r = open(config_file,'r',encoding='utf-16')
         last_key,config_data = '',''
@@ -27,8 +27,8 @@ def init(path,servername):
     else:
         print('[I {}] [HTTP] Init {} config file'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
 
-def get(path,servername,out_c):
-    ini_path = "{}/{}/ShooterGame/Saved/Config/WindowsServer/GameUserSettings.ini".format(path,servername)
+def get(path,servername,filename,out_c):
+    ini_path = "{}/{}/ShooterGame/Saved/Config/WindowsServer/{}".format(path,servername,filename)
     # 因 Json 传输方案弃用，此部分暂时丢弃
     '''
     data = {}
@@ -50,8 +50,8 @@ def get(path,servername,out_c):
         print('[I {}] [HTTP] read {} config file'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
         send.run(data)
 
-def post(path,servername,data):
-    ini_path = "{}/{}/ShooterGame/Saved/Config/WindowsServer/GameUserSettings.ini".format(path,servername)
+def post(path,servername,filename,data):
+    ini_path = "{}/{}/ShooterGame/Saved/Config/WindowsServer/{}".format(path,servername,filename)
     # 因 Json 传输方案弃用，此部分暂时丢弃
     '''
     with open(ini_path, 'w') as f:
@@ -79,6 +79,6 @@ class config_channel_client(object):
     def run(self, data):
         self.c.put(data)
 
-def main_get(path,servername,out_c):
-    init(path,servername)
-    get(path,servername,out_c)
+def main_get(path,servername,file,out_c):
+    init(path,servername,filename)
+    get(path,servername,filename,out_c)

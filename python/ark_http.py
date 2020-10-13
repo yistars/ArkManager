@@ -78,11 +78,11 @@ class http(object):
                             right = self.ftp_add(data['username'],data['password'],data['servername'],out_q)
                             right = self.ftp_del(data['username'],data['servername'],out_q)
                 elif data['action'] == 'GUS':
-                    if ('type' in data):
+                    if ('type' in data) and ('filename' in data):
                         if data['type'] == 'pull':
-                            data = self.GUS_get(data['servername'],in_c)
+                            data = self.GUS_get(data['servername'],filename,in_c)
                         elif data['type'] == 'push':
-                            right = self.GUS_post(data['servername'])
+                            right = self.GUS_post(data['servername'],filename)
         # 返回状态码
         if data != '':
             http_response = data
@@ -157,8 +157,8 @@ class http(object):
         send.run(data)
         return True
     
-    def GUS_get(self, servername, in_c):
-        self.th_gus_get = Thread(target=ark_config.main_get, args=(self.path, servername, in_c))
+    def GUS_get(self, servername, filename, in_c):
+        self.th_gus_get = Thread(target=ark_config.main_get, args=(self.path, servername, filename, in_c))
         self.th_gus_get.start()
         data = c.get()
         if data == 'error':
@@ -168,13 +168,13 @@ class http(object):
             data = base64.b64encode(data.encode("utf-16")).decode('utf-16')
             return data
 
-    def GUS_post(self, servername, data):
+    def GUS_post(self, servername, filename, data):
         try:
             data = base64.b64decode(data)
         except:
             print('[I {}] [HTTP] post {} config file error, maybe data is error'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
         else:
-            self.th_gus_post = Thread(target=ark_config.post, args=(self.path, servername, data))
+            self.th_gus_post = Thread(target=ark_config.post, args=(self.path, servername, data, filename))
             self.th_gus_post.start()
             return True
 
