@@ -29,25 +29,34 @@ def init(path,servername):
 
 def read(path,servername,out_c):
     ini_path = "{}/{}/ShooterGame/Saved/Config/WindowsServer/GameUserSettings.ini".format(path,servername)
+    with open(ini_path, 'r') as f:
+        data = f.read()
+    send = config_channel_client(out_c)
+    # 因 Json 传输方案弃用，此部分暂时丢弃
+    '''
     data = {}
     cfg = ConfigParser()
     cfg.read(ini_path,encoding='utf-16')
     for s in cfg.sections():
         data[s] = dict(cfg.items(s))
-    print('[I {}] [HTTP] read {} config file'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
-    send = config_channel_client(out_c)
+    
     send.run(json.dumps(data))
+    '''
+    send.run(data)
+    print('[I {}] [HTTP] read {} config file'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
 
 def edit(path,servername,data):
-    
     ini_path = "{}/{}/ShooterGame/Saved/Config/WindowsServer/GameUserSettings.ini".format(path,servername)
-    #data = json.loads(read(path,servername))
-
+    # 因 Json 传输方案弃用，此部分暂时丢弃
+    '''
     with open(ini_path, 'w') as f:
         dic = json.load(data)
         cfg = ConfigParser()
         for section, section_items in zip(dic.keys(), dic.values()):
             cfg._write_section(f, section, section_items.items(), delimiter='=')
+    '''
+    with open(ini_path, 'w') as f:
+        f.write(data)
 
 '''
 配置读取信道
