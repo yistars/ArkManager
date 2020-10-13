@@ -4,7 +4,7 @@
 from queue import Queue
 from threading import Thread
 import os,socket,base64,shutil,threading,time
-import ark_kill,ark_init,ark_update,ark_config
+import ark_kill,ark_init,ark_config
 # 创建服务器类
 class http(object):
     def __init__(self, HOST, PORT):
@@ -33,6 +33,7 @@ class http(object):
         info = recv_data.split('\n')
         # 设定是否返回200
         right = False
+        data = ''
         for i in range(len(info)):
             if info[i].find('POST') == 0:
                 # 拆分 POST 和 地址
@@ -56,7 +57,7 @@ class http(object):
                     right = self.server_kill(data)
                 elif data['action'] == 'init':
                     right = self.server_init_link(data['servername'])
-                    if right and ('password' in data):
+                    if right and (('password' in data) and ('username' in data)):
                         right = self.ftp_add(data['username'],data['password'],data['servername'],out_q)
                     else:
                         continue
@@ -79,17 +80,19 @@ class http(object):
                 elif data['action'] == 'GUS':
                     if ('type' in data):
                         if data['type'] == 'get':
-                            right = self.GUS_get(data['servername'],in_c)
+                            data = self.GUS_get(data['servername'],in_c)
                         elif data['type'] == 'update':
                             right = self.GUS_update(data['servername'])
-
         # 返回状态码
-        if right:
+        if data != '':
+            http_response = data
+        elif right:
             http_response = """/
             HTTP/1.1 200 OK""".replace('    ','')
         else:
             http_response = """/
             HTTP/1.1 403 Forbidden""".replace('    ','')
+        
         client_socket.send(http_response.encode('utf-8'))
         # 断开与客户端连接
         client_socket.close()
@@ -143,7 +146,7 @@ class http(object):
         return True
 
     def ftp_add(self, username, password, servername, out_q):
-        data = 'type=add&username={}&password={}&servername={}&path={}\\{}'.format(username,password,servername,self.path,servername)
+        data = 'type=add&username={}&password={}&servername={}&path={}/{}'.format(username,password,servername,self.path,servername)
         send = public_channel_client(out_q)
         send.run(data)
         return True
@@ -155,9 +158,19 @@ class http(object):
         return True
     
     def GUS_get(self, servername, in_c):
-        self.th_get = Thread(target=ark_update.main, args=(self.path, servername))
-        self.th_get.start()
-        return c.get()
+        self.th_gus_read = Thread(target=ark_config.main_read, args=(self.path, servername, in_c))
+        self.th_gus_read.start()
+        data = c.get()
+        if data == 'error':
+            return """/
+            403 Forbidden""".replace('    ','')
+        else:
+            return data
+
+    def GUS_update(self, servername, data):
+        self.th_gus_update = Thread(target=ark_config.update, args=(self.path, servername, data))
+        self.th_gus_update.start()
+        return True
 
     def __del__(self):
         # 当服务端程序结束时停止服务器服务

@@ -3,6 +3,7 @@
 # DO NOT CHANGE
 import os,time
 def main(data,path):
+	path = path.replace('\\','/')
 	os.system('taskkill /fi "windowtitle eq {}"'.format(path,data['servername']))
 	os.system('taskkill /fi "windowtitle eq {}/{}/ShooterGame/Binaries/Win64/ShooterGameServer.exe *"'.format(path,data['servername']))
 	os.system('taskkill /fi "windowtitle eq {}"'.format(path,data['servername']))
