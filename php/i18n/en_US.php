@@ -6,27 +6,27 @@ $lang = array(
 
     // index.php
     'index' => 'Home',
-    'controlpanel' => '控制面板',
-    'welcome' => '欢迎使用控制面板',
+    'controlpanel' => 'Control Panel',
+    'welcome' => 'Welcome to use control panel',
     'leftaction' => '在左侧菜单选择操作',
 
     // changepwd.php
-    'changepwd' => '重置密码',
-    'oldpasswd' => '原密码',
-    'enteroldpasswd' => '请输入原密码！',
-    'newpasswd' => '新密码',
-    'enternewpasswd' => '请输入新密码！',
+    'changepwd' => 'Reset Password',
+    'oldpasswd' => 'Old Password',
+    'enteroldpasswd' => 'Please enter your old password!',
+    'newpasswd' => 'New Password',
+    'enternewpasswd' => 'Please enter the new password!',
     
     // control.php
-    'console' => '控制台',
-    'serverconsole' => '服务器控制台',
+    'console' => 'Console',
+    'serverconsole' => 'Server Console',
     'start' => 'Start',
     'stop' => 'Stop',
     'doaction' => '控制服务器：',
     'start_args' => '请在启动前调整参数，并且参数不会保存',
-    'select_map' => '选择地图',
-    'more_args' => '额外参数',
-    'update' => '更新',
+    'select_map' => 'Choose map',
+    'more_args' => 'Extra parameters',
+    'update' => 'Update',
     'OrCustomMap' => '或者您自行输入地图的名称：',
     'likemodmap' => '如 Mod 里的地图',
 
@@ -45,53 +45,53 @@ $lang = array(
     'enterpwd' => '请输入密码！',
 
     // Admin Login
-    'admindashboard' => '后台管理',
+    'admindashboard' => 'Admin',
 
     // Admin Panel
-    'menu' => '菜单',
-    'usermanager' => '用户管理',
-    'dashboard' => '仪表盘',
+    'menu' => 'Menu',
+    'usermanager' => 'User Management',
+    'dashboard' => 'Dashboard',
     'quickadduser' => '快速添加用户',
     'quickdeluser' => '快速删除用户',
 
     // Admin Node Manager
-    'welcome' => '欢迎使用',
+    'welcome' => 'Welcome',
     'nodemanager' => '集群节点管理',
-    'nodename' => '节点名称',
+    'nodename' => 'Node Name',
     'ip_and_port' => 'IP 与端口 (如 localhost:1234)',
     'cancel' => 'Cancel',
     'add' => 'Add',
     'name' => 'Name',
     'action' => 'Actions',
-    'addnode' => '添加节点',
+    'addnode' => 'Add Node',
 
     // Admin Server Manager
-    'sever_manager' => '服务器管理',
+    'sever_manager' => 'Server Manager',
     'server_name_tip' => '服务器名称 (尽量使用英文)',
-    'port' => '端口',
-    'rcon_port_tip' => 'RCON 端口',
+    'port' => 'Port',
+    'rcon_port_tip' => 'RCON Port',
     'query_port_tip' => 'Query 端口 (与 Steam 通信的端口)',
     'by_node' => '属于节点',
     'by_user_id' => '属于用户 (用户 ID)',
     'exp_date_tip' => '到期日期 (不填则不会到期)',
-    'name' => '名称',
-    'maxplayers' => '最大玩家',
-    'node' => '节点',
+    'name' => 'Name',
+    'maxplayers' => 'Max Players',
+    'node' => 'Node',
     'by_user' => '属于用户',
-    'exp_date' => '到期日期',
-    'init' => '初始化',
-    'create_server' => '创建服务器',
-    'rcon_port' => 'RCON 端口',
+    'exp_date' => 'Due Date',
+    'init' => 'Initializing',
+    'create_server' => 'Create server',
+    'rcon_port' => 'RCON Port',
     'query_port' => 'Query 端口',
 
     // Admin User Manager
-    'adduser' => '添加用户',
+    'adduser' => 'Add User',
 
     // Admin Renew
     'renew_date' => '新的到期日期，留空则为永久',
-    'confirm' => '确定',
+    'confirm' => 'OK',
 
     // Server Config File
-    'edit' => '编辑',
-    'config_file' => '配置文件'
+    'edit' => 'Edit',
+    'config_file' => 'Configuration File'
 );
