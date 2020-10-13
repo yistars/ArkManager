@@ -27,7 +27,7 @@ $lang = array(
     'select_map' => 'Выбрать Карту',
     'more_args' => 'Доп. параметры',
     'update' => 'Обновите',
-    'OrCustomMap' => ', либо введите название карты самостоятельно:',
+    'OrCustomMap' => '或者您自行输入地图的名称：',
     'likemodmap' => 'Например, карты внутри мода.',
 
     // ftp.php
@@ -89,5 +89,9 @@ $lang = array(
 
     // Admin Renew
     'renew_date' => 'Новая дата истечения срока (в случае незаполнения - бессрочно)',
-    'confirm' => 'Подтвердить'
+    'confirm' => 'Подтвердить',
+
+    // Server Config File
+    'edit' => '编辑',
+    'config_file' => '配置文件'
 );
