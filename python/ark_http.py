@@ -161,13 +161,15 @@ class http(object):
         self.th_gus_read = Thread(target=ark_config.main_read, args=(self.path, servername, in_c))
         self.th_gus_read.start()
         data = c.get()
-        if data == '':
-            return 'error'
+        if data == 'error':
+            return """/
+            403 Forbidden""".replace('    ','')
         else:
             return data
 
     def GUS_update(self, servername, data):
         self.th_gus_update = Thread(target=ark_config.update, args=(self.path, servername, data))
+        self.th_gus_update.start()
         return True
 
     def __del__(self):

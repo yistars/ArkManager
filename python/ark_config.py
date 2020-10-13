@@ -29,9 +29,6 @@ def init(path,servername):
 
 def read(path,servername,out_c):
     ini_path = "{}/{}/ShooterGame/Saved/Config/WindowsServer/GameUserSettings.ini".format(path,servername)
-    with open(ini_path, 'r', encoding='utf-16') as f:
-        data = f.read()
-    send = config_channel_client(out_c)
     # 因 Json 传输方案弃用，此部分暂时丢弃
     '''
     data = {}
@@ -42,10 +39,18 @@ def read(path,servername,out_c):
     
     send.run(json.dumps(data))
     '''
-    send.run(data)
-    print('[I {}] [HTTP] read {} config file'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
+    try:
+        with open(ini_path, 'r', encoding='utf-16') as f:
+            data = f.read()
+        send = config_channel_client(out_c)
+    except:
+        print('[E {}] [HTTP] read {} config file error, maybe file is break'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
+        send.run('error')
+    else:
+        print('[I {}] [HTTP] read {} config file'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
+        send.run(data)
 
-def edit(path,servername,data):
+def update(path,servername,data):
     ini_path = "{}/{}/ShooterGame/Saved/Config/WindowsServer/GameUserSettings.ini".format(path,servername)
     # 因 Json 传输方案弃用，此部分暂时丢弃
     '''
@@ -55,9 +60,13 @@ def edit(path,servername,data):
         for section, section_items in zip(dic.keys(), dic.values()):
             cfg._write_section(f, section, section_items.items(), delimiter='=')
     '''
-    with open(ini_path, 'w', encoding='utf-16') as f:
-        f.write(data)
-    print('[I {}] [HTTP] edit {} config file'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
+    try:
+        with open(ini_path, 'w', encoding='utf-16') as f:
+            f.write(data)
+    except:
+        print('[I {}] [HTTP] update {} config file error, maybe file is break'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
+    else:
+        print('[I {}] [HTTP] update {} config file'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
 
 '''
 配置读取信道
