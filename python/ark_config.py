@@ -27,7 +27,7 @@ def init(path,servername):
     else:
         print('[I {}] [HTTP] Init {} config file'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
 
-def read(path,servername,out_c):
+def get(path,servername,out_c):
     ini_path = "{}/{}/ShooterGame/Saved/Config/WindowsServer/GameUserSettings.ini".format(path,servername)
     # 因 Json 传输方案弃用，此部分暂时丢弃
     '''
@@ -50,7 +50,7 @@ def read(path,servername,out_c):
         print('[I {}] [HTTP] read {} config file'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
         send.run(data)
 
-def update(path,servername,data):
+def post(path,servername,data):
     ini_path = "{}/{}/ShooterGame/Saved/Config/WindowsServer/GameUserSettings.ini".format(path,servername)
     # 因 Json 传输方案弃用，此部分暂时丢弃
     '''
@@ -79,6 +79,6 @@ class config_channel_client(object):
     def run(self, data):
         self.c.put(data)
 
-def main_read(path,servername,out_c):
+def main_get(path,servername,out_c):
     init(path,servername)
-    read(path,servername,out_c)
+    get(path,servername,out_c)
