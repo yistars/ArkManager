@@ -89,5 +89,9 @@ $lang = array(
 
     // Admin Renew
     'renew_date' => '新的到期日期，留空则为永久',
-    'confirm' => '确定'
+    'confirm' => '确定',
+
+    // Server Config File
+    'edit' => '编辑',
+    'config_file' => '配置文件'
 );
