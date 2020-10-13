@@ -79,10 +79,10 @@ class http(object):
                             right = self.ftp_del(data['username'],data['servername'],out_q)
                 elif data['action'] == 'GUS':
                     if ('type' in data):
-                        if data['type'] == 'get':
+                        if data['type'] == 'pull':
                             data = self.GUS_get(data['servername'],in_c)
-                        elif data['type'] == 'update':
-                            right = self.GUS_update(data['servername'])
+                        elif data['type'] == 'push':
+                            right = self.GUS_post(data['servername'])
         # 返回状态码
         if data != '':
             http_response = data
@@ -158,19 +158,25 @@ class http(object):
         return True
     
     def GUS_get(self, servername, in_c):
-        self.th_gus_read = Thread(target=ark_config.main_read, args=(self.path, servername, in_c))
-        self.th_gus_read.start()
+        self.th_gus_get = Thread(target=ark_config.main_get, args=(self.path, servername, in_c))
+        self.th_gus_get.start()
         data = c.get()
         if data == 'error':
             return """/
             403 Forbidden""".replace('    ','')
         else:
+            data = base64.b64encode(data.encode("utf-16")).decode('utf-16')
             return data
 
-    def GUS_update(self, servername, data):
-        self.th_gus_update = Thread(target=ark_config.update, args=(self.path, servername, data))
-        self.th_gus_update.start()
-        return True
+    def GUS_post(self, servername, data):
+        try:
+            data = base64.b64decode(data)
+        except:
+            print('[I {}] [HTTP] post {} config file error, maybe data is error'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
+        else:
+            self.th_gus_post = Thread(target=ark_config.post, args=(self.path, servername, data))
+            self.th_gus_post.start()
+            return True
 
     def __del__(self):
         # 当服务端程序结束时停止服务器服务
