@@ -57,6 +57,7 @@ def edit(path,servername,data):
     '''
     with open(ini_path, 'w') as f:
         f.write(data)
+    print('[I {}] [HTTP] edit {} config file'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
 
 '''
 配置读取信道
