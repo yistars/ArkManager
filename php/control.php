@@ -30,7 +30,7 @@ if ($_REQUEST['action'] == 'start') {
 <?php mduiBody();
 mduiHeader($lang['console']);
 mduiMenu(); ?>
-<h1 class="mdui-text-color-theme"><?php echo $lang['controlh1']; ?></h1>
+<h1 class="mdui-text-color-theme"><?php echo $lang['console']; ?></h1>
 <h3 class="mdui-text-color-theme"><?php echo $lang['doaction'] . $_SESSION['ssname'] = $User->Getservername($_REQUEST['serverid']);?></h3>
 <form name="config" method="get" action="control.php">
     <input style="display: none" type="text" value="<?php echo $_REQUEST['serverid']; ?>" name="serverid" />
@@ -38,7 +38,9 @@ mduiMenu(); ?>
 
     <span onclick="kill(<?php echo $_REQUEST['serverid']; ?>)" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent"><?php echo $lang['stop']; ?></span>
     <span onclick="update(<?php echo $_REQUEST['serverid']; ?>)" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent"><?php echo $lang['update']; ?></span>
+    <a href="conf.php?serverid=<?php echo $_REQUEST['serverid']; ?>" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent"><?php echo $lang['config_file']; ?></a>
     <br />
+    
     <h3 class="mdui-text-color-theme"><?php echo $lang['start_args']; ?></h3>
 
     <label class="mdui-textfield-label"><?php echo $lang['select_map']; ?></label>
@@ -51,7 +53,11 @@ mduiMenu(); ?>
         <option value="6">TheIsland</option>
         <option value="7">TheCenter</option>
         <option value="8">Valguero_P</option>
-    </select><?php echo $lang['OrCustomMap']; ?><input type="text" name="custommap" placeholder="<?php echo $lang['likemodmap']; ?>" />
+    </select>
+    <div class="mdui-textfield">
+        <label class="mdui-textfield-label"><?php echo $lang['OrCustomMap']; ?></label>
+        <input type="text" class="mdui-textfield-input" name="custommap" placeholder="<?php echo $lang['likemodmap']; ?>" />
+    </div>
     <div class="mdui-textfield">
         <label class="mdui-textfield-label"><?php echo $lang['more_args']; ?></label>
         <input class="mdui-textfield-input" type="text" name="more" placeholder="Example: -UseBattlEye -servergamelog -ServerRCONOutputTribeLogs -useallavailablecores" />

@@ -104,7 +104,7 @@ class User
                         $con = '<a class="link" href="#">Forbidden.</a>';
                         break;
                     case '1':
-                        $row['initialization'] = 'Init...';
+                        $row['initialization'] = 'Initing...';
                         $con = '<a class="link" href="#">Forbidden.</a>';
                         break;
                     case '2':
@@ -226,13 +226,71 @@ class User
             echo '<tr><td colspan="4"><p align="center" style="color: gray">Empty.</p></td></tr>';
         }
     }
-    // 判断服务器是否到期
-    // {}
 
     // 请求节点，发送并接收配置文件
+    public function configAction($serverid, $action, $data, $by_user) {
+        // 转义
+        $serverid = mysqli_escape_string($this->db_con, $serverid);
+        $action = mysqli_escape_string($this->db_con, $action);
+        $data = base64_encode($data);
+        $by_user = mysqli_real_escape_string($this->db_con, $by_user);
+        // 判断用户是否拥有该服务器并获取Servername,端口，节点，地图等。
+        $sql = "SELECT `name`, `port`, `rcon_port`, `query_port`, `max_players`, `by_node`, `by_user` FROM `servers` WHERE `id` = $serverid AND `by_user` = $by_user";
+        $result = $this->db_con->query($sql);
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_array($result)) {
+                $servername = $row['name'];
+                $port = $row['port'];
+                $rcon_port = $row['rcon_port'];
+                $query_port = $row['query_port'];
+                $max_players = $row['max_players'];
+                $query_port = $row['query_port'];
+                $by_node = $row['by_node'];
+            }
+            // 愣着干啥，通过by_node找节点IP端口
+            $sql = "SELECT `ip_port`, `token` FROM `node` WHERE `id` = $by_node";
+            $result = $this->db_con->query($sql);
+            if (mysqli_num_rows($result) > 0) {
+                while ($row = mysqli_fetch_array($result)) {
+                    $ip_port = $row['ip_port'];
+                    $token = $row['token'];
+                }
+            }
+
+        // 筛选action来选择操作。
+        switch($action) {
+            case 'get':
+                // 拉取
+                $file_content = file_get_contents("http://$ip_port/?token=$token&action=GUS&file=GameUserSettings.ini&type=pull");
+                if(empty($file_content)) {
+                    $file_content = 'Unable to pull config file!';
+                }
+                echo $file_content;
+            break;
+
+            case 'push':
+                // 提交配置文件
+                // $file_content = file_get_contents("http://$ip_port/?token=$token&action=GUS&file=GameUserSettings.ini&type=pull&data=$data");
+                $shell = "curl \"http://$ip_port/?token=$token&action=GUS&file=GameUserSettings.ini&type=push&data=$data\" -X POST";
+                exec($shell, $out);
+                echo '<script>alert("Push Success!");</script>';
+            break;
+
+            default:
+                // ？
+                echo 'Something wrong.';
+        break;
+        }
+    }
+}
+
+
+
     // 请求节点，管理服务器
     public function nodeControlserver($serverid, $action, $by_user, $map, $more)
     {
+        $serverid = mysqli_real_escape_string($this->db_con, $serverid);
+        $by_user = mysqli_real_escape_string($this->db_con, $by_user);
         // 判断用户是否拥有该服务器并获取Servername,端口，节点，地图等。
         $sql = "SELECT `name`, `port`, `rcon_port`, `query_port`, `max_players`, `by_node`, `by_user` FROM `servers` WHERE `id` = $serverid AND `by_user` = $by_user";
         $result = $this->db_con->query($sql);
@@ -356,7 +414,7 @@ class User
                 break;
                 default:
                     // 没指令开啥服，安全着想就不开了
-                    break;
+                break;
             }
         }
         // Valguero_P?listen?Port=34343?QueryPort=27015?MaxPlayers=70?AllowCrateSpawnsOnTopOfStructures=True -UseBattlEye -servergamelog -ServerRCONOutputTribeLogs -useallavailablecores -usecache -nosteamclient -game -server -log
