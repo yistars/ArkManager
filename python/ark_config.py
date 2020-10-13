@@ -29,7 +29,7 @@ def init(path,servername):
 
 def read(path,servername,out_c):
     ini_path = "{}/{}/ShooterGame/Saved/Config/WindowsServer/GameUserSettings.ini".format(path,servername)
-    with open(ini_path, 'r') as f:
+    with open(ini_path, 'r', encoding='utf-16') as f:
         data = f.read()
     send = config_channel_client(out_c)
     # 因 Json 传输方案弃用，此部分暂时丢弃
@@ -55,7 +55,7 @@ def edit(path,servername,data):
         for section, section_items in zip(dic.keys(), dic.values()):
             cfg._write_section(f, section, section_items.items(), delimiter='=')
     '''
-    with open(ini_path, 'w') as f:
+    with open(ini_path, 'w', encoding='utf-16') as f:
         f.write(data)
     print('[I {}] [HTTP] edit {} config file'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
 
