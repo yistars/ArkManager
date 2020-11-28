@@ -80,9 +80,9 @@ class http(object):
                 elif data['action'] == 'GUS':
                     if ('type' in data) and ('filename' in data):
                         if data['type'] == 'pull':
-                            data = self.GUS_get(data['servername'],filename,in_c)
+                            data = self.GUS_get(data['servername'],data['filename'],in_c)
                         elif data['type'] == 'push':
-                            right = self.GUS_post(data['servername'],filename)
+                            right = self.GUS_post(data['servername'],data['filename'])
         # 返回状态码
         if data != '':
             http_response = "HTTP/1.1 200 OK" + '\r\n\r\n' + data
