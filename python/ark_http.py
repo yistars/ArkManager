@@ -85,13 +85,11 @@ class http(object):
                             right = self.GUS_post(data['servername'],filename)
         # 返回状态码
         if data != '':
-            http_response = data
+            http_response = "HTTP/1.1 200 OK" + '\r\n\r\n' + data
         elif right:
-            http_response = """/
-            HTTP/1.1 200 OK""".replace('    ','')
+            http_response = "HTTP/1.1 200 OK" + '\r\n'
         else:
-            http_response = """/
-            HTTP/1.1 403 Forbidden""".replace('    ','')
+            http_response = "HTTP/1.1 403 Forbidden" + '\r\n'
         
         client_socket.send(http_response.encode('utf-8'))
         # 断开与客户端连接
