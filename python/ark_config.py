@@ -79,6 +79,6 @@ class config_channel_client(object):
     def run(self, data):
         self.c.put(data)
 
-def main_get(path,servername,file,out_c):
+def main_get(path,servername,filename,out_c):
     init(path,servername,filename)
     get(path,servername,filename,out_c)
