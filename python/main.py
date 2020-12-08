@@ -1,7 +1,7 @@
 # main For Arkmanager
 # By Bing_Yanchi
 # DO NOT CHANGE
-import yaml,os,sys,threading,socket,time
+import yaml,os,socket,time
 from threading import Thread
 from queue import Queue
 import ark_http
@@ -96,6 +96,8 @@ if __name__ == "__main__":
     if (os.path.exists(config_path)) == False:
         config().create_config()
     config().read_config()
+
+    print('[I {}] [main] Checking file success.'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),))
 
     global_data = public_data[0]['global']
     main(global_data['ftp_host'], global_data['ftp_port'], global_data['http_host'], global_data['http_port'], global_data['token'], global_data['path'],q)
