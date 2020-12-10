@@ -4,7 +4,7 @@
 [![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/yistars/ArkManager?include_prereleases)](https://github.com/yistars/ArkManager/releases/latest)
 [![GitHub All Releases](https://img.shields.io/github/downloads/yistars/ArkManager/total)](https://github.com/yistars/ArkManager/releases)
 
-* 适用平台：Windows
+* 适用平台：Windows（服务端）、Linux（网页端与服务端）
 * 论坛：https://f.yistars.net/
 * 本地化：https://translate.yistars.net/
 
