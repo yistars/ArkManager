@@ -1,53 +1,72 @@
-# Server_Monitor
-A Server Monitor By PHP
+# ArkManager
+[![Crowdin](https://badges.crowdin.net/arkmanager/localized.svg)](https://translate.yistars.net/)
+[![GitHub](https://img.shields.io/github/license/yistars/ArkManager)](./LICENSE)
+[![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/yistars/ArkManager?include_prereleases)](https://github.com/yistars/ArkManager/releases/latest)
+[![GitHub All Releases](https://img.shields.io/github/downloads/yistars/ArkManager/total)](https://github.com/yistars/ArkManager/releases)
 
-## 必读
-监控界面阅读顺序：从右到左
-最左边是最新的时间，最右边的最旧的时间
+* 适用平台：Windows
+* 论坛：https://f.yistars.net/
+* 本地化：https://translate.yistars.net/
 
-为了防止数据库占用过大，监控程序会自动清理超过`10`条以上的数据，但是我们还是建议你挂一个监控以便在特定的时间清除所有配置。
+## 使用方法
+* [bilibili](https://www.bilibili.com/video/BV1Gk4y1m7cw)
 
-## 安装
-将所有文件上传到你的Web服务器对应的根目录下，在`config.php`中配置数据库信息和清除时的`Token`。
+### 面板部分
+1. 检查：你的系统已安装 `curl`；启用了 php 的 `exec` 函数。
+2. 导入 `php/databse.sql` 至数据库，并修改 `config/config.php` 中的值。
+3. 打开 `http://domain.com/admin` ，输入你设置的密码，添加第一个节点。
+4. 添加定时任务 (如 `crontab` 等) 执行 `http://domain.com/config/cron.php?key=123456`(根据实际情况修改)，执行时间自定，推荐一小时执行一次。
 
-## 监控
-挂一个`Cron`来每隔一段时间（最好一星期）访问一次url
-https://your_server_address/clear.php?token=your_token
-将`your_server_address`改为你的服务器的`URL`,`your_token`改为你在`config.php`设置的`Token`。
+### 服务器部分
+自 `v1.0.0` 开始，将不需要安装 Python3 和依赖库
 
-## 接口
-`Get`&`Post`均可以：
-https://your_server_address/update.php?type=update&servername=服务器名称&cpu=CPU占用率（不包含百分号）&mem=内存占用率（不包含百分号）
+1. 将程序放在节点服务器上任意位置
+2. 运行目录下名为 `main.exe` 的可执行文件
+3. 首次运行将会在程序目录下生成一个名为 `config.yml` 的配置文件
+4. 根据实际情况修改当中的服务器路径等内容
 
-## 安装客户端
+#### 节点文件部署
+```
+├── path (服务器路径)
+│   ├── ExampleServer (用作模板服务器)
+│   └── OtherServer (其他服务器，无需自己创建)
+│
+└── program directory (可放置任意位置)
+    ├── main.exe (主程序)
+    ├── config.yml (配置文件)
+    └── ...
+```
 
-1. Linux
-   ```bash
-        #!bin/bash
-        cpu=`top -b -n1 | fgrep "Cpu(s)" | tail -1 | awk -F'id,' '{split($1, vs, ","); v=vs[length(vs)]; sub(/\s+/, "", v);sub(/\s+/, "", v); printf "%d", 100-v;}'`
-        #echo $cpu
+## 未来目标
+* 更加完整的 Wiki
+* 网页端修改服务器的配置文件（如：服务器密码，管理员密码，掉落倍率等。）
+<details>
+<summary>已完成</summary>
 
-        mem_used_persent=`free -m | awk -F '[ :]+' 'NR==2{printf "%d", ($2-$7)/$2*100}'`
-        #echo $mem_used_persent
+* ~~FTP 功能~~
+* ~~Python 面向对象~~
+* ~~节点配置文件独立~~
+* ~~更新服务器功能~~
+* ~~php 面向对象~~
+</details>
 
-        curl `"https://your_server_address/update.php?type=update&servername=`hostname`&cpu=$cpu&mem=$mem_used_persent"`
-        echo 'Submit success!'
-   ```
-   你可以将上述脚本保存为一个`sh`文件，并赋予权限，定时执行。
-   将`your_server_address`改为你的服务器的URL。
+## 已知问题
+* 管理员后台模板问题，但不影响使用
 
-2. 通用（依赖`Python3`）
-   这是一个`Python`写的监控程序，由冰砚炽编写。在此表示非常感谢！
-   
-   https://github.com/yistars/Monitor-For-lo-li.art
-   打开并克隆上方仓库，一定要查阅`Readme`文件！
-   
-3. Windows
-   https://github.com/yistars/Monitor-For-lo-li.art
-   请到上方网址的`Release`界面下载，其中附带了一个`Windows`版的监控程序
+## 特别鸣谢
+* [Crowdin](https://crowdin.com/)
+* [pyftpdlib](https://github.com/giampaolo/pyftpdlib)
+* [pyinstaller](https://github.com/pyinstaller/pyinstaller)
+* [PHP-Minecraft-Rcon](https://github.com/thedudeguy/PHP-Minecraft-Rcon)
+* [Minecraft-RCON](https://github.com/Rauks/Minecraft-RCON)
+* [ArkPsh](https://rcon.arkpsh.cn/)
 
-## iVampireSP.com
-[前往页面](https://ivampiresp.com/2020/12/08/%e7%ae%80%e6%98%93%e7%9a%84%e6%9c%8d%e5%8a%a1%e5%99%a8%e7%9b%91%e6%8e%a7%e7%a8%8b%e5%ba%8f%ef%bc%9aserver-monitor.html)
 
-## Bing_Yanchi
-[前往博客](https://www.yistars.cn)
+## 捐赠支持
+我们也只是个业余爱好者，如果你喜欢，请捐赠让我们做的更好
+
+![捐赠](https://i.loli.net/2020/07/28/6hZBNGrd71LjYeE.jpg)
+
+爱发电：
+* Bing_Yanchi： [https://afdian.net/@Bing_Yanchi](https://afdian.net/@Bing_Yanchi)
+* iVampireSP： [https://afdian.net/@iVampireSP](https://afdian.net/@iVampireSP)
