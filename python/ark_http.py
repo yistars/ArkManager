@@ -3,7 +3,7 @@
 # DO NOT CHANGE
 from queue import Queue
 from threading import Thread
-import os,socket,base64,shutil,threading,time
+import os,socket,base64,shutil,time
 import ark_kill,ark_init,ark_config
 # 创建服务器类
 class http(object):
