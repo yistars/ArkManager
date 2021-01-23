@@ -26,9 +26,9 @@ class User
     // 用户登录
     public function Login($username, $password, $form_token)
     {
-        if($form_token == $_SESSION['form_token']) {
+        if ($form_token == $_SESSION['form_token']) {
             unset($_SESSION['form_token']);
-        }else {
+        } else {
             echo $form_token;
             unset($_SESSION['form_token']);
             return '<script>alert("It maybe CORS, Please reload page.");</script>';
@@ -132,32 +132,32 @@ class User
                     $serverdate = $row['date'];
                 }
                 echo
-                    '<tr>
+                '<tr>
             <td>' .
-                        $row['id'] .
-                        '</td>' .
-                        '<td>' .
-                        $row['name'] .
-                        '</td>' .
-                        '<td>' .
-                        $row['port'] .
-                        '</td>' .
-                        '<td>' .
-                        $row['rcon_port'] .
-                        '</td>' .
-                        '<td>' .
-                        $row['max_players'] .
-                        '</td>' .
-                        '<td>' .
-                        $row['by_node'] .
-                        '</td>' .
-                        '<td>' .
-                        $serverdate .
-                        '</td>' .
-                        '<td>' .
-                        $con .
-                        '</td>' .
-                        '</tr>';
+                    $row['id'] .
+                    '</td>' .
+                    '<td>' .
+                    $row['name'] .
+                    '</td>' .
+                    '<td>' .
+                    $row['port'] .
+                    '</td>' .
+                    '<td>' .
+                    $row['rcon_port'] .
+                    '</td>' .
+                    '<td>' .
+                    $row['max_players'] .
+                    '</td>' .
+                    '<td>' .
+                    $row['by_node'] .
+                    '</td>' .
+                    '<td>' .
+                    $serverdate .
+                    '</td>' .
+                    '<td>' .
+                    $con .
+                    '</td>' .
+                    '</tr>';
             }
         }
     }
@@ -207,20 +207,20 @@ class User
         if (mysqli_num_rows($result)) {
             while ($row = mysqli_fetch_array($result)) {
                 echo
-                    '<tr>' .
-                        '<td>' .
-                        $row['name'] . '.' . $doamin .
-                        '</td>' .
-                        '<td>' .
-                        $row['ftpport'] .
-                        '</td>' .
-                        '<td>' .
-                        $username . '-Server ID' .
-                        '</td>' .
-                        '<td>' .
-                        'Your Password' .
-                        '</td>' .
-                        '</tr>';
+                '<tr>' .
+                    '<td>' .
+                    $row['name'] . '.' . $doamin .
+                    '</td>' .
+                    '<td>' .
+                    $row['ftpport'] .
+                    '</td>' .
+                    '<td>' .
+                    $username . '-Server ID' .
+                    '</td>' .
+                    '<td>' .
+                    'Your Password' .
+                    '</td>' .
+                    '</tr>';
             }
         } else {
             echo '<tr><td colspan="4"><p align="center" style="color: gray">Empty.</p></td></tr>';
@@ -228,7 +228,8 @@ class User
     }
 
     // 请求节点，发送并接收配置文件
-    public function configAction($serverid, $action, $data, $by_user) {
+    public function configAction($serverid, $action, $data, $by_user)
+    {
         // 转义
         $serverid = mysqli_escape_string($this->db_con, $serverid);
         $action = mysqli_escape_string($this->db_con, $action);
@@ -257,38 +258,44 @@ class User
                 }
             }
 
-        // 筛选action来选择操作。
-        switch($action) {
-            case 'get':
-                // 拉取
-                $file_content = file_get_contents("http://$ip_port/?token=$token&action=GUS&file=GameUserSettings.ini&type=pull");
-                if(empty($file_content)) {
-                    $file_content = 'Unable to pull config file!';
-                }
-                echo $file_content;
-            break;
+            // 筛选action来选择操作。
+            switch ($action) {
+                case 'get':
+                    // 拉取
+                    $file_content = file_get_contents("http://$ip_port/?token=$token&action=GUS&file=GameUserSettings.ini&type=pull");
+                    if (empty($file_content)) {
+                        $file_content = 'Unable to pull config file!';
+                    }
+                    echo $file_content;
+                    break;
 
-            case 'push':
-                // 提交配置文件
-                // $file_content = file_get_contents("http://$ip_port/?token=$token&action=GUS&file=GameUserSettings.ini&type=pull&data=$data");
-                $shell = "curl \"http://$ip_port/?token=$token&action=GUS&file=GameUserSettings.ini&type=push&data=$data\" -X POST";
-                exec($shell, $out);
-                echo '<script>alert("Push Success!");</script>';
-            break;
+                case 'push':
+                    // 提交配置文件
+                    // $file_content = file_get_contents("http://$ip_port/?token=$token&action=GUS&file=GameUserSettings.ini&type=pull&data=$data");
+                    $shell = "curl \"http://$ip_port/?token=$token&action=GUS&file=GameUserSettings.ini&type=push&data=$data\" -X POST";
+                    exec($shell, $out);
+                    echo '<script>alert("Push Success!");</script>';
+                    break;
 
-            default:
-                // ？
-                echo 'Something wrong.';
-        break;
+                default:
+                    // ？
+                    echo 'Something wrong.';
+                    break;
+            }
         }
     }
-}
 
 
 
     // 请求节点，管理服务器
     public function nodeControlserver($serverid, $action, $by_user, $map, $more)
     {
+        // ToDo 检测$more 是否含有违规字符，如&
+        if (strstr($more, '&')) {
+            echo '有违规字符: &，请更正。';
+            exit;
+        }
+        
         $serverid = mysqli_real_escape_string($this->db_con, $serverid);
         $by_user = mysqli_real_escape_string($this->db_con, $by_user);
         // 判断用户是否拥有该服务器并获取Servername,端口，节点，地图等。
@@ -349,7 +356,7 @@ class User
                 case 'start':
                     $ssname = $_SESSION['ssname'];
                     $args = base64_encode("$map?listen?Port=$port?QueryPort=$query_port?MaxPlayers=$max_players?SessionName=$ssname $more -server -log");
-                    $shell = "curl \"http://$ip_port/?token=$token&action=start&servername=$servername&args=$args\" -X POST";
+                    $shell = "curl \"http://$ip_port/?token=$token&action=start&servername=$servername&args=$args\" -X POST"; // ToDo 更换启动方式
                     // 判断状态
                     $sql = "SELECT `status` FROM `servers` WHERE `id` = $serverid AND `by_user` = $by_user";
                     $result = $this->db_con->query($sql);
@@ -361,10 +368,10 @@ class User
                             $status = $row['status'];
                         }
                         if ($status == 1) {
-                            echo '<script>alert("Server already start.");</script>';
+                            echo '<script>alert("服务器已经启动了。");</script>';
                             return '*';
                         } else {
-                            echo '<script>alert("Server was starting...");</script>';
+                            echo '<script>alert("服务器正在启动中。");</script>';
                             $sql = "UPDATE `servers` SET `status` = '1' WHERE `servers`.`id` = $serverid AND `by_user` = $by_user";
                             $this->db_con->query($sql);
                         }
@@ -411,10 +418,10 @@ class User
                         }
                     }
                     break;
-                break;
+                    break;
                 default:
                     // 没指令开啥服，安全着想就不开了
-                break;
+                    break;
             }
         }
         // Valguero_P?listen?Port=34343?QueryPort=27015?MaxPlayers=70?AllowCrateSpawnsOnTopOfStructures=True -UseBattlEye -servergamelog -ServerRCONOutputTribeLogs -useallavailablecores -usecache -nosteamclient -game -server -log
