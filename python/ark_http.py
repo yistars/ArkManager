@@ -3,7 +3,7 @@
 # DO NOT CHANGE
 from queue import Queue
 from threading import Thread
-import os,socket,base64,shutil,time,threading
+import os,socket,base64,shutil,threading,time
 import ark_kill,ark_init,ark_config
 # 创建服务器类
 class http(object):
@@ -17,7 +17,7 @@ class http(object):
         # 设置监听
         self.server_socket.listen(128)
         # 信息输出
-        print('[I {}] [HTTP] Serving HTTP on port {} ...'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()), PORT))
+        print('[I {}] [HTTP] Serving HTTP on port {} ...'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),PORT))
 
     def run(self, token, path, out_q, c):
         while True:
@@ -33,9 +33,8 @@ class http(object):
         info = recv_data.split('\n')
         # 设定是否返回200
         right = False
-        data = ''
         for i in range(len(info)):
-            if info[i].find('POST') == 0:
+            if (info[i].find('POST') == 0) or (info[i].find('GET') == 0):
                 # 拆分 POST 和 地址
                 post = info[i].split(' ')
                 parameter = post[1].lstrip('/?').split('&')
@@ -57,7 +56,7 @@ class http(object):
                     right = self.server_kill(data)
                 elif data['action'] == 'init':
                     right = self.server_init_link(data['servername'])
-                    if right and (('password' in data) and ('username' in data)):
+                    if right and ('password' in data):
                         right = self.ftp_add(data['username'],data['password'],data['servername'],out_q)
                     else:
                         continue
@@ -77,17 +76,16 @@ class http(object):
                 elif data['action'] == 'GUS':
                     if ('type' in data) and ('filename' in data):
                         if data['type'] == 'pull':
-                            data = self.GUS_get(data['servername'],data['filename'],in_c)
+                            pull_data = self.GUS_get(data['servername'],data['filename'],in_c)
                         elif data['type'] == 'push':
-                            right = self.GUS_post(data['servername'],data['filename'])
+                            right = self.GUS_post(data['servername'],data['filename'],data['data'])
         # 返回状态码
-        if data != '':
-            http_response = "HTTP/1.1 200 OK" + '\r\n\r\n' + data
-        elif right:
-            http_response = "HTTP/1.1 200 OK" + '\r\n'
+        if right:
+            http_response = """/
+            HTTP/1.1 200 OK""".replace('    ','')
         else:
-            http_response = "HTTP/1.1 403 Forbidden" + '\r\n'
-        
+            http_response = """/
+            HTTP/1.1 403 Forbidden""".replace('    ','')
         client_socket.send(http_response.encode('utf-8'))
         # 断开与客户端连接
         client_socket.close()
@@ -114,11 +112,6 @@ class http(object):
             os.makedirs('{}/{}/sefolder'.format(self.path,servername))
             os.system('mklink /d "{path}/{servername}/sefolder/Content" "{path}/{servername}/ShooterGame/Content" && exit'.format(path=self.path,servername=servername))
             os.system('mklink /d "{path}/{servername}/sefolder/Saved" "{path}/{servername}/ShooterGame/Saved" && exit'.format(path=self.path,servername=servername))
-            os.system('mklink "{path}/{servername}/sefolder/config.json" "{path}/{servername}/ShooterGame/Binaries/Win64/config.json" && exit'.format(path=self.path,servername=servername))
-            os.system('mklink /d "{path}/{servername}/sefolder/ArkApi" "{path}/{servername}/ShooterGame/Binaries/Win64/ArkApi" && exit'.format(path=self.path,servername=servername))
-            f = open('{path}/{servername}/sefolder/Readme.txt'.format(path=self.path,servername=servername),'w', encoding='utf-8')
-            f.writelines('ArkApi 为插件存放目录，config.json 为 ArkApi 相关的配置文件')
-            f.close()
         except:
             print('[E {}] [HTTP] Init Server {} error, create link error'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
             return False
@@ -136,7 +129,7 @@ class http(object):
         return True
 
     def ftp_add(self, username, password, servername, out_q):
-        data = 'type=add&username={}&password={}&servername={}&path={}/{}'.format(username,password,servername,self.path,servername)
+        data = 'type=add&username={}&password={}&servername={}&path={}\\{}'.format(username,password,servername,self.path,servername)
         send = public_channel_client(out_q)
         send.run(data)
         return True
@@ -146,7 +139,7 @@ class http(object):
         send = public_channel_client(out_q)
         send.run(data)
         return True
-    
+
     def GUS_get(self, servername, filename, in_c):
         self.th_gus_get = Thread(target=ark_config.main_get, args=(self.path, servername, filename, in_c))
         self.th_gus_get.start()
@@ -188,3 +181,4 @@ class public_channel_client(object):
 
 def main(HOST, PORT, token, path, out_q):
     http(HOST, int(PORT)).run(token, path, out_q, c)
+    
