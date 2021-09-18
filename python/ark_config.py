@@ -40,9 +40,9 @@ def get(path,servername,filename,out_c):
     send.run(json.dumps(data))
     '''
     try:
+        send = config_channel_client(out_c)
         with open(ini_path, 'r', encoding='utf-16') as f:
             data = f.read()
-        send = config_channel_client(out_c)
     except:
         print('[E {}] [HTTP] read {} config file error, maybe file is break'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),servername))
         send.run('error')
