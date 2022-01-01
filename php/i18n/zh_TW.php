@@ -7,15 +7,15 @@ $lang = array(
     // index.php
     'index' => '首頁',
     'controlpanel' => '控制台',
-    'welcome' => '欢迎使用控制面板',
-    'leftaction' => '在左侧菜单选择操作',
+    'welcome' => '歡迎使用控制台',
+    'leftaction' => '在左側選單選擇操作',
 
     // changepwd.php
     'changepwd' => '重設密碼',
     'oldpasswd' => '舊密碼',
-    'enteroldpasswd' => '请输入原密码！',
+    'enteroldpasswd' => '請輸入原密碼！',
     'newpasswd' => '新密碼',
-    'enternewpasswd' => '请输入新密码！',
+    'enternewpasswd' => '請輸入您的新密碼！',
     
     // control.php
     'console' => '控制台',
