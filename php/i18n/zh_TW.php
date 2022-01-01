@@ -23,7 +23,7 @@ $lang = array(
     'start' => '啟動',
     'stop' => '停止',
     'doaction' => '控制服务器：',
-    'start_args' => '请在启动前调整参数，并且参数不会保存',
+    'start_args' => '請在啟動前調整參數，並且參數不會保存',
     'select_map' => '選擇地圖',
     'more_args' => '額外參數',
     'update' => '更新',
@@ -51,8 +51,8 @@ $lang = array(
     'menu' => '選單',
     'usermanager' => '使用者管理',
     'dashboard' => '儀表板',
-    'quickadduser' => '快速添加用户',
-    'quickdeluser' => '快速删除用户',
+    'quickadduser' => '快速添加用戶',
+    'quickdeluser' => '快速删除用戶',
 
     // Admin Node Manager
     'welcome' => '歡迎使用',
